@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" Id="EzPICipI3HtLlPAJXDIW5m" LanguageVersion="2020.3.0.45" Version="0.128">
-  <NugetDependency Id="UDIcQPgEOMqNF5Ezh7o85n" Location="VL.CoreLib" Version="2020.3.0-0045-gc82a9aa692" />
+<Document xmlns:p="property" Id="EzPICipI3HtLlPAJXDIW5m" LanguageVersion="2020.3.0.42" Version="0.128">
+  <NugetDependency Id="UDIcQPgEOMqNF5Ezh7o85n" Location="VL.CoreLib" Version="2020.3.0-0042-g1a9a5c158d" />
   <Patch Id="O8qOJWRef6hPV3rNwZ0bJq">
     <Canvas Id="ApA6lU2oYAIOTJKw6JzrgT" DefaultCategory="VL.Assimp" CanvasType="FullCategory">
       <!--
@@ -96,10 +96,10 @@
           <Link Id="EZyrWhYNksaLh1OitP3QOD" Ids="Vz5gaXMvhP3Ox4nZMLVw2E,BmRW1CkPWIzNtL4iHWU0sj" IsHidden="true" />
           <Link Id="NFw4nwyp19SNfuV2M9fCNH" Ids="TOyAOuo56xRPI1JscCPcRR,Vz5gaXMvhP3Ox4nZMLVw2E" />
           <Link Id="SfJajMjaWWCPsqGshO757R" Ids="OaorpYI5RbFNwl8PUTzCea,U36ZO3pnKn6NRW9PiilYJS" IsHidden="true" />
-          <Link Id="NbmxribuqihP9Vg6fSdkxe" Ids="U36ZO3pnKn6NRW9PiilYJS,PlxnqyYfhauMRWesQkufxf" />
           <Link Id="LX0wsgRaBlOOex5YPVkMsD" Ids="PlxnqyYfhauMRWesQkufxf,Od9nyQesMbGN5YDrqYByZL" />
           <Link Id="Adx2Tmyux1CNe8grr1I2ma" Ids="FRAukD6cmqlPUSK5oefkA2,ITgteGq90nLN8twrgwdD4a" IsHidden="true" />
           <Link Id="QIKHYXs0NzAOtARBCNuP2A" Ids="ITgteGq90nLN8twrgwdD4a,Ed0zDP6YoJ9QHyCprgGNEd" />
+          <Link Id="SzRySsJFQO9NrcKr21ICpb" Ids="U36ZO3pnKn6NRW9PiilYJS,PlxnqyYfhauMRWesQkufxf" />
         </Patch>
       </Node>
       <Canvas Id="BJCyxW278y6MWok3AelM4d" Name="internal" Position="509,451">
@@ -2290,11 +2290,6 @@
             <Pin Id="A2y7SXc6JpkM1wY6CDYP3s" Name="Input" Kind="InputPin" />
             <Pin Id="EP7p2dibPadLiCaHVWu6Ra" Name="Output" Kind="OutputPin" />
           </Patch>
-          <!--
-
-    ************************  ************************
-
--->
           <ProcessDefinition Id="T2suP5uHt20OlR7q9ZEHOR">
             <Fragment Id="Vf9UKBxA1dELtlEzgyqMAT" Patch="KgtMLWBedn8MlKXZmNrrre" Enabled="true" />
             <Fragment Id="OuY3SgIl32DMt75psG4Txy" Patch="CHxXqJV5ET6PAktpC31G3f" Enabled="true" />
@@ -2379,7 +2374,7 @@
             <ControlPoint Id="O1K9BnWPyXhOqWydbvtva4" Bounds="729,504" />
             <ControlPoint Id="H6DhZ2JQw3lLSGmz6NeUQM" Bounds="459,1048" />
             <ControlPoint Id="Obk68CJXpAMMrPMWbPWCxb" Bounds="523,513" />
-            <ControlPoint Id="O64PPJluXgrNCHIOAu10Hj" Bounds="553,541" />
+            <ControlPoint Id="O64PPJluXgrNCHIOAu10Hj" Bounds="584,512" />
             <Node Bounds="494,806,65,19" Id="CXR6VQbpqg2Mt1uF4mgblJ">
               <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
@@ -2424,11 +2419,6 @@
             <Pin Id="GrKJUrb887hNUg23DIZfjC" Name="Path" Kind="InputPin" />
             <Pin Id="PJa2wrb12oZLvC9ix9UR7l" Name="PostProcessFlags" Kind="InputPin" />
           </Patch>
-          <!--
-
-    ************************  ************************
-
--->
           <ProcessDefinition Id="LpNTHdz1zNxM1v7ivqrLiW">
             <Fragment Id="Kmn5fQtuiQ9Oh8RhyXpm9B" Patch="FHu57Bx8eSdNfvIob2p6HW" Enabled="true" />
             <Fragment Id="VsiWHjmCUFYOGBQckiOXHP" Patch="O5PW6qex5PtMKbR4wjoqA7" Enabled="true" />
@@ -2457,6 +2447,24 @@
           <Link Id="RPLFFgXE0FvOcP29gZV0hQ" Ids="O64PPJluXgrNCHIOAu10Hj,T8b9eFp37yGPuhdLrZWQCo" />
           <Link Id="TOFrHyvqLSeLz2xdT2i5WD" Ids="F52TSgBBmr9OnvB1cTllsk,PDT9CmUiELbOhgjpklTPlB" />
           <Link Id="ITbOeZO7dWXLkNB67RWJet" Ids="HFCPAoytLYaPNIer2Fqu3u,K6Mc4rZAgv2PLoM3eoyX6m" />
+        </Patch>
+      </Node>
+      <!--
+
+    ************************ PostProcessSteps ************************
+
+-->
+      <Node Name="PostProcessSteps" Bounds="594,595" Id="GMVpJH4Ba8BNmK71BLSusT">
+        <p:NodeReference>
+          <Choice Kind="ForwardRecordDefinition" Name="Immutable Forward" />
+          <FullNameCategoryReference ID="Primitive" />
+        </p:NodeReference>
+        <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+          <Choice Kind="TypeFlag" Name="PostProcessSteps" />
+        </p:TypeAnnotation>
+        <Patch Id="PFIq1h5dnozNJJPJCFkkUL">
+          <Canvas Id="OaDg7BTfnkdMctbXFpbugr" BordersChecked="false" CanvasType="Group" />
+          <ProcessDefinition Id="OopWRVjt6UnNhpLC1ZbqVN" IsHidden="true" />
         </Patch>
       </Node>
     </Canvas>
@@ -2617,7 +2625,7 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Ab1fRz6EOVhMOqjv6WsJuV" Location="VL.Stride" Version="0.8.19-gfdea785cd6" />
+  <NugetDependency Id="Ab1fRz6EOVhMOqjv6WsJuV" Location="VL.Stride" Version="0.8.12-g88f31c4e46" />
   <NugetDependency Id="Nm853I2RgLMNMIGh4QgzbT" Location="AssimpNet" Version="4.1.0" />
-  <PlatformDependency Id="HpjqPu9WiO0QBuZFlRMfUo" Location="../../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0042-g1a9a5c158d/lib/Stride.Engine.dll" />
+  <PlatformDependency Id="HpjqPu9WiO0QBuZFlRMfUo" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0042-g1a9a5c158d/lib/Stride.Engine.dll" />
 </Document>
