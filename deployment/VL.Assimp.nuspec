@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VL.Assimp</id>
-    <version>2020.3.0-001-alpha</version>
+    <version>0.0.1-alpha</version>
     <authors>christian riekoff</authors>
     <owners>christian riekoff</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
