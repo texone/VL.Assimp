@@ -2490,7 +2490,7 @@
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="SceneWindow" />
             </p:NodeReference>
-            <Pin Id="QvMRJXcnsl1NLSXqwL3lCe" Name="Bounds" Kind="InputPin" DefaultValue="4837.6, 109.6, 785.6, 432">
+            <Pin Id="QvMRJXcnsl1NLSXqwL3lCe" Name="Bounds" Kind="InputPin" DefaultValue="1765.6, 109.6, 785.6, 432">
               <p:TypeAnnotation LastCategoryFullName="2D" LastSymbolSource="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Rectangle" />
               </p:TypeAnnotation>
