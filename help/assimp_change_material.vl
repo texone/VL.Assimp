@@ -70,7 +70,7 @@
             <Pin Id="JkPLDv4UGYcNFzPETXWbLO" Name="Enabled" Kind="InputPin" />
             <Pin Id="VWvftwWKogTOFcdAoPBc13" Name="Output" Kind="OutputPin" />
           </Node>
-          <Node Bounds="335,669" Id="AJPi4CcY9S7P3ZAckU2jqy">
+          <Node Bounds="313,640,205,19" Id="AJPi4CcY9S7P3ZAckU2jqy">
             <p:NodeReference LastCategoryFullName="Stride" LastSymbolSource="VL.Stride.vl">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="SceneWindow" />
@@ -311,6 +311,18 @@
               </Node>
             </Patch>
             <ControlPoint Id="L0XcFQxe5g9O5hjnZlFDox" Bounds="692,744" Alignment="Top" />
+          </Node>
+          <Node Bounds="743,396" Id="Uhtu3ukpMIrP0z2p4iSg4g">
+            <p:NodeReference LastCategoryFullName="Stride" LastSymbolSource="VL.Stride.Engine.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="Entity" />
+            </p:NodeReference>
+            <Pin Id="AnNLSGxuho2QBYZjjpKTFn" Name="Transformation" Kind="InputPin" />
+            <Pin Id="NajN42REmc6LUmsLZL2pYa" Name="Components" Kind="InputPin" />
+            <Pin Id="KP7XEWrp3VpOQaa9CoYUg7" Name="Children" Kind="InputPin" />
+            <Pin Id="KNjpNNBstDQNdRTHOTL71x" Name="Name" Kind="InputPin" />
+            <Pin Id="LeGqv4LHOT9PBskU4ezuUV" Name="Enabled" Kind="InputPin" />
+            <Pin Id="Q5vyuKUAcBSOUJTIxyD0ck" Name="Output" Kind="OutputPin" />
           </Node>
         </Canvas>
         <Patch Id="UiJVyvwOLacQHkNpSBOHyT" Name="Create" />

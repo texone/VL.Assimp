@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" Id="QGHbyUmnNetLIq5GfMyhBA" LanguageVersion="2020.3.0.68" Version="0.128">
-  <NugetDependency Id="UDIcQPgEOMqNF5Ezh7o85n" Location="VL.CoreLib" Version="2020.3.0-0068-gbfc5bf7649" />
+<Document xmlns:p="property" Id="EzPICipI3HtLlPAJXDIW5m" LanguageVersion="2020.3.0.82" Version="0.128">
+  <NugetDependency Id="UDIcQPgEOMqNF5Ezh7o85n" Location="VL.CoreLib" Version="2020.3.0-0082-g7f8ac28314" />
   <Patch Id="O8qOJWRef6hPV3rNwZ0bJq">
     <Canvas Id="ApA6lU2oYAIOTJKw6JzrgT" DefaultCategory="VL.Assimp" CanvasType="FullCategory">
       <!--
@@ -1333,6 +1333,7 @@
                     <Pin Id="DS3EM9FfuP6Nuk52QABoQT" Name="Model" Kind="InputPin" />
                     <Pin Id="KdI9YGYS80QOckDcoL1zc8" Name="Material" Kind="InputPin" />
                     <Pin Id="MwZbNo8BbF0NCctRTq4nGb" Name="Is Shadow Caster" Kind="InputPin" />
+                    <Pin Id="QqGiOgyuiz3LGbV3tZobjO" Name="Components" Kind="InputPin" />
                     <Pin Id="NhbNtz6Lx5VOFea4ZYbrHj" Name="Children" Kind="InputPin" />
                     <Pin Id="MB7zmfTTfU1OT0nnpb9Rpj" Name="Name" Kind="InputPin" />
                     <Pin Id="CQxpGtKhvKkMrNfWlTBoOl" Name="Enabled" Kind="InputPin" />
@@ -1621,11 +1622,7 @@
                       <Pin Id="QH44ZhkHCdLQGgpN0aqtwt" Name="Data" Kind="InputPin" />
                       <Pin Id="QadRiH4B3gTL1E8PmDXV4r" Name="Update Buffer" Kind="InputPin" />
                       <Pin Id="P5K2Ed1nQfLMo9uAB9jcwj" Name="Vertex Declaration" Kind="InputPin" />
-                      <Pin Id="Tzr0NaPT1leM7mDOkHxBct" Name="Primitive Type" Kind="InputPin">
-                        <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
-                          <Choice Kind="TypeFlag" Name="PrimitiveType" />
-                        </p:TypeAnnotation>
-                      </Pin>
+                      <Pin Id="VuNmlIQb499QXoBo2QiqC2" Name="Topology" Kind="InputPin" />
                       <Pin Id="PFviv5D5N6AOXX2l93LmPk" Name="Indices" Kind="InputPin" />
                       <Pin Id="FLi376DJfMANex1OauiyTV" Name="Bounding Box" Kind="InputPin" />
                       <Pin Id="I4V7ktDeKUrM01W2rrkSsL" Name="Output" Kind="OutputPin" />
@@ -1816,10 +1813,10 @@
           <Link Id="VuUZxlaTibOPP4pnePcWFs" Ids="R1FtCEvRbk8PjEdVBUryvj,GQluDID482RM2QKRJEUlbo" />
           <Link Id="JTCDeSjPD89PplVer71CGb" Ids="ILzh32vSHeIPfUyJJQLdcf,LAqYbKjRM5hQbvqCGVPPHS" />
           <Link Id="Ec8uvmpUtTPNCofeLzSHaW" Ids="LAqYbKjRM5hQbvqCGVPPHS,D1Bfkj3joZgNNwxtb6B8gD" />
-          <Link Id="JSK5pbaVLwiLujeMvPljBu" Ids="TaOlJfH1dhuLGgNXgJpYwv,Tzr0NaPT1leM7mDOkHxBct" />
           <Link Id="HkB91tsxhOFN81DUDzsgoN" Ids="SGeTAtb0UUqMy6iI4z89xk,PFviv5D5N6AOXX2l93LmPk" />
           <Link Id="Cw6VGeOfPL1MBmTxTan9ie" Ids="Mur4rjb6kvVNVPLISAMIK0,KAfnJbdcd3wO5iFAteuNDa" />
           <Link Id="EEXVfTToWlrMFH6VBquMQ2" Ids="BdtOphc3HQoORpsxmIrX33,Job6hP36LltPMZZ1gAMooq" />
+          <Link Id="I7sNV58NNEcOU1KEBl3R5G" Ids="TaOlJfH1dhuLGgNXgJpYwv,VuNmlIQb499QXoBo2QiqC2" />
         </Patch>
       </Node>
       <!--
@@ -2489,7 +2486,7 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Ab1fRz6EOVhMOqjv6WsJuV" Location="VL.Stride" Version="0.8.35-gbbc5702f0e" />
+  <NugetDependency Id="Ab1fRz6EOVhMOqjv6WsJuV" Location="VL.Stride" Version="0.8.40-gb09bf2efc6" />
   <NugetDependency Id="Nm853I2RgLMNMIGh4QgzbT" Location="AssimpNet" Version="4.1.0" />
   <PlatformDependency Id="HpjqPu9WiO0QBuZFlRMfUo" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0042-g1a9a5c158d/lib/Stride.Engine.dll" />
 </Document>
