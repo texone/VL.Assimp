@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>VL.Assimp</id>
-    <version>0.0.5-alpha</version>
+    <version>0.0.6-alpha</version>
     <authors>christian riekoff</authors>
     <owners>christian riekoff</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <licenseUrl>https://licenses.nuget.org/LGPL-3.0-only</licenseUrl>
     <projectUrl>https://github.com/texone/VL.Assimp</projectUrl>
     <description>Provides assimp model loading in VL</description>
-    <tags>VL</tags>
+    <tags>Assimp, VL, vvvv</tags>
     <dependencies>
       <dependency id="AssimpNet" version="4.1.0" />
     </dependencies>
