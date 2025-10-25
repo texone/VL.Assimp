@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="VL.Core" Version="2025.7.0"/>
+        <PackageReference Include="AssimpNet" Version="5.0.0-beta1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="VL.Core"/>
+        <Using Include="VL.Core.Import"/>
+        <Using Include="VL.Lib.Collections"/>
+        <Using Include="Stride.Core.Mathematics"/>
+    </ItemGroup>
+
+</Project>

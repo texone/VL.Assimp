@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" Id="RI10FnVeYZaMHAmJa6X3GU" LanguageVersion="2020.3.0.82" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="RI10FnVeYZaMHAmJa6X3GU" LanguageVersion="2025.7.0" Version="0.128">
   <Patch Id="O8qOJWRef6hPV3rNwZ0bJq">
     <Canvas Id="ApA6lU2oYAIOTJKw6JzrgT" DefaultCategory="VL.Assimp" CanvasType="FullCategory">
       <!--
@@ -14,8 +14,8 @@
         </p:NodeReference>
         <Patch Id="VyjvNC7eBhKNvDEPhcgw3I">
           <Canvas Id="GHXZZuDO7fYNGSDEypa9EH" CanvasType="Group">
-            <Node Bounds="452,294,231,162" Id="R7jEtsLQXQcN8pf7BFC923">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+            <Node Bounds="433,294,143,168" Id="R7jEtsLQXQcN8pf7BFC923">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                 <FullNameCategoryReference ID="Primitive" />
@@ -26,16 +26,16 @@
               <Patch Id="E8uMWBiFYz9PkBue6TFUJ9" ManuallySortedPins="true">
                 <Patch Id="J5JqKbewIn6MDMmQ8vBomT" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="Ixmj0uTGEawLAeY864B5KS" Name="Then" ManuallySortedPins="true" />
-                <Node Bounds="464,318,16,19" Id="Qz5pTyb92wJMa6W058hJn4">
-                  <p:NodeReference LastCategoryFullName="Assimp.AssimpContext" LastSymbolSource="AssimpNet.dll">
+                <Node Bounds="476,320,71,26" Id="Qz5pTyb92wJMa6W058hJn4">
+                  <p:NodeReference LastCategoryFullName="Assimp.AssimpContext" LastDependency="AssimpNet.dll">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="AssemblyCategory" Name="AssimpContext" />
                     <Choice Kind="OperationCallFlag" Name="Create" />
                   </p:NodeReference>
                   <Pin Id="QQ5kagvsHyFMWk2cb5kKJz" Name="Output" Kind="StateOutputPin" />
                 </Node>
-                <Node Bounds="555,319,55,19" Id="KosxL6kFX02QBs2dxOs94D">
-                  <p:NodeReference LastCategoryFullName="IO.Path" LastSymbolSource="CoreLibBasics.vl">
+                <Node Bounds="509,350,55,19" Id="KosxL6kFX02QBs2dxOs94D">
+                  <p:NodeReference LastCategoryFullName="IO.Path" LastDependency="CoreLibBasics.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="RecordType" Name="Path" />
                     <Choice Kind="OperationCallFlag" Name="ToString" />
@@ -43,40 +43,62 @@
                   <Pin Id="PNuLUGbAv2HOX02PUpupRQ" Name="Input" Kind="StateInputPin" />
                   <Pin Id="K0tIuHNEEDmN6uDes7kZkt" Name="Result" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="476,390,71,26" Id="SuMXQtEkV5lPCbwjrw4MSZ">
-                  <p:NodeReference LastCategoryFullName="Assimp.AssimpContext" LastSymbolSource="AssimpNet.dll">
-                    <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-                    <Choice Kind="OperationCallFlag" Name="ImportFile" />
-                    <CategoryReference Kind="AssemblyCategory" Name="AssimpContext" NeedsToBeDirectParent="true" />
-                    <PinReference Kind="InputPin" Name="this">
-                      <p:DataTypeReference p:Type="TypeReference" LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
-                        <Choice Kind="TypeFlag" Name="AssimpContext" />
-                      </p:DataTypeReference>
-                    </PinReference>
-                    <PinReference Kind="InputPin" Name="Post Process Flags" />
+                <Node Bounds="464,355,95,86" Id="HSktxIwzvFzPSiDzW4eixq">
+                  <p:NodeReference LastCategoryFullName="Control" LastDependency="VL.CoreLib.vl">
+                    <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+                    <CategoryReference Kind="Category" Name="Control" />
+                    <Choice Kind="ProcessAppFlag" Name="Try" />
                   </p:NodeReference>
-                  <Pin Id="CnzX96U5ZtCPqr49wSXmhd" Name="Input" Kind="StateInputPin" />
-                  <Pin Id="JedIpbIIgfpOjXDvRBgVCJ" Name="File" Kind="InputPin" />
-                  <Pin Id="Od9nyQesMbGN5YDrqYByZL" Name="Post Process Flags" Kind="InputPin" />
-                  <Pin Id="A9sE86OyA6lLxRj6qNTtsb" Name="Output" Kind="StateOutputPin" />
-                  <Pin Id="GyV5qbBcU6gMZWjpuFlRN6" Name="Result" Kind="OutputPin" />
+                  <Pin Id="TCXj5SIQA86NjDD5sKQMxw" Name="Node Context" Kind="InputPin" IsHidden="true" />
+                  <Pin Id="ChPpZkUrh4HQdht56VggwC" Name="User Exceptions Channel" Kind="InputPin" IsHidden="true" />
+                  <Pin Id="HumPfo5HHW6N4QoBQo1Tvk" Name="Stick To Last Valid Outputs" Kind="InputPin" />
+                  <Pin Id="DEwvhLao5jsL5dQWlRk1YA" Name="Reset Region On Failure" Kind="InputPin" />
+                  <Pin Id="E3mqdtr7MfXLAtdJu9shCQ" Name="Warn" Kind="InputPin" />
+                  <Pin Id="FCMTjROj1OjOEhjCqGisyr" Name="Success" Kind="OutputPin" />
+                  <Pin Id="Rhjx3nHQv6yLpiCDhiyN3t" Name="Failure" Kind="OutputPin" />
+                  <Pin Id="VFSpLo8IQBCNmunk3scAVS" Name="Error Message" Kind="OutputPin" />
+                  <Pin Id="J4ZRMFrHDYWQLzGgSNCv4J" Name="Exceptions" Kind="OutputPin" />
+                  <Patch Id="KYT0TXXNGBDMk4FUOFQdFq" ManuallySortedPins="true">
+                    <Patch Id="RCr3OlwVDGRLPIftFxlhgl" Name="Create" ManuallySortedPins="true" />
+                    <Patch Id="TRIjJuko87HLIeoypoMrWh" Name="Update" ManuallySortedPins="true" />
+                    <Patch Id="DZA5PEL5URvO7mNws304Jk" Name="Dispose" ManuallySortedPins="true" />
+                    <Node Bounds="476,390,71,26" Id="SuMXQtEkV5lPCbwjrw4MSZ">
+                      <p:NodeReference LastCategoryFullName="Assimp.AssimpContext" LastDependency="AssimpNet.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <Choice Kind="OperationCallFlag" Name="ImportFile" />
+                        <CategoryReference Kind="AssemblyCategory" Name="AssimpContext" NeedsToBeDirectParent="true" />
+                        <PinReference Kind="InputPin" Name="this">
+                          <p:DataTypeReference p:Type="TypeReference" LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
+                            <Choice Kind="TypeFlag" Name="AssimpContext" />
+                          </p:DataTypeReference>
+                        </PinReference>
+                        <PinReference Kind="InputPin" Name="Post Process Flags" />
+                      </p:NodeReference>
+                      <Pin Id="CnzX96U5ZtCPqr49wSXmhd" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="JedIpbIIgfpOjXDvRBgVCJ" Name="File" Kind="InputPin" />
+                      <Pin Id="Od9nyQesMbGN5YDrqYByZL" Name="Post Process Flags" Kind="InputPin" />
+                      <Pin Id="A9sE86OyA6lLxRj6qNTtsb" Name="Output" Kind="StateOutputPin" />
+                      <Pin Id="GyV5qbBcU6gMZWjpuFlRN6" Name="Result" Kind="OutputPin" />
+                    </Node>
+                  </Patch>
+                  <ControlPoint Id="NQR3mheangCLqpNIfcEmTz" Bounds="544,435" Alignment="Bottom" />
                 </Node>
               </Patch>
-              <ControlPoint Id="TV7yHn80DiHMsIJVfnCn8x" Bounds="558,301" Alignment="Top" />
-              <ControlPoint Id="TOyAOuo56xRPI1JscCPcRR" Bounds="545,450" Alignment="Bottom" />
-              <ControlPoint Id="PlxnqyYfhauMRWesQkufxf" Bounds="668,300" Alignment="Top" />
+              <ControlPoint Id="TV7yHn80DiHMsIJVfnCn8x" Bounds="511,300" Alignment="Top" />
+              <ControlPoint Id="TOyAOuo56xRPI1JscCPcRR" Bounds="544,456" Alignment="Bottom" />
+              <ControlPoint Id="PlxnqyYfhauMRWesQkufxf" Bounds="544,300" Alignment="Top" />
             </Node>
-            <ControlPoint Id="BXxZShUy1tAP0Q5xKRVArz" Bounds="558,222" />
-            <ControlPoint Id="Vz5gaXMvhP3Ox4nZMLVw2E" Bounds="545,499" />
-            <ControlPoint Id="U36ZO3pnKn6NRW9PiilYJS" Bounds="669,220" />
-            <ControlPoint Id="ITgteGq90nLN8twrgwdD4a" Bounds="452,224" />
+            <ControlPoint Id="BXxZShUy1tAP0Q5xKRVArz" Bounds="511,250" />
+            <ControlPoint Id="Vz5gaXMvhP3Ox4nZMLVw2E" Bounds="544,491" />
+            <ControlPoint Id="U36ZO3pnKn6NRW9PiilYJS" Bounds="544,270" />
+            <ControlPoint Id="ITgteGq90nLN8twrgwdD4a" Bounds="436,230" />
           </Canvas>
           <Patch Id="UMkNETtsZmjLdk0bwq9v8c" Name="Create" />
-          <Patch Id="MpX5aoFyi1lP3frdb0Fazd" Name="Update">
+          <Patch Id="MpX5aoFyi1lP3frdb0Fazd" Name="Update" ManuallySortedPins="true">
             <Pin Id="Lst764EiqBuPPtB2PruyDL" Name="Path" Kind="InputPin" />
             <Pin Id="BmRW1CkPWIzNtL4iHWU0sj" Name="Scene" Kind="OutputPin" />
             <Pin Id="OaorpYI5RbFNwl8PUTzCea" Name="PostProcessFlags" Kind="InputPin" DefaultValue="None">
-              <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+              <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
                 <Choice Kind="TypeFlag" Name="PostProcessSteps" />
               </p:TypeAnnotation>
             </Pin>
@@ -91,7 +113,6 @@
           <Link Id="UUGTUvyA9fZMRl42F4bxsH" Ids="TV7yHn80DiHMsIJVfnCn8x,PNuLUGbAv2HOX02PUpupRQ" />
           <Link Id="EVS0WG5VGWxPHvvDbosxxN" Ids="Lst764EiqBuPPtB2PruyDL,BXxZShUy1tAP0Q5xKRVArz" IsHidden="true" />
           <Link Id="R20UbXmi065PwSUn2LrPmr" Ids="BXxZShUy1tAP0Q5xKRVArz,TV7yHn80DiHMsIJVfnCn8x" />
-          <Link Id="HzIluI1dwyHNfm5bbFvl5V" Ids="GyV5qbBcU6gMZWjpuFlRN6,TOyAOuo56xRPI1JscCPcRR" />
           <Link Id="EZyrWhYNksaLh1OitP3QOD" Ids="Vz5gaXMvhP3Ox4nZMLVw2E,BmRW1CkPWIzNtL4iHWU0sj" IsHidden="true" />
           <Link Id="NFw4nwyp19SNfuV2M9fCNH" Ids="TOyAOuo56xRPI1JscCPcRR,Vz5gaXMvhP3Ox4nZMLVw2E" />
           <Link Id="SfJajMjaWWCPsqGshO757R" Ids="OaorpYI5RbFNwl8PUTzCea,U36ZO3pnKn6NRW9PiilYJS" IsHidden="true" />
@@ -99,6 +120,8 @@
           <Link Id="Adx2Tmyux1CNe8grr1I2ma" Ids="FRAukD6cmqlPUSK5oefkA2,ITgteGq90nLN8twrgwdD4a" IsHidden="true" />
           <Link Id="QIKHYXs0NzAOtARBCNuP2A" Ids="ITgteGq90nLN8twrgwdD4a,Ed0zDP6YoJ9QHyCprgGNEd" />
           <Link Id="SzRySsJFQO9NrcKr21ICpb" Ids="U36ZO3pnKn6NRW9PiilYJS,PlxnqyYfhauMRWesQkufxf" />
+          <Link Id="FTLcdvehXkALqY8OufaiYo" Ids="GyV5qbBcU6gMZWjpuFlRN6,NQR3mheangCLqpNIfcEmTz" />
+          <Link Id="Rh3kALZZgu8LrV74ae94JQ" Ids="NQR3mheangCLqpNIfcEmTz,TOyAOuo56xRPI1JscCPcRR" />
         </Patch>
       </Node>
       <Canvas Id="BJCyxW278y6MWok3AelM4d" Name="internal" Position="509,451">
@@ -108,7 +131,7 @@
 
 -->
         <Node Name="ToVector3" Bounds="475,367,199,176" Id="PFQpA5eGufBNbOdfsraCoX">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
@@ -117,7 +140,7 @@
             <ControlPoint Id="HimfAecxFVnP18A2grIim1" Bounds="489,385" />
             <Link Id="HAvZT650zjTMpZrv4hDOM2" Ids="B5HNkiW7ugEMCPJJwcJavB,HimfAecxFVnP18A2grIim1" IsHidden="true" />
             <Node Bounds="487,416,50,26" Id="HxJJKJDAQIIMpW32CH9b8i">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" />
                 <Choice Kind="OperationCallFlag" Name="X" />
@@ -128,7 +151,7 @@
             </Node>
             <Link Id="GOiON9WUuuQNZ9iexxiB3K" Ids="HimfAecxFVnP18A2grIim1,ErGYz5TZ1WWO5huzX8PTpz" />
             <Node Bounds="548,418,50,26" Id="CYYFKFppH71Lbf3lBSk2ax">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Y" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" NeedsToBeDirectParent="true" />
@@ -139,7 +162,7 @@
             </Node>
             <Link Id="HFrYh7fdKE7PoIYfBS9DaR" Ids="RQDI7fS2fSZPexbIXBE2Ha,QD6PtIV8a4cOtxARJmOBD8" />
             <Node Bounds="612,422,50,26" Id="NTiZH6KXtbmQVCDNXtesSN">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Z" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" NeedsToBeDirectParent="true" />
@@ -150,7 +173,7 @@
             </Node>
             <Link Id="DzvhzQZqcFlMSlDx89HfA0" Ids="LXcGucyABM6NHsieI7CJEa,FRG77bOUWgLLAUKAGxcGBe" />
             <Node Bounds="531,471,129,19" Id="CGigkUVhjUUNoEFDj06Ukb">
-              <p:NodeReference LastCategoryFullName="3D.Vector3" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="3D.Vector3" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="Vector3Type" Name="Vector3" />
                 <Choice Kind="OperationCallFlag" Name="Vector (Join)" />
@@ -175,13 +198,13 @@
 
 -->
         <Node Name="ToSpreadVector3" Bounds="480,608,212,202" Id="NX6noNIPs0WNQEMKR1Shsl">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
           <Patch Id="BIUNHV1qAPLMjVhRuRX6hA">
             <Node Bounds="532,640,88,113" Id="USmoX5q5ytaLfK0upZV5H6">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -194,7 +217,7 @@
                 <Patch Id="CqiYTqmhQdkMWfHIzDSwQB" Name="Update" ManuallySortedPins="true" />
                 <Patch Id="O9sIV5itE7dOPKrupRtB7M" Name="Dispose" ManuallySortedPins="true" />
                 <Node Bounds="545,689,63,19" Id="N7112daZV0oNSowqCKLFxM">
-                  <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                  <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="ToVector3" />
                     <CategoryReference Kind="Category" Name="internal" NeedsToBeDirectParent="true" />
@@ -222,7 +245,7 @@
 
 -->
         <Node Name="ToVector2" Bounds="756,366,199,177" Id="EagVUJafrnjMTWTrL7TBft">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
@@ -231,7 +254,7 @@
             <ControlPoint Id="DQo3HkH7Nf4NHR9fKnSb44" Bounds="771,384" />
             <Link Id="PE0rQFxXVHDQaD3Q3DIYUm" Ids="NhMCN0ZQbIbMJAWtqXug11,DQo3HkH7Nf4NHR9fKnSb44" IsHidden="true" />
             <Node Bounds="768,420,50,26" Id="FP6418yQiaQP2PYMUZElK0">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" />
                 <Choice Kind="OperationCallFlag" Name="X" />
@@ -242,7 +265,7 @@
             </Node>
             <Link Id="T7HCPNQXNn7NgvQBnTd2vC" Ids="DQo3HkH7Nf4NHR9fKnSb44,DWze31vflO8LoNO8gn558Y" />
             <Node Bounds="829,422,50,26" Id="IukPcdM04epQbdLMPmty4c">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Y" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" NeedsToBeDirectParent="true" />
@@ -253,7 +276,7 @@
             </Node>
             <Link Id="DUOmt1WiG6xMPqgrYwSEiM" Ids="MvqUzZT7cxAO5PDj3Xtwcv,LVx0CdqAgBGQL9TeAslzcp" />
             <Node Bounds="893,426,50,26" Id="GLfRVHBV1RPPE9CsDohfsn">
-              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Vector3D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Z" />
                 <CategoryReference Kind="AssemblyCategory" Name="Vector3D" NeedsToBeDirectParent="true" />
@@ -267,7 +290,7 @@
             <ControlPoint Id="JVTwK27NqbQLPIB6EHdTPu" Bounds="814,526" />
             <Link Id="H3HuAQkFN92MoGugfkP0Oc" Ids="JVTwK27NqbQLPIB6EHdTPu,UhISU4Vph0mMASTByp1VrX" IsHidden="true" />
             <Node Bounds="812,471,67,19" Id="Vo7i4uEQq0GQWQbgCHTt2d">
-              <p:NodeReference LastCategoryFullName="2D.Vector2" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="2D.Vector2" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="Vector2Type" Name="Vector2" />
                 <Choice Kind="OperationCallFlag" Name="Vector (Join)" />
@@ -287,13 +310,13 @@
 
 -->
         <Node Name="ToSpreadVector2" Bounds="763,606,185,203" Id="Cz293Vc1ArrOKXWkKvAI2V">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
           <Patch Id="DRVlXPhoe0DOZEpf1nU5OH">
             <Node Bounds="815,644,89,106" Id="LJjmQlP70lCLfOn4T61IOl">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -306,7 +329,7 @@
                 <Patch Id="IX4uYlEHezOLP4ND5iYj2b" Name="Update" ManuallySortedPins="true" />
                 <Patch Id="BXeJ0zEhku4OSqghwlRTYA" Name="Dispose" ManuallySortedPins="true" />
                 <Node Bounds="829,692,63,19" Id="TNzor8sMyYRM09dH32BxkM">
-                  <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                  <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="ToVector2" />
                     <CategoryReference Kind="Category" Name="internal" NeedsToBeDirectParent="true" />
@@ -334,13 +357,13 @@
 
 -->
         <Node Name="ToRGBA" Bounds="980,363,249,181" Id="M1J4tjoLEp7MVj41IZKxn2">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
           <Patch Id="HuB4Ls2rki4PHTZMIF02hK">
             <Node Bounds="992,423,46,26" Id="BFLc4yDc5eTO1BIGAEli72">
-              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Color4D" />
                 <Choice Kind="OperationCallFlag" Name="R" />
@@ -350,7 +373,7 @@
               <Pin Id="NjLP0BJYxeUOpovrNrNQA6" Name="R" Kind="OutputPin" />
             </Node>
             <Node Bounds="1033,471,181,19" Id="UUffKdlr4xvNLJG8QYKXEq">
-              <p:NodeReference LastCategoryFullName="Color.RGBA" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="Color.RGBA" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="Category" Name="Color" />
                 <CategoryReference Kind="ColorRGBAType" Name="RGBA" />
@@ -368,7 +391,7 @@
             <Link Id="DWmlMhbZlesOeydMWEkjhS" Ids="DswIKXhONsnNpuYLwo3Pic,AzRLU17ByIMPBpXhBRor5m" IsHidden="true" />
             <Link Id="TJCVsYKbAMePwfhIzmjSZN" Ids="AzRLU17ByIMPBpXhBRor5m,JFXTnPhGtu3OaVCWvSi30s" />
             <Node Bounds="1052,424,46,26" Id="BeqFunw0APoLTf2CrTCk2C">
-              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Color4D" />
                 <Choice Kind="OperationCallFlag" Name="G" />
@@ -380,7 +403,7 @@
             <Link Id="Pm2Bsd5XFSjNg6mbgOpiNN" Ids="MYbkyucAHGyMZMl2mj2vb0,PzkNrOcgv66LH2D85P05Wm" />
             <Link Id="HozI73PmWFXQXbQX0PC1e5" Ids="PZBaQtFvAQ1MdDgBfM4yPh,Hw0RhbelawpNQjqvRT0cHQ" />
             <Node Bounds="1111,423,46,26" Id="BD75BBPHCtAPdxnnV3bJsP">
-              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Color4D" />
                 <Choice Kind="OperationCallFlag" Name="B" />
@@ -392,7 +415,7 @@
             <Link Id="SjVJRozo4sULePAJwg5Zi9" Ids="GFhHI8FmzJ0LV2ZYPvotnS,KFUDA90Y415LNPAxW3hIwi" />
             <Link Id="L5zoozXBvjINOlsmOFTSnN" Ids="NUEvvQjAai6O3HDBJmCquJ,Al85cZcSw90MhrPcOJI6nf" />
             <Node Bounds="1171,424,46,26" Id="MuIbf57yTsVMoUJRZYQ15i">
-              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Color4D" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Color4D" />
                 <Choice Kind="OperationCallFlag" Name="A" />
@@ -415,7 +438,7 @@
 
 -->
         <Node Name="ToMatrix4x4" Bounds="996,606,340,349" Id="SHaPmP5pyMpQd5MKWdZ94w">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
@@ -424,7 +447,7 @@
             <ControlPoint Id="CaX1pcepwTcNPwrVUgWqJs" Bounds="1010,624" />
             <Link Id="MVNbHVaTD4GP7lww3e04md" Ids="AgZapkParHQOSOEEr8efvm,CaX1pcepwTcNPwrVUgWqJs" IsHidden="true" />
             <Node Bounds="1019,871,305,26" Id="LCPmDc1mL8vO5PtsOEnm2X">
-              <p:NodeReference LastCategoryFullName="3D.Matrix" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="3D.Matrix" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="RecordType" Name="Matrix" />
                 <Choice Kind="OperationCallFlag" Name="Matrix (Join)" />
@@ -448,7 +471,7 @@
               <Pin Id="Cir7JSMammTNQmUYp7RlaU" Name="Output" Kind="StateOutputPin" />
             </Node>
             <Node Bounds="1031,672,53,26" Id="LrVbYluFWqkN7GSlUDNFRH">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" />
                 <Choice Kind="OperationCallFlag" Name="A1" />
@@ -460,7 +483,7 @@
             <Link Id="GMPRUQp9awbLAzVfLL3e0f" Ids="CaX1pcepwTcNPwrVUgWqJs,UTPrg7kcBgLMKGb9p7XeKz" />
             <Link Id="RLrXZ4rR0KnLc9k8tlGlSd" Ids="BmzfwUN6C65MIkSb4DbtRL,D2ZduLCJQ8NMQmDVCaJtFm" />
             <Node Bounds="1103,673,53,26" Id="UupvyTJx7brPGDGKAJBptI">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -471,7 +494,7 @@
             </Node>
             <Link Id="G1NFjONxJmiNQsL7QzfhMA" Ids="PMXOjht50w1Nad8DIAzUFj,KJhbnj1KzOxL57PnlZjWFG" />
             <Node Bounds="1171,673,53,26" Id="HcPLDDrj1ACNi4prvRScpl">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -482,7 +505,7 @@
             </Node>
             <Link Id="SmvqlxGXddKLB6KkEBtfVU" Ids="J8W8F4otLoRM40nMEVxCYn,JEDMWg3kdtkNFTP9iXJvsi" />
             <Node Bounds="1240,674,53,26" Id="NI7qJotJclcLsaNhdabuMC">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A4" />
               </p:NodeReference>
@@ -492,7 +515,7 @@
             </Node>
             <Link Id="VUfRPgp8xvyQHX7zKkgjDJ" Ids="A3Neu4ETzeULUXYH4aa4MW,SrCNBryajU5OxfFuZxexau" />
             <Node Bounds="1030,715,53,26" Id="Ljw0twcUiaaMUB6k88NC6T">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B1" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -503,7 +526,7 @@
             </Node>
             <Link Id="B9oFjXBJjnhMcPEqh755vo" Ids="BLXem2fAjtiOfcCF49wwKc,UYIDDkeCcBDP09xTiIqKSs" />
             <Node Bounds="1102,716,53,26" Id="J5z1Gl8VwEVL9xEt6ho5VF">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -513,7 +536,7 @@
               <Pin Id="R898UJq5CfINM9MrUFVWGb" Name="B2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1171,716,53,26" Id="B7stHbsljBCPd9DAoyuRLw">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -523,7 +546,7 @@
               <Pin Id="HuEbl9WO3FrOSm8HT3zPRz" Name="B3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1240,717,53,26" Id="OMUlasZ0As0NY9QMxdW4LZ">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B4" />
               </p:NodeReference>
@@ -532,7 +555,7 @@
               <Pin Id="C4C5MA6G7m2O9HlNzQfFml" Name="B4" Kind="OutputPin" />
             </Node>
             <Node Bounds="1030,754,53,26" Id="Q03vgW2QSaSPYmD5qcsxxJ">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C1" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -542,7 +565,7 @@
               <Pin Id="Gcn0q7mOCE6NAR3Mlg5Kgf" Name="C1" Kind="OutputPin" />
             </Node>
             <Node Bounds="1101,753,53,26" Id="PFcuV7jVkmXPPtggBtgQjN">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -552,7 +575,7 @@
               <Pin Id="Ksu5tZ1uRfEPgDPyqSWRO3" Name="C2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1172,754,53,26" Id="VfqvnqcDVNqOKua3aa2ydy">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -562,7 +585,7 @@
               <Pin Id="RIQZMquqZpqNY9ocliXKtl" Name="C3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1241,754,53,26" Id="BfsWZWYSfN9LLxbJAIsPE8">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C4" />
               </p:NodeReference>
@@ -571,7 +594,7 @@
               <Pin Id="F8Nv2LdWaEoOrSmzxVKNSY" Name="C4" Kind="OutputPin" />
             </Node>
             <Node Bounds="1031,794,53,26" Id="VQrsAdqyai6NdR111XFV42">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D1" />
               </p:NodeReference>
@@ -580,7 +603,7 @@
               <Pin Id="LkmxOpB2YjoMOtqsOAoOVq" Name="D1" Kind="OutputPin" />
             </Node>
             <Node Bounds="1101,795,53,26" Id="PdA6eX33tJHQaQUHtQYq1n">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D2" />
               </p:NodeReference>
@@ -589,7 +612,7 @@
               <Pin Id="KAMbWXrMyQtOfnU2dPnjpr" Name="D2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1174,795,53,26" Id="LCL4JXjfW7HMZKVTXQH07k">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D3" />
               </p:NodeReference>
@@ -598,7 +621,7 @@
               <Pin Id="AUqbD1BU1JzNY0HpcFspwi" Name="D3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1243,796,53,26" Id="DVduyiq8zvWNTE3BLm53wd">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D4" />
               </p:NodeReference>
@@ -644,13 +667,13 @@
 
 -->
         <Node Name="AssimpToPrimitiveType" Bounds="465,1048,921,421" Id="ErMbmDXAIhSP3UlKVZXoFx">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
           <Patch Id="GHNP0yxqk8wLMbG0EIPsvl">
             <Node Bounds="480,1267,25,19" Id="OUb1vcwNSK4MMNvNRnkNOX">
-              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastDependency="AssimpNet.dll">
                 <CategoryReference Kind="AssemblyCategory" Name="PrimitiveType" />
                 <Choice Kind="OperationCallFlag" Name="=" />
               </p:NodeReference>
@@ -663,13 +686,13 @@
             <Link Id="Aj26upi7JjHLBIZJiHzMK1" Ids="PwgHkc0ur9MPnhZ3thOvdP,MDbm9nUZXdNPr7jKgcBKqZ" IsHidden="true" />
             <Link Id="VB46pGBLe4GQdcdxkjXLLO" Ids="MDbm9nUZXdNPr7jKgcBKqZ,IRmBbkI3q18Mq1d8PnvuEq" />
             <Pad Id="O2jT7L9GppuN2hwiudZZys" Comment="" Bounds="502,1233,66,15" ShowValueBox="true" isIOBox="true" Value="Point">
-              <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+              <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
             <Link Id="DYL3G3VnCUvLdAIMEFi27v" Ids="O2jT7L9GppuN2hwiudZZys,I9ylrKgTeSSOTZplmysyzH" />
             <Node Bounds="480,1310,45,19" Id="FWZPMtdZlDMLOuSzmvr8mI">
-              <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
               </p:NodeReference>
@@ -680,7 +703,7 @@
             </Node>
             <Link Id="UN6a9wvFnjuMV0f72zC7GO" Ids="O04lDyMcaEPM1XDO6A8M6B,Cya0ACuPZgAQMETN34O2cB" />
             <Node Bounds="1162,1261,25,19" Id="GnLh3hqaNM0OCKDPC56wbM">
-              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastDependency="AssimpNet.dll">
                 <CategoryReference Kind="AssemblyCategory" Name="PrimitiveType" />
                 <Choice Kind="OperationCallFlag" Name="=" />
               </p:NodeReference>
@@ -689,13 +712,13 @@
               <Pin Id="IgyFo0sC6f0NZHftnytWfv" Name="Result" Kind="OutputPin" />
             </Node>
             <Pad Id="UEni2d4a3P1Ouutq40Ebp2" Comment="" Bounds="1183,1224,66,15" ShowValueBox="true" isIOBox="true" Value="Line">
-              <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+              <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
             <Link Id="L3kfsyb0sZ0MuCsmTHnmyb" Ids="UEni2d4a3P1Ouutq40Ebp2,Gvl3mux4opnLP7mM9GFsz3" />
             <Node Bounds="941,1263,25,19" Id="Ph8u0e1ibR7N9b1YdHo5gD">
-              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastDependency="AssimpNet.dll">
                 <CategoryReference Kind="AssemblyCategory" Name="PrimitiveType" />
                 <Choice Kind="OperationCallFlag" Name="=" />
               </p:NodeReference>
@@ -704,13 +727,13 @@
               <Pin Id="Cv017nZ8CuQNiCfVGUq0h0" Name="Result" Kind="OutputPin" />
             </Node>
             <Pad Id="Kj7uzEM09o9Loin0WkEqq5" Comment="" Bounds="964,1229,66,15" ShowValueBox="true" isIOBox="true" Value="Triangle">
-              <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+              <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
             <Link Id="DX4SJ7c8lQYQMD7cz7PCJ0" Ids="Kj7uzEM09o9Loin0WkEqq5,LD82qIUWoGjPR5pqVnD0Y6" />
             <Node Bounds="709,1263,25,19" Id="VOIKSLKVS5TLOFisKRgCwo">
-              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.PrimitiveType" LastDependency="AssimpNet.dll">
                 <CategoryReference Kind="AssemblyCategory" Name="PrimitiveType" />
                 <Choice Kind="OperationCallFlag" Name="=" />
               </p:NodeReference>
@@ -719,13 +742,13 @@
               <Pin Id="FI3jvLpDSfjNh6rZD1Xg5J" Name="Result" Kind="OutputPin" />
             </Node>
             <Pad Id="AcZglKozBJmMqVTqtuxH5M" Comment="" Bounds="731,1231,66,15" ShowValueBox="true" isIOBox="true" Value="Polygon">
-              <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+              <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
             <Link Id="DOghOXDFRgfLFSPjxztPQu" Ids="AcZglKozBJmMqVTqtuxH5M,MLr0lnBRQlvLkV6hw1RBDX" />
             <Node Bounds="709,1310,45,19" Id="MJfAzxhhbmEMY0Ks8rSZKu">
-              <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
               </p:NodeReference>
@@ -735,7 +758,7 @@
               <Pin Id="QZRIeKJs7tLMqz7gMcMB2U" Name="Output" Kind="OutputPin" />
             </Node>
             <Pad Id="KtxyaW7LZDOMhZORGDSUPa" Comment="" Bounds="982,1268,152,15" ShowValueBox="true" isIOBox="true" Value="TriangleList">
-              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
+              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.Graphics.vl">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
@@ -745,14 +768,14 @@
             <Link Id="UfnFaZJdSOUOj1EYKBJbbQ" Ids="U8lMAD9CWKhPwjFYLCgpsd,CnALviNj34jMXgdXaBWITd" />
             <Link Id="JtN741Ia6cAO4lL2viHIPh" Ids="QZRIeKJs7tLMqz7gMcMB2U,LzvFnYtYCpILUvJaKnrR8k" />
             <Pad Id="J4kWDWG1xsqLwwuHAvKRwr" Comment="" Bounds="522,1272,152,15" ShowValueBox="true" isIOBox="true" Value="PointList">
-              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
+              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.Graphics.vl">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
             <Link Id="AG9Kd1F3Js9NuWFTRh4Tcx" Ids="J4kWDWG1xsqLwwuHAvKRwr,GBFs0Qo3Y2IOjPzTETBqz7" />
             <Link Id="Qtuy3fymINsPlSAdSiIhSc" Ids="FI3jvLpDSfjNh6rZD1Xg5J,EkBfaePIU13MdG0BrvGp2A" />
             <Node Bounds="941,1306,45,19" Id="Q3Yrumx6eqcNBkOg8O0iNS">
-              <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
               </p:NodeReference>
@@ -765,7 +788,7 @@
             <Link Id="EunQ8jKJJluLTK7Ovc7NsF" Ids="KtxyaW7LZDOMhZORGDSUPa,HqIn9VXuaoWL1SNENanept" />
             <Link Id="Sn1V1BaX7T3PhN0Tqs13BY" Ids="IOkvDe5B0BzNlMg9gbSJD9,BIlAv2sHvUyOMPdXQ4UqSl" />
             <Pad Id="K1YwXcWzRUoPWPEkdJ4TDD" Comment="" Bounds="751,1272,152,15" ShowValueBox="true" isIOBox="true" Value="Undefined">
-              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
+              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.Graphics.vl">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
@@ -774,7 +797,7 @@
             <Link Id="BEjGEJJVRVfLgFIPGvCZIP" Ids="MDbm9nUZXdNPr7jKgcBKqZ,VkVFNT9gTLoNxWmn8fjlJQ" />
             <Link Id="LBpbTJUYh6ZOdX0cMqJh8z" Ids="MDbm9nUZXdNPr7jKgcBKqZ,JEjj3u6jANYM0VrLerF2gd" />
             <Node Bounds="1161,1308,45,19" Id="SNgmJ4lSgocNiy0uSSMxT4">
-              <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
               </p:NodeReference>
@@ -786,7 +809,7 @@
             <Link Id="Sly6UYCuKzSLI7wcMOwZtE" Ids="IgyFo0sC6f0NZHftnytWfv,TUYlLacVRQSOcE8cRq3FfY" />
             <Link Id="ExDlO6gV5eFPtfiF2RYFpk" Ids="OEkaJPZDqgDOwheJLOzSMi,GeAWmCbQcejOd8Xg0J24Ep" />
             <Pad Id="QVrPJNdFNZ8OWIkE3Yv7kx" Comment="" Bounds="1203,1264,152,15" ShowValueBox="true" isIOBox="true" Value="LineList">
-              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
+              <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.Graphics.vl">
                 <Choice Kind="TypeFlag" Name="PrimitiveType" />
               </p:TypeAnnotation>
             </Pad>
@@ -799,7 +822,7 @@
 
 -->
         <Node Name="ToMatrix4x42" Bounds="1402,602,340,349" Id="TUyNjW6R6HOOgtR4F4jQcy">
-          <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+          <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
             <Choice Kind="OperationDefinition" Name="Operation" />
             <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
           </p:NodeReference>
@@ -808,7 +831,7 @@
             <ControlPoint Id="E4YSqvNlIxDMDVdc0GpOsr" Bounds="1416,620" />
             <Link Id="Gv1G51T967uPZt8ADwEXlB" Ids="H7F1vUU8iPAN4yn0Ggs2T3,E4YSqvNlIxDMDVdc0GpOsr" IsHidden="true" />
             <Node Bounds="1425,867,305,26" Id="Rnk5vc3DqrjNquBthZ1b4u">
-              <p:NodeReference LastCategoryFullName="3D.Matrix" LastSymbolSource="CoreLibBasics.vl">
+              <p:NodeReference LastCategoryFullName="3D.Matrix" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="RecordType" Name="Matrix" />
                 <Choice Kind="OperationCallFlag" Name="Matrix (Join)" />
@@ -832,7 +855,7 @@
               <Pin Id="UYM0BtsFmnEM6y6i331usO" Name="Output" Kind="StateOutputPin" />
             </Node>
             <Node Bounds="1437,668,53,26" Id="ChfjpDj7UVrPdVDRhdD0jM">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" />
                 <Choice Kind="OperationCallFlag" Name="A1" />
@@ -844,7 +867,7 @@
             <Link Id="R1irDV5PWFIOmvUX5lRzvn" Ids="E4YSqvNlIxDMDVdc0GpOsr,FlHsOvZDawuLJRvOj4qGnl" />
             <Link Id="TBCkSNM6k9fQAMZI2kNKRr" Ids="JwW83e5PRkxO6xLt62JvHb,DCwyzGzIUITOczGST3CsSJ" />
             <Node Bounds="1509,669,53,26" Id="SGsLia75stNNswzEBau1OS">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -856,7 +879,7 @@
             <Link Id="THRTPk2ci31MMQoO98Jj2S" Ids="QCulg1rBVvLMjOsZHiPU9n,N9xCqAY1m7RO9E8Rb8YVhY" />
             <Link Id="Du4wh5MYGhZMWBxqByzuIa" Ids="OvihD4FLTPjMDU7jJq2kxV,FT9QhqUK9zLNuFbaPiXhS3" />
             <Node Bounds="1577,669,53,26" Id="RNZvBPapqizOLgJClvZeH2">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -868,7 +891,7 @@
             <Link Id="N3Ya5DOqHThLvW70qr3qv6" Ids="KIx28f0hdKIPcUNIMfeQLZ,BcDs1K7gjlSOFHAvCZ1fXR" />
             <Link Id="JDovILV6L3wPdsGmVsRfE0" Ids="E8bmoMOWUJTLrUSpy0Ga0Y,QdHS4PFzwn7K9dugoGOMpJ" />
             <Node Bounds="1646,670,53,26" Id="SckH40ODs9GMFTWAhVxMGW">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="A4" />
               </p:NodeReference>
@@ -879,7 +902,7 @@
             <Link Id="QxxE6WjPVGNNcQtJbN3bVj" Ids="B6adqG0sVolMBOsKI11LmC,HQXvudjTy72LhcfpSzurAv" />
             <Link Id="RbBVmzR8yK9MTWhzvnrytV" Ids="Csrgr3WttsZMEWzhx0RZZq,ArU5vWGhlkpL5o2npqyk6v" />
             <Node Bounds="1436,711,53,26" Id="JQzTSlLC7JvLv7MjTSbB6e">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B1" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -891,7 +914,7 @@
             <Link Id="FDCupZaZB7AP2LGmuinh14" Ids="P4s04wTa4IYQSHLr2gS50M,UXbfjcCTxd1NvJuVADjLK6" />
             <Link Id="JSJ6fQUTWKeMve5EICat6s" Ids="Bjv2i8WoGU2M1tMlUekmRl,F6HL8rzGs71NDwcJFbffc7" />
             <Node Bounds="1508,712,53,26" Id="Dy6WgSJvls4McdEwunfPQJ">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -901,7 +924,7 @@
               <Pin Id="MiIQtXeR1oGLJqzibTBK6e" Name="B2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1577,712,53,26" Id="DnBT14aIK96Lh3sTlTwMwd">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -911,7 +934,7 @@
               <Pin Id="SiKu1zKUJeANZo4Ydthen6" Name="B3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1646,713,53,26" Id="JdWiC5yx5ODQBErchwDdw1">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="B4" />
               </p:NodeReference>
@@ -920,7 +943,7 @@
               <Pin Id="VSIqpm2YGY9LhWo8uisPzC" Name="B4" Kind="OutputPin" />
             </Node>
             <Node Bounds="1436,750,53,26" Id="P2UanLul0qzLAwODNm7Esr">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C1" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -930,7 +953,7 @@
               <Pin Id="CXFtSAwCFufQR8BhsCqTTr" Name="C1" Kind="OutputPin" />
             </Node>
             <Node Bounds="1507,749,53,26" Id="LlmLcfQ7QueNlz2OpUXK7G">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C2" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -940,7 +963,7 @@
               <Pin Id="IfCURucYxxhLwmYkVT8tTo" Name="C2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1578,750,53,26" Id="K3icSHiE6kFM2e6VAi9Gop">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C3" />
                 <CategoryReference Kind="AssemblyCategory" Name="Matrix4x4" NeedsToBeDirectParent="true" />
@@ -950,7 +973,7 @@
               <Pin Id="D3hzbtpnI6hPUOLLcWnUYn" Name="C3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1647,750,53,26" Id="P3KFWr5hiz7M3pTnyJaGWZ">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="C4" />
               </p:NodeReference>
@@ -959,7 +982,7 @@
               <Pin Id="FQlYCtiI2XXOT3C4vKnHfL" Name="C4" Kind="OutputPin" />
             </Node>
             <Node Bounds="1437,790,53,26" Id="IDNHRGWaWeZPZOUsci85di">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D1" />
               </p:NodeReference>
@@ -968,7 +991,7 @@
               <Pin Id="Hvfes1ygpZTMC1ZROkN6mc" Name="D1" Kind="OutputPin" />
             </Node>
             <Node Bounds="1507,791,53,26" Id="PJ82O8bw3NSLKBIwY8ceBk">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D2" />
               </p:NodeReference>
@@ -977,7 +1000,7 @@
               <Pin Id="Dw30MwvveiaMRejQAKN6sG" Name="D2" Kind="OutputPin" />
             </Node>
             <Node Bounds="1580,791,53,26" Id="QTNHYuaSctjNzyECqI66LD">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D3" />
               </p:NodeReference>
@@ -986,7 +1009,7 @@
               <Pin Id="QQkO3CFPM9AOcDtByULJGO" Name="D3" Kind="OutputPin" />
             </Node>
             <Node Bounds="1649,792,53,26" Id="IanNUWViN15Pc7uyp3EFcX">
-              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Matrix4x4" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="D4" />
               </p:NodeReference>
@@ -1035,17 +1058,13 @@
           <Patch Id="RPj8u2SUGUbLTLQqAX3lpv">
             <Canvas Id="AyaGVL0EUD8QK1e1Dl6QMl" CanvasType="Group">
               <Node Bounds="477,579,374,474" Id="Fn77KKwIeeELNXfuHgaCIf">
-                <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                   <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                   <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                   <FullNameCategoryReference ID="Primitive" />
                 </p:NodeReference>
                 <Pin Id="LlhGJDDAaLtL7pWPl0VIjn" Name="Force" Kind="InputPin" />
-                <Pin Id="UVUilKmqU5cL1ogjVuu4nY" Name="Dispose Cached Outputs" Kind="InputPin">
-                  <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
-                    <Choice Kind="TypeFlag" Name="Boolean" />
-                  </p:TypeAnnotation>
-                </Pin>
+                <Pin Id="UVUilKmqU5cL1ogjVuu4nY" Name="Dispose Cached Outputs" Kind="InputPin" />
                 <Pin Id="A50enf5l5ZRMu8BtSUXVdy" Name="Has Changed" Kind="OutputPin" />
                 <ControlPoint Id="F43Entzj0mOMDjvniIOiMX" Bounds="688,1041" Alignment="Bottom" />
                 <ControlPoint Id="PZBrbL2nwOUNBSuQhf1QiU" Bounds="565,585" Alignment="Top" />
@@ -1053,7 +1072,7 @@
                   <Patch Id="Dp0MT7J4mziQSp2T1tXUyl" Name="Create" ManuallySortedPins="true" />
                   <Patch Id="Q6ss8wR7h79PBStEISPT7b" Name="Then" ManuallySortedPins="true" />
                   <Node Bounds="746,602,46,26" Id="KwG1JbHpRe3MKu15ZdpAXI">
-                    <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Model" LastSymbolSource="VL.Stride.Rendering.vl">
+                    <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Model" LastDependency="VL.Stride.Rendering.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <CategoryReference Kind="ClassType" Name="Model" />
                       <Choice Kind="OperationCallFlag" Name="Create" />
@@ -1061,7 +1080,7 @@
                     <Pin Id="Qf86E6yWJxRL0X5j10Jwwo" Name="Output" Kind="StateOutputPin" />
                   </Node>
                   <Node Bounds="529,664,159,240" Id="T8wD6nDOqXoOrmRLFTASs9">
-                    <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                    <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                       <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                       <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                       <FullNameCategoryReference ID="Primitive" />
@@ -1073,7 +1092,7 @@
                       <Patch Id="OROmT12AB81QGv2po5A0Lo" Name="Update" ManuallySortedPins="true" />
                       <Patch Id="HGTjbCyGF2wMGKCPKJgJCu" Name="Dispose" ManuallySortedPins="true" />
                       <Node Bounds="552,713,65,19" Id="MdL4hDyr4kKLlt6VtA24rY">
-                        <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
+                        <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="CoreLibBasics.vl">
                           <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                           <Choice Kind="OperationCallFlag" Name="IsAssigned" />
                         </p:NodeReference>
@@ -1082,7 +1101,7 @@
                         <Pin Id="FLqudTr97LRQBM4N2nXuiB" Name="Not Assigned" Kind="OutputPin" />
                       </Node>
                       <Node Bounds="552,767,96,118" Id="UfO9L4ov7x3N1X1YTLaEz1">
-                        <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                        <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                           <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                           <Choice Kind="ApplicationStatefulRegion" Name="If" />
                           <CategoryReference Kind="Category" Name="Primitive" />
@@ -1092,7 +1111,7 @@
                           <Patch Id="PHSSGNMaosyOEj5hdUUnMy" Name="Create" ManuallySortedPins="true" />
                           <Patch Id="VZUDFCNJk4lLtByWN9MN0U" Name="Then" ManuallySortedPins="true" />
                           <Node Bounds="564,790,46,26" Id="M53ZR4Vdc0TQO07YtBxN4c">
-                            <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Meshes.Mesh" LastSymbolSource="VL.Stride.Rendering.vl">
+                            <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Meshes.Mesh" LastDependency="VL.Stride.Rendering.vl">
                               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                               <CategoryReference Kind="ClassType" Name="Mesh" />
                               <Choice Kind="OperationCallFlag" Name="Create" />
@@ -1102,7 +1121,7 @@
                             <Pin Id="HRkUyUQ0l3JLOyTWRtYfur" Name="Output" Kind="StateOutputPin" />
                           </Node>
                           <Node Bounds="598,839,38,26" Id="GcF7D5kWTiULYZHYfrSl9U">
-                            <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Model" LastSymbolSource="VL.Stride.Rendering.vl">
+                            <p:NodeReference LastCategoryFullName="Stride.Rendering.Models.Model" LastDependency="VL.Stride.Rendering.vl">
                               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                               <Choice Kind="OperationCallFlag" Name="Add" />
                               <CategoryReference Kind="ClassType" Name="Model" NeedsToBeDirectParent="true" />
@@ -1119,7 +1138,7 @@
                     <ControlPoint Id="QpvG70FZIeiPwW13m3shsQ" Bounds="671,899" Alignment="Bottom" />
                   </Node>
                   <Node Bounds="745,919,94,19" Id="ADNpvP7eRgmL90ySw0N8lz">
-                    <p:NodeReference LastCategoryFullName="Stride.API.Rendering.Model" LastSymbolSource="VL.Stride.Rendering.vl">
+                    <p:NodeReference LastCategoryFullName="Stride.API.Rendering.Model" LastDependency="VL.Stride.Rendering.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="SetSingleMaterial" />
                     </p:NodeReference>
@@ -1128,7 +1147,7 @@
                     <Pin Id="VFBGetg0IDwMkgzhQHcIgY" Name="Output" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="656,972,34,19" Id="DyItDwZqiqQQICrfY7GBgo">
-                    <p:NodeReference LastCategoryFullName="Collections.Sequence" LastSymbolSource="VL.Collections.vl">
+                    <p:NodeReference LastCategoryFullName="Collections.Sequence" LastDependency="VL.Collections.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="Any" />
                       <CategoryReference Kind="MutableInterfaceType" Name="Sequence" NeedsToBeDirectParent="true" />
@@ -1137,7 +1156,7 @@
                     <Pin Id="G1Tomgkke6dOlWYz0W64Q8" Name="Result" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="611,927,50,26" Id="Lsn2hzTtn11NIZ1KltneZW">
-                    <p:NodeReference LastCategoryFullName="Stride.Models.Model" LastSymbolSource="VL.Stride.Rendering.vl">
+                    <p:NodeReference LastCategoryFullName="Stride.Models.Model" LastDependency="VL.Stride.Rendering.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="Meshes" />
                       <CategoryReference Kind="ClassType" Name="Model" NeedsToBeDirectParent="true" />
@@ -1147,7 +1166,7 @@
                     <Pin Id="Ay4D5HjOgAhLPjiIztievC" Name="Meshes" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="686,1010,65,19" Id="QQL9b9qzz5AMRSRZ8Tal7f">
-                    <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+                    <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
                     </p:NodeReference>
@@ -1163,7 +1182,7 @@
               <ControlPoint Id="BhfouIgPy7wON1NgW7JORO" Bounds="576,1169" />
               <Pad Id="LPAkO2VtZubMF9U5w7O0TA" SlotId="B4eIwPfgU9hPcb212KkUvR" Bounds="905,864" />
               <Node Bounds="787,1179,174,126" Id="SGwZcvLDHcmOnPxSuEJ5hw">
-                <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                   <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                   <Choice Kind="ApplicationStatefulRegion" Name="If" />
                   <FullNameCategoryReference ID="Primitive" />
@@ -1173,7 +1192,7 @@
                   <Patch Id="DYnp6WClz2xNypZsWqBpuu" Name="Create" ManuallySortedPins="true" />
                   <Patch Id="IMsdgjaAelWMCRK3WZaNP6" Name="Then" ManuallySortedPins="true" />
                   <Node Bounds="831,1198,118,86" Id="VuEKykvuAwsPdgXhfCRBtY">
-                    <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                    <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                       <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                       <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                       <CategoryReference Kind="Category" Name="Primitive" />
@@ -1186,7 +1205,7 @@
                       <Patch Id="Swnzy7n5YrxPc8QsiKi5AK" Name="Create" ManuallySortedPins="true" />
                       <Patch Id="Vwb2JpwhARTQdqoheU8FG0" Name="Then" ManuallySortedPins="true" />
                       <Node Bounds="843,1234,94,19" Id="EiAD7bDT8YSPK7xlaZ2sYK">
-                        <p:NodeReference LastCategoryFullName="Stride.API.Rendering.Model" LastSymbolSource="VL.Stride.Rendering.vl">
+                        <p:NodeReference LastCategoryFullName="Stride.API.Rendering.Model" LastDependency="VL.Stride.Rendering.vl">
                           <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                           <Choice Kind="OperationCallFlag" Name="SetSingleMaterial" />
                         </p:NodeReference>
@@ -1199,7 +1218,7 @@
                 </Patch>
               </Node>
               <Node Bounds="787,1120,65,19" Id="NXzgoeXfPqoLm6Mmo7YcDl">
-                <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
+                <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="CoreLibBasics.vl">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <Choice Kind="OperationCallFlag" Name="IsAssigned" />
                 </p:NodeReference>
@@ -1211,7 +1230,7 @@
             <Patch Id="Vv489JDYjp4M8qNjYIkbZQ" Name="Create" />
             <Patch Id="KnT8CjdpUWDL2XI5Tu2PRm" Name="Update">
               <Pin Id="GzozBjfbhugMHmsCqZg7nu" Name="Mesh" Kind="InputPin">
-                <p:TypeAnnotation>
+                <p:TypeAnnotation LastCategoryFullName="Collections" LastDependency="VL.CoreLib.vl">
                   <Choice Kind="TypeFlag" Name="Spread" />
                 </p:TypeAnnotation>
               </Pin>
@@ -1268,7 +1287,7 @@
           <Patch Id="JS7xODzwgnIL6h8JvvePUa">
             <Canvas Id="KbfPJOubNlTMdCCx8zlUmf" CanvasType="Group">
               <Node Bounds="692,230,67,26" Id="UKki7xMYmMpMSdrThAnk97">
-                <p:NodeReference LastCategoryFullName="Assimp.Node" LastSymbolSource="AssimpNet.dll">
+                <p:NodeReference LastCategoryFullName="Assimp.Node" LastDependency="AssimpNet.dll">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <Choice Kind="OperationCallFlag" Name="HasMeshes" />
                   <CategoryReference Kind="AssemblyCategory" Name="Node" NeedsToBeDirectParent="true" />
@@ -1278,7 +1297,7 @@
                 <Pin Id="KALC72KC0YZOGqwux37Piv" Name="Has Meshes" Kind="OutputPin" />
               </Node>
               <Node Bounds="757,342,425,318" Id="VTBRim4cp0uQM6kQfDhn3G">
-                <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                   <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                   <Choice Kind="ApplicationStatefulRegion" Name="If" />
                   <CategoryReference Kind="Category" Name="Primitive" />
@@ -1290,7 +1309,7 @@
                   <Patch Id="EihYhnzI3EiLlmLgw66D5A" Name="Create" ManuallySortedPins="true" />
                   <Patch Id="KaYqReA3gIIMHGZSphYayE" Name="Then" ManuallySortedPins="true" />
                   <Node Bounds="769,377,72,26" Id="G1KVNkZgNVvPEpiDVfRXM9">
-                    <p:NodeReference LastCategoryFullName="Assimp.Node" LastSymbolSource="AssimpNet.dll">
+                    <p:NodeReference LastCategoryFullName="Assimp.Node" LastDependency="AssimpNet.dll">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="MeshIndices" />
                     </p:NodeReference>
@@ -1299,7 +1318,7 @@
                     <Pin Id="NLesIkbDQpCNT8g4tuZFy0" Name="Mesh Indices" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="847,426,76,105" Id="A1NHFvcvjvqNrxM5uxs6Ed">
-                    <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                    <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                       <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                       <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                       <CategoryReference Kind="Category" Name="Primitive" />
@@ -1310,7 +1329,7 @@
                       <Patch Id="C97lUq0QCZ2MSY1GbA4erN" Name="Update" ManuallySortedPins="true" />
                       <Patch Id="TUBATYsgsAaNU3Z4BJVU1c" Name="Dispose" ManuallySortedPins="true" />
                       <Node Bounds="859,472,52,26" Id="MXQwVFTM7UQN9co9kw9X18">
-                        <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                        <p:NodeReference LastCategoryFullName="Collections.Spread" LastDependency="VL.Collections.vl">
                           <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                           <CategoryReference Kind="RecordType" Name="Spread" />
                           <Choice Kind="OperationCallFlag" Name="GetItem" />
@@ -1324,10 +1343,11 @@
                     <ControlPoint Id="KdOYeKewjIwLPRRFGHCeZS" Bounds="862,525" Alignment="Bottom" />
                   </Node>
                   <Node Bounds="823,612,125,19" Id="BxpjF8cSj7JPBju2AUUHcb">
-                    <p:NodeReference LastCategoryFullName="Stride.Models" LastSymbolSource="VL.Stride.Engine.vl">
+                    <p:NodeReference LastCategoryFullName="Stride.Models" LastDependency="VL.Stride.Engine.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="ProcessAppFlag" Name="ModelEntity" />
                     </p:NodeReference>
+                    <Pin Id="ESiKfJC64vdNIBIlUiSDhu" Name="Node Context" Kind="InputPin" IsHidden="true" />
                     <Pin Id="OUcprkhnohPPcb4Xzs3DRv" Name="Transformation" Kind="InputPin" />
                     <Pin Id="DS3EM9FfuP6Nuk52QABoQT" Name="Model" Kind="InputPin" />
                     <Pin Id="KdI9YGYS80QOckDcoL1zc8" Name="Material" Kind="InputPin" />
@@ -1336,19 +1356,21 @@
                     <Pin Id="NhbNtz6Lx5VOFea4ZYbrHj" Name="Children" Kind="InputPin" />
                     <Pin Id="MB7zmfTTfU1OT0nnpb9Rpj" Name="Name" Kind="InputPin" />
                     <Pin Id="CQxpGtKhvKkMrNfWlTBoOl" Name="Enabled" Kind="InputPin" />
+                    <Pin Id="AgsI5eeTipFNmPYuNWfpfg" Name="Output" Kind="OutputPin" IsHidden="true" />
                     <Pin Id="VlGBqyy7hf3Pv6LzEReWHx" Name="Entity" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="843,568,91,19" Id="GJ1i0GWQYkJMYatoH5X1wt">
-                    <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                    <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="ProcessAppFlag" Name="MultiMeshModel" />
                     </p:NodeReference>
+                    <Pin Id="M2qsX0IrWfIPqUeCeApIVR" Name="Node Context" Kind="InputPin" IsHidden="true" />
                     <Pin Id="IODdUwkiUmOLwTrH83wpI2" Name="Mesh" Kind="InputPin" />
                     <Pin Id="OzcpVX2M8exQTEcPLnpMwi" Name="Material" Kind="InputPin" />
                     <Pin Id="L9uTHdnTbJ9ORshRhD8QP9" Name="Output" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="1118,470,52,26" Id="JfkK9mJLgMrPjIodilvo8t">
-                    <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                    <p:NodeReference LastCategoryFullName="Collections.Spread" LastDependency="VL.Collections.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <CategoryReference Kind="RecordType" Name="Spread" />
                       <Choice Kind="OperationCallFlag" Name="GetItem" />
@@ -1358,7 +1380,7 @@
                     <Pin Id="GXCxddKk05JN5DFMQaaMkg" Name="Item" Kind="OutputPin" />
                   </Node>
                   <Node Bounds="1024,445" Id="FT4sUYZMCxqL2d39dXTO9X">
-                    <p:NodeReference LastCategoryFullName="Collections.Mutable.MutableList" LastSymbolSource="VL.Collections.vl">
+                    <p:NodeReference LastCategoryFullName="Collections.Mutable.MutableList" LastDependency="VL.Collections.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <Choice Kind="OperationCallFlag" Name="GetItem" />
                       <CategoryReference Kind="ClassType" Name="MutableList" NeedsToBeDirectParent="true" />
@@ -1369,12 +1391,12 @@
                     <Pin Id="VgnaKKxtc1YNVXkcdgLueU" Name="Item" Kind="OutputPin" />
                   </Node>
                   <Pad Id="MTQrjZRMJRuOKRLU8fRoww" Comment="Index" Bounds="1077,410,35,15" ShowValueBox="true" isIOBox="true" Value="0">
-                    <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                    <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="CoreLibBasics.vl">
                       <Choice Kind="TypeFlag" Name="Integer32" />
                     </p:TypeAnnotation>
                   </Pad>
                   <Node Bounds="1073,547,52,26" Id="RqdmfDzw9qTM73Yh3mNDxq">
-                    <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                    <p:NodeReference LastCategoryFullName="Collections.Spread" LastDependency="VL.Collections.vl">
                       <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                       <CategoryReference Kind="RecordType" Name="Spread" />
                       <Choice Kind="OperationCallFlag" Name="GetItem" />
@@ -1386,21 +1408,25 @@
                 </Patch>
               </Node>
               <Node Bounds="894,293,85,19" Id="A53JDN2oPNtOQfEGocrO40">
-                <p:NodeReference LastCategoryFullName="Stride" LastSymbolSource="VL.Stride.Engine.vl">
+                <p:NodeReference LastCategoryFullName="Stride" LastDependency="VL.Stride.Engine.vl">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <Choice Kind="ProcessAppFlag" Name="Entity" />
                   <CategoryReference Kind="Category" Name="Stride" NeedsToBeDirectParent="true" />
                 </p:NodeReference>
+                <Pin Id="OMYi6zm8uH8N7UJczxQ2XN" Name="Node Context" Kind="InputPin" IsHidden="true" />
+                <Pin Id="AelllEsax24PGJkRvynN6l" Name="Initial Name" Kind="InputPin" IsHidden="true" />
+                <Pin Id="KvVvWBeH5QDLl84P8eIt0J" Name="Base Components" Kind="InputPin" IsHidden="true" />
                 <Pin Id="PF9JT8ATVHbQcZYKiXizxI" Name="Transformation" Kind="InputPin" />
                 <Pin Id="PysI608OHDnNy0THvnwaDI" Name="Components" Kind="InputPin" />
                 <Pin Id="ROTVEqxNownMXFCca1wN2c" Name="Children" Kind="InputPin" />
                 <Pin Id="BfxzggiLYXLOZ2XLJ0aDWj" Name="Name" Kind="InputPin" />
                 <Pin Id="DsFPPLEt7flPU6ce3JO5rz" Name="Enabled" Kind="InputPin" />
                 <Pin Id="HfTzSRaqEQlLIgBFeoNmwk" Name="Output" Kind="OutputPin" />
+                <Pin Id="O1MfIUUtJqkMfjDzZGfZ6S" Name="Patched Entity" Kind="InputPin" />
               </Node>
               <ControlPoint Id="QgPuJ4usipWNmJmidhvIeY" Bounds="691,105" />
               <Node Bounds="986,239,42,26" Id="CGcMUMnt29hN5Bn91kPiWl">
-                <p:NodeReference LastCategoryFullName="Assimp.Node" LastSymbolSource="AssimpNet.dll">
+                <p:NodeReference LastCategoryFullName="Assimp.Node" LastDependency="AssimpNet.dll">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <CategoryReference Kind="AssemblyCategory" Name="Node" />
                   <Choice Kind="OperationCallFlag" Name="Name" />
@@ -1411,7 +1437,7 @@
               </Node>
               <ControlPoint Id="IJmAZlKbTOsO4Wt0GtMLUW" Bounds="860,104" />
               <Node Bounds="1040,128,64,26" Id="Cy3wfhwyTtNNN3EiCCz6x0">
-                <p:NodeReference LastCategoryFullName="Assimp.Node" LastSymbolSource="AssimpNet.dll">
+                <p:NodeReference LastCategoryFullName="Assimp.Node" LastDependency="AssimpNet.dll">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <CategoryReference Kind="AssemblyCategory" Name="Node" />
                   <Choice Kind="OperationCallFlag" Name="Transform" />
@@ -1421,7 +1447,7 @@
                 <Pin Id="Li2Mgl5S7xXOQSqLtSomMM" Name="Transform" Kind="OutputPin" />
               </Node>
               <Node Bounds="1099,208,75,19" Id="Gvl19Zve1okLSUrD9aXUuA">
-                <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                   <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                   <Choice Kind="OperationCallFlag" Name="ToMatrix4x4" />
                 </p:NodeReference>
@@ -1491,11 +1517,11 @@
         </p:NodeReference>
         <Patch Id="FNKHHnBXzHZPxJT4kSvZVG">
           <Canvas Id="J8xrmrXe4BEOVAlHQrr8Yz" CanvasType="Group">
-            <ControlPoint Id="F0268IvhuTOM2sADsMyrT6" Bounds="458,130" />
+            <ControlPoint Id="F0268IvhuTOM2sADsMyrT6" Bounds="455,140" />
             <ControlPoint Id="GQluDID482RM2QKRJEUlbo" Bounds="805,868" />
-            <ControlPoint Id="D1Bfkj3joZgNNwxtb6B8gD" Bounds="1722,863" />
-            <Node Bounds="432,166,1320,657" Id="QrNA2LqsRjjMg7bp8VANJn">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+            <ControlPoint Id="D1Bfkj3joZgNNwxtb6B8gD" Bounds="1723,861" />
+            <Node Bounds="432,165,1319,659" Id="QrNA2LqsRjjMg7bp8VANJn">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                 <FullNameCategoryReference ID="Primitive" />
@@ -1503,28 +1529,28 @@
               <Pin Id="KBHiM49ZARlNiASSYNoiyu" Name="Force" Kind="InputPin" />
               <Pin Id="GYsXCQ4VOmCNO6anniZoBV" Name="Dispose Cached Outputs" Kind="InputPin" />
               <Pin Id="J6DvLNXK10YQRsYmIKHXx7" Name="Has Changed" Kind="OutputPin" />
-              <ControlPoint Id="KBtmRZmEhF0PmELtAdcCUp" Bounds="457,173" Alignment="Top" />
+              <ControlPoint Id="KBtmRZmEhF0PmELtAdcCUp" Bounds="455,171" Alignment="Top" />
               <ControlPoint Id="R1FtCEvRbk8PjEdVBUryvj" Bounds="805,818" Alignment="Bottom" />
               <ControlPoint Id="LAqYbKjRM5hQbvqCGVPPHS" Bounds="1723,818" Alignment="Bottom" />
               <Patch Id="J8nXlQzdPADPZGWawMgsUI" ManuallySortedPins="true">
                 <Patch Id="QQradaLeiMZOJWZiytHlAf" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="Eoz7P0pKw8EQK3jKDZdjjS" Name="Then" ManuallySortedPins="true" />
                 <Node Bounds="484,264,1256,538" Id="PNVwx8YIr8UOJnFLoz97y1">
-                  <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                  <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                     <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                     <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                     <CategoryReference Kind="Category" Name="Primitive" />
                   </p:NodeReference>
                   <Pin Id="RnJAP5xzE6QPQmXII6tF3n" Name="Break" Kind="OutputPin" />
-                  <ControlPoint Id="MQAEKrNsJrkNKAWi5DuNAt" Bounds="498,271" Alignment="Top" />
-                  <ControlPoint Id="MaOAs3500q7LEBIhMdWtm8" Bounds="805,771" Alignment="Bottom" />
-                  <ControlPoint Id="ILzh32vSHeIPfUyJJQLdcf" Bounds="1723,771" Alignment="Bottom" />
+                  <ControlPoint Id="MQAEKrNsJrkNKAWi5DuNAt" Bounds="498,270" Alignment="Top" />
+                  <ControlPoint Id="MaOAs3500q7LEBIhMdWtm8" Bounds="805,796" Alignment="Bottom" />
+                  <ControlPoint Id="ILzh32vSHeIPfUyJJQLdcf" Bounds="1723,796" Alignment="Bottom" />
                   <Patch Id="FyrfYh2wLUEM5A8J6qCbmE" ManuallySortedPins="true">
                     <Patch Id="Bugd0MO1L5SLEo2Peyf4j8" Name="Create" ManuallySortedPins="true" />
                     <Patch Id="Pw3u1IbAjDSQOermYZaTzu" Name="Update" ManuallySortedPins="true" />
                     <Patch Id="ItGoZ7DJ9SwQYLmpGbL4px" Name="Dispose" ManuallySortedPins="true" />
                     <Node Bounds="496,297,53,26" Id="A8WbGe1qiSiLnZ6ckrrMvA">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="Vertices" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" NeedsToBeDirectParent="true" />
@@ -1533,8 +1559,8 @@
                       <Pin Id="PHq7H8VR21KM1z4GRbHSBn" Name="Output" Kind="StateOutputPin" />
                       <Pin Id="Ryu7aruvsKlMUnCuOWd10S" Name="Vertices" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="663,386,71,26" Id="JaINN9TMjX0NhyBcv46iUL">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                    <Node Bounds="665,411,71,26" Id="JaINN9TMjX0NhyBcv46iUL">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="HasNormals" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" NeedsToBeDirectParent="true" />
@@ -1544,15 +1570,15 @@
                       <Pin Id="TrXCcPvVDodLEr4I1cp7BQ" Name="Has Normals" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="544,348,100,19" Id="AeRtUMuPGslMYrQxoVfEQe">
-                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="ToSpreadVector3" />
                       </p:NodeReference>
                       <Pin Id="LPbY2t2EbkJLz1gaYfCTyG" Name="Input" Kind="InputPin" />
                       <Pin Id="GGVM28mYGOyQPhT1gbfbVh" Name="Output" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="670,588,125,99" Id="Q1NTHKWtIp7MdBZMHrCazU">
-                      <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                    <Node Bounds="672,585,123,102" Id="Q1NTHKWtIp7MdBZMHrCazU">
+                      <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                         <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                         <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                         <CategoryReference Kind="Category" Name="Primitive" />
@@ -1563,7 +1589,7 @@
                         <Patch Id="LJxYoxnFxeeN5pDpbg5CBt" Name="Update" ManuallySortedPins="true" />
                         <Patch Id="VXqpCd1tW0QQF5QszT3zDD" Name="Dispose" ManuallySortedPins="true" />
                         <Node Bounds="684,623,99,26" Id="QZrVSRHcvlgPFpBa7e89dY">
-                          <p:NodeReference LastCategoryFullName="Stride.API.Graphics.VertexPos3Norm3Tex2" LastSymbolSource="VL.Stride.Graphics.vl">
+                          <p:NodeReference LastCategoryFullName="Stride.API.Graphics.VertexPos3Norm3Tex2" LastDependency="VL.Stride.Graphics.vl">
                             <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                             <Choice Kind="OperationCallFlag" Name="Create" />
                             <CategoryReference Kind="ClassType" Name="VertexPos3Norm3Tex2" NeedsToBeDirectParent="true" />
@@ -1574,13 +1600,13 @@
                           <Pin Id="Mur4rjb6kvVNVPLISAMIK0" Name="Output" Kind="StateOutputPin" />
                         </Node>
                       </Patch>
-                      <ControlPoint Id="Job6hP36LltPMZZ1gAMooq" Bounds="733,594" Alignment="Top" />
-                      <ControlPoint Id="TEuOweaSUffNF8NIVKllpm" Bounds="684,594" Alignment="Top" />
-                      <ControlPoint Id="KAfnJbdcd3wO5iFAteuNDa" Bounds="685,681" Alignment="Bottom" />
-                      <ControlPoint Id="P4iCYN0YlcKO4UyUO0XAxr" Bounds="777,594" Alignment="Top" />
+                      <ControlPoint Id="Job6hP36LltPMZZ1gAMooq" Bounds="733,591" Alignment="Top" />
+                      <ControlPoint Id="TEuOweaSUffNF8NIVKllpm" Bounds="686,591" Alignment="Top" />
+                      <ControlPoint Id="KAfnJbdcd3wO5iFAteuNDa" Bounds="686,681" Alignment="Bottom" />
+                      <ControlPoint Id="P4iCYN0YlcKO4UyUO0XAxr" Bounds="777,591" Alignment="Top" />
                     </Node>
-                    <Node Bounds="663,299,54,26" Id="OeEDKnT9zx5Ldjm0LpLwog">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                    <Node Bounds="665,300,54,26" Id="OeEDKnT9zx5Ldjm0LpLwog">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="Normals" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" NeedsToBeDirectParent="true" />
@@ -1590,15 +1616,15 @@
                       <Pin Id="Q4EnlsChc3vLf3iUbHbd37" Name="Normals" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="770,352,102,19" Id="IoybWBy7uOLO2baPMjkGgF">
-                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="ToSpreadVector3" />
                       </p:NodeReference>
                       <Pin Id="LuTeN1NggifP3r1NANHsGI" Name="Input" Kind="InputPin" />
                       <Pin Id="Qn5y5la9EYRP8Fq1n1CJTR" Name="Output" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="1076,365,101,26" Id="SIGesP7GrtUQHhZgNNUOaK">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                    <Node Bounds="1077,360,101,26" Id="SIGesP7GrtUQHhZgNNUOaK">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="HasTextureCoords" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" NeedsToBeDirectParent="true" />
@@ -1609,15 +1635,16 @@
                       <Pin Id="EJNoCHUmXynPDJmnYPHOwd" Name="Result" Kind="OutputPin" />
                     </Node>
                     <Pad Id="KWfmN5Rvcx8OCdVGVIeuqa" Comment="Channel Index" Bounds="1268,323,35,15" ShowValueBox="true" isIOBox="true" Value="0">
-                      <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+                      <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="CoreLibBasics.vl">
                         <Choice Kind="TypeFlag" Name="Integer32" />
                       </p:TypeAnnotation>
                     </Pad>
                     <Node Bounds="802,762,125,19" Id="FfSOQsntkp6Nhq5NnxiWaK">
-                      <p:NodeReference LastCategoryFullName="Stride.Models.Meshes" LastSymbolSource="VL.Stride.Rendering.vl">
+                      <p:NodeReference LastCategoryFullName="Stride.Models.Meshes" LastDependency="VL.Stride.Rendering.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-                        <Choice Kind="ProcessAppFlag" Name="DynamicMesh" />
+                        <Choice Kind="ProcessNode" Name="DynamicMesh (Old)" />
                       </p:NodeReference>
+                      <Pin Id="CNMaFqu9hcGMOUbaCjYxNr" Name="Node Context" Kind="InputPin" IsHidden="true" />
                       <Pin Id="QH44ZhkHCdLQGgpN0aqtwt" Name="Data" Kind="InputPin" />
                       <Pin Id="QadRiH4B3gTL1E8PmDXV4r" Name="Update Buffer" Kind="InputPin" />
                       <Pin Id="P5K2Ed1nQfLMo9uAB9jcwj" Name="Vertex Declaration" Kind="InputPin" />
@@ -1627,16 +1654,17 @@
                       <Pin Id="I4V7ktDeKUrM01W2rrkSsL" Name="Output" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="850,696,92,19" Id="DNkWgcqYmWBNY35D7z8UHo">
-                      <p:NodeReference LastCategoryFullName="Stride.API.Graphics.VertexDeclaration" LastSymbolSource="VL.Stride.Graphics.vl">
+                      <p:NodeReference LastCategoryFullName="Stride.API.Graphics.VertexDeclaration" LastDependency="VL.Stride.Graphics.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="Category" Name="Stride" />
                         <CategoryReference Kind="ClassType" Name="VertexDeclaration" />
                         <Choice Kind="ProcessAppFlag" Name="Pos3Norm3Tex2" />
                       </p:NodeReference>
                       <Pin Id="C9NbqH0F36vMtDS7csoYZI" Name="Output" Kind="OutputPin" />
+                      <Pin Id="IUXuMFVCNasPvPzZGmOtmB" Name="Node Context" Kind="InputPin" IsHidden="true" />
                     </Node>
                     <Node Bounds="1421,297,78,26" Id="OxhEqLkDMLlNe7f0sA5qRD">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" />
                         <Choice Kind="OperationCallFlag" Name="PrimitiveType" />
@@ -1646,7 +1674,7 @@
                       <Pin Id="PFKwPszTk1EL7MObs1HFrZ" Name="Primitive Type" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="1493,350,123,19" Id="E4IuHPjyzQdPf4VeEfTTbM">
-                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="AssimpToPrimitiveType" />
                       </p:NodeReference>
@@ -1654,7 +1682,7 @@
                       <Pin Id="Vqdf0dWusPtM6REhkylQ6C" Name="Output" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="1647,294,78,26" Id="S9hkuY57szGMwzCj0F9JCA">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" />
                         <Choice Kind="OperationCallFlag" Name="MaterialIndex" />
@@ -1663,8 +1691,8 @@
                       <Pin Id="PHcdGxR51JWMG7co5aUrM6" Name="Output" Kind="StateOutputPin" />
                       <Pin Id="OC6UEZ2K2nSOT3Rv8ufsrh" Name="Material Index" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="732,537,45,19" Id="Dx2S6S2Xh9WPTD5Z2pvtTK">
-                      <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+                    <Node Bounds="731,550,45,19" Id="Dx2S6S2Xh9WPTD5Z2pvtTK">
+                      <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
                       </p:NodeReference>
@@ -1674,17 +1702,18 @@
                       <Pin Id="BdtOphc3HQoORpsxmIrX33" Name="Output" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="752,496,95,19" Id="MZ2kvxWLSeON5KV8sYzF6p">
-                      <p:NodeReference LastCategoryFullName="Stride.Utils" LastSymbolSource="VL.Stride.Rendering.vl">
+                      <p:NodeReference LastCategoryFullName="Stride.Utils" LastDependency="VL.Stride.Rendering.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="ProcessAppFlag" Name="GenerateNormals" />
                       </p:NodeReference>
+                      <Pin Id="G40bAjI6L2yPSRr4WO5oVg" Name="Node Context" Kind="InputPin" IsHidden="true" />
                       <Pin Id="QMHoYgmNjPmPLeFXsUzzuZ" Name="Vertices" Kind="InputPin" />
                       <Pin Id="MquZFDoxKPlPHDmGNZr73P" Name="Indices" Kind="InputPin" />
                       <Pin Id="V42K4Z01H4fPm2BpEUgjsH" Name="Is Triangle Strip" Kind="InputPin" />
                       <Pin Id="TQgaKt0hgwQNcDEqNFvQJY" Name="Output" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="838,302,64,26" Id="DxvSgVBU4S6MBjGoKQYPNr">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                    <Node Bounds="839,300,64,26" Id="DxvSgVBU4S6MBjGoKQYPNr">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" />
                         <Choice Kind="OperationCallFlag" Name="GetIndices" />
@@ -1694,7 +1723,7 @@
                       <Pin Id="G0fgHHJiJDDOKtY1zvRWmr" Name="Result" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="898,347,83,26" Id="JpdqofH0ksmPinRM8SsaW1">
-                      <p:NodeReference LastCategoryFullName="Collections.Spread" LastSymbolSource="VL.Collections.vl">
+                      <p:NodeReference LastCategoryFullName="Collections.Spread" LastDependency="VL.Collections.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="RecordType" Name="Spread" />
                         <Choice Kind="OperationCallFlag" Name="FromSequence" />
@@ -1703,7 +1732,7 @@
                       <Pin Id="SGeTAtb0UUqMy6iI4z89xk" Name="Result" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="1175,476,45,19" Id="IuI0NsDjCFqMEyocEvJZh7">
-                      <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+                      <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
                       </p:NodeReference>
@@ -1712,8 +1741,8 @@
                       <Pin Id="QyDx84SDRWuL5JE70pf4Rn" Name="Input 2" Kind="InputPin" />
                       <Pin Id="MhCl6BISdUpNxQwRLyVqIV" Name="Output" Kind="OutputPin" />
                     </Node>
-                    <Node Bounds="1216,374,52,19" Id="J5Lz2fKmz1WN6hrQuMOXrV">
-                      <p:NodeReference LastCategoryFullName="Collections.Mutable.MutableArray" LastSymbolSource="VL.Collections.vl">
+                    <Node Bounds="1216,374,64,26" Id="J5Lz2fKmz1WN6hrQuMOXrV">
+                      <p:NodeReference LastCategoryFullName="Collections.Mutable.MutableArray" LastDependency="VL.Collections.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="GetItem" />
                         <CategoryReference Kind="ArrayType" Name="MutableArray" NeedsToBeDirectParent="true" />
@@ -1724,7 +1753,7 @@
                       <Pin Id="AmE2ju3zjUFPzQMxSIHLE0" Name="Item" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="1263,423,127,19" Id="UCM4d5N7V1NM2HOdlHLIdy">
-                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="ToSpreadVector2" />
                       </p:NodeReference>
@@ -1732,7 +1761,7 @@
                       <Pin Id="Q3wJgkyEHp3LioODguJet1" Name="Output" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="1077,298,143,26" Id="EbUQNrO7J2uOABHdKGDUAM">
-                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Mesh" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="Mesh" />
                         <Choice Kind="OperationCallFlag" Name="TextureCoordinateChannels" />
@@ -1741,15 +1770,15 @@
                       <Pin Id="NFIb2U7D1mmLKFUnWmMf7C" Name="Output" Kind="StateOutputPin" />
                       <Pin Id="OspFHnUn8gwOMvKnwXQqqL" Name="Texture Coordinate Channels" Kind="OutputPin" />
                     </Node>
-                    <Pad Id="TaOlJfH1dhuLGgNXgJpYwv" Comment="Primitive Type" Bounds="876,737,152,15" ShowValueBox="true" isIOBox="true" Value="TriangleList">
-                      <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastSymbolSource="VL.Stride.Graphics.vl">
+                    <Pad Id="TaOlJfH1dhuLGgNXgJpYwv" Comment="Primitive Type" Bounds="876,737,153,15" ShowValueBox="true" isIOBox="true" Value="TriangleList">
+                      <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.Graphics.vl">
                         <Choice Kind="TypeFlag" Name="PrimitiveType" />
                       </p:TypeAnnotation>
                     </Pad>
                   </Patch>
                 </Node>
                 <Node Bounds="453,196,50,26" Id="EebYBTHQCF1OctIydCnnbo">
-                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastSymbolSource="AssimpNet.dll">
+                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastDependency="AssimpNet.dll">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="AssemblyCategory" Name="Scene" />
                     <Choice Kind="OperationCallFlag" Name="Meshes" />
@@ -1822,7 +1851,7 @@
     ************************ ToEntity ************************
 
 -->
-      <Node Name="ToEntity" Bounds="200,220" Id="K0Fu6Hxzm0GPahSWJjW5DD">
+      <Node Name="ToEntity" Bounds="196,210" Id="K0Fu6Hxzm0GPahSWJjW5DD">
         <p:NodeReference>
           <Choice Kind="ContainerDefinition" Name="Process" />
           <FullNameCategoryReference ID="Primitive" />
@@ -1831,21 +1860,23 @@
           <Canvas Id="JuoSU67RgYQPfZdIilcoTo" CanvasType="Group">
             <ControlPoint Id="MRZL5I0uOawMa0RuWfLl4j" Bounds="180,407" />
             <Node Bounds="1692,370" Id="VOD9ve8oO1yOgYTmZaFohF">
-              <p:NodeReference LastCategoryFullName="Stride.Assets" LastSymbolSource="VL.Stride.Assets.Windows.vl">
+              <p:NodeReference LastCategoryFullName="Stride.Assets" LastDependency="VL.Stride.Assets.Windows.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessAppFlag" Name="FileModel" />
               </p:NodeReference>
+              <Pin Id="HUosrGnqX05MlnjZSJ58qA" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="AeVZ2TN91xJLxHasuKcOmg" Name="Path" Kind="InputPin" />
-              <Pin Id="MCjTx6LFxGHLJ7Zse8tv3Z" Name="Inport Scale" Kind="InputPin" />
+              <Pin Id="VrsEOqk3ybsQQT0tTyxZ6y" Name="Import Scale" Kind="InputPin" />
               <Pin Id="AoP4h71gMcdNfUhnJIFGt2" Name="Pivot Position" Kind="InputPin" />
               <Pin Id="ALbkPSneLMvOI60r1pnZKP" Name="Merge Meshes" Kind="InputPin" />
               <Pin Id="EPAYNsulVOVOGiWlGHL0aK" Name="Reload" Kind="InputPin" />
               <Pin Id="F5XWimiO1EHMW1FJOiqxYr" Name="Model" Kind="OutputPin" />
               <Pin Id="KDPx461pP43MyEPRs1hKdC" Name="Is Loading" Kind="OutputPin" />
               <Pin Id="Q5983o5mdoGLQATjbUpELg" Name="Already Loaded" Kind="OutputPin" />
+              <Pin Id="NQeNBwkDJA8QLlG6gX5wu6" Name="Url" Kind="OutputPin" IsHidden="true" />
             </Node>
             <Node Bounds="145,458,443,544" Id="J00I2CzfLK0NXoTOXilJKB">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                 <FullNameCategoryReference ID="Primitive" />
@@ -1862,11 +1893,12 @@
                 <Patch Id="Rfx6qT3vDRKN94vk3qdwVw" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="RAqFg0USSy6QbIEaeyp5aH" Name="Then" ManuallySortedPins="true" />
                 <Node Bounds="161,545,77,26" Id="DZcDkGK3dVaPE870JbHb6N">
-                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                     <Choice Kind="OperationCallFlag" Name="Create" />
                   </p:NodeReference>
+                  <Pin Id="PLXHUrtLx9nNBg5oCQvosT" Name="Node Context" Kind="InputPin" IsHidden="true" />
                   <Pin Id="By43LDdPt3CMb64bkVQCUL" Name="Node" Kind="InputPin" />
                   <Pin Id="HltRm3Au5jyMOmHFb9b3x7" Name="Meshes" Kind="InputPin" />
                   <Pin Id="JTDgKFOoAgGOZOl2P8ZzBq" Name="Materials" Kind="InputPin" />
@@ -1874,7 +1906,7 @@
                   <Pin Id="Ap6CP911cUzMFhZ5F0MNFB" Name="Output" Kind="StateOutputPin" />
                 </Node>
                 <Node Bounds="164,489,61,26" Id="AscrspcNustMCSPz03zflT">
-                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastSymbolSource="AssimpNet.dll">
+                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastDependency="AssimpNet.dll">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <Choice Kind="OperationCallFlag" Name="RootNode" />
                     <CategoryReference Kind="AssemblyCategory" Name="Scene" NeedsToBeDirectParent="true" />
@@ -1884,7 +1916,7 @@
                   <Pin Id="NcMsI34EztUMmwcpKXOBuM" Name="Root Node" Kind="OutputPin" />
                 </Node>
                 <Node Bounds="215,598,361,327" Id="HrUIC3o5HPzQRWbUhsXljC">
-                  <p:NodeReference LastCategoryFullName="Collections.Trees.IReadOnlyTreeNode" LastSymbolSource="VL.Collections.vl">
+                  <p:NodeReference LastCategoryFullName="Collections.Trees.IReadOnlyTreeNode" LastDependency="VL.Collections.vl">
                     <Choice Kind="OperationCallFlag" Name="Traverse" />
                     <CategoryReference Kind="MutableInterfaceType" Name="IReadOnlyTreeNode" NeedsToBeDirectParent="true" />
                     <Choice Kind="RegionFlag" Name="Region (Stateless)" Fixed="true" />
@@ -1898,7 +1930,7 @@
                     <ControlPoint Id="DY3n5C44l7uMOpuN4zN0EZ" Bounds="238,606" />
                     <ControlPoint Id="PuclQrLmrpPLr97zY2FoQo" Bounds="228,918" />
                     <Node Bounds="237,631,48,19" Id="R07hwWGva2gMERi0iTZGAF">
-                      <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
+                      <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="CoreLibBasics.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="CastAs" />
                       </p:NodeReference>
@@ -1908,14 +1940,14 @@
                       <Pin Id="LH0s7neymSjN1WbQ68PSIw" Name="Success" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="227,878,94,19" Id="FUJbVYSxG9XLBQeIZo3cAP">
-                      <p:NodeReference LastCategoryFullName="Collections.Trees.Command.Continue" LastSymbolSource="VL.Collections.vl">
+                      <p:NodeReference LastCategoryFullName="Collections.Trees.Command.Continue" LastDependency="VL.Collections.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="TraverseChildren" />
                       </p:NodeReference>
                       <Pin Id="GjceTArQZg5LD4jee7CMHD" Name="Result" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="355,740,209,186" Id="GJgXOoWunLTM2N5yAjNt0E">
-                      <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                      <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                         <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                         <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                         <CategoryReference Kind="Category" Name="Primitive" />
@@ -1926,7 +1958,7 @@
                         <Patch Id="RBlzSn2gAkWN3OXMLGnFEE" Name="Update" ManuallySortedPins="true" />
                         <Patch Id="JHkiQYKQNIDOvsQqaSVfBA" Name="Dispose" ManuallySortedPins="true" />
                         <Node Bounds="367,769,48,19" Id="M8W6wHtvtZPOgF7qFMRAlO">
-                          <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
+                          <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="CoreLibBasics.vl">
                             <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                             <Choice Kind="OperationCallFlag" Name="CastAs" />
                           </p:NodeReference>
@@ -1936,7 +1968,7 @@
                           <Pin Id="PbpfRPrVynlODQ1ofMaMhf" Name="Success" Kind="OutputPin" />
                         </Node>
                         <Node Bounds="440,879,112,19" Id="HJ5JGaiL1gwMqfyRgV3ycW">
-                          <p:NodeReference LastCategoryFullName="Stride.Engine.EntityTransformExtensions" LastSymbolSource="Stride.Engine.dll">
+                          <p:NodeReference LastCategoryFullName="Stride.Engine.EntityTransformExtensions" LastDependency="Stride.Engine.dll">
                             <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                             <Choice Kind="OperationCallFlag" Name="SetParent" />
                             <CategoryReference Kind="AssemblyCategory" Name="EntityTransformExtensions" NeedsToBeDirectParent="true" />
@@ -1945,7 +1977,7 @@
                           <Pin Id="DZWl4NZxNNDOh9fRsY2JVj" Name="Parent" Kind="InputPin" />
                         </Node>
                         <Node Bounds="367,822,77,26" Id="QKHG1wHqd3hLQmzGPlzDdP">
-                          <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                          <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                             <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                             <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                             <Choice Kind="OperationCallFlag" Name="entity" />
@@ -1958,7 +1990,7 @@
                       <ControlPoint Id="O1v9QNKwXMLMTh7E0GVAxq" Bounds="370,746" Alignment="Top" />
                     </Node>
                     <Node Bounds="296,690,77,26" Id="R6gobms6g9OL8KVZ17ZfIb">
-                      <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                      <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                         <Choice Kind="OperationCallFlag" Name="Children" />
@@ -1968,7 +2000,7 @@
                       <Pin Id="Ah5mwEbDLlMLo8uiKkqCQc" Name="Children" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="475,689,77,26" Id="SoWawn8BukGNSGQkDzI0OT">
-                      <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                      <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                         <Choice Kind="OperationCallFlag" Name="entity" />
@@ -1980,7 +2012,7 @@
                   </Patch>
                 </Node>
                 <Node Bounds="157,944,77,26" Id="AuDiQILNWPNPugSJmaeoLl">
-                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                     <Choice Kind="OperationCallFlag" Name="entity" />
@@ -1999,10 +2031,10 @@
           </Canvas>
           <Patch Id="CJWqWxPNlLbQIFsuZ7UlEN" Name="Create" />
           <Patch Id="LhofJvxykaJLcCnxpjDOe0" Name="Update">
+            <Pin Id="QcBihVV7TL7MdC3rM8EdqQ" Name="Force" Kind="InputPin" />
             <Pin Id="OkykjSYBYUSM48N7DEzKFP" Name="Scene" Kind="InputPin" />
             <Pin Id="Lxpozryya1YPoqTeC8HE9k" Name="Entity" Kind="OutputPin" />
             <Pin Id="ViAUfa9MBFiMl61O3DlJuF" Name="Meshes" Kind="InputPin" />
-            <Pin Id="QcBihVV7TL7MdC3rM8EdqQ" Name="Force" Kind="InputPin" />
             <Pin Id="G5AHQWiJA4ZMyv7uNbFcrI" Name="Materials" Kind="InputPin" />
             <Pin Id="FTYm0yjHBa8Nawm4hCWrd3" Name="MaterialIndices" Kind="InputPin" />
           </Patch>
@@ -2050,13 +2082,13 @@
     ************************ AssimpTreeNode ************************
 
 -->
-      <Node Name="AssimpTreeNode" Bounds="199,266" Id="Lvp2HqzrEoxO6hpgVPVh82">
+      <Node Name="AssimpTreeNode" Bounds="196,250" Id="Lvp2HqzrEoxO6hpgVPVh82">
         <p:NodeReference>
           <Choice Kind="ClassDefinition" Name="Class" />
           <FullNameCategoryReference ID="Primitive" />
         </p:NodeReference>
         <p:Interfaces>
-          <TypeReference LastCategoryFullName="Collections.Trees" LastSymbolSource="VL.Collections.vl">
+          <TypeReference LastCategoryFullName="Collections.Trees" LastDependency="VL.Collections.vl">
             <Choice Kind="MutableInterfaceType" Name="IReadOnlyTreeNode" />
           </TypeReference>
         </p:Interfaces>
@@ -2065,7 +2097,7 @@
             <Pad Id="QoEWmU5BRe0LEINyCTv8Fx" SlotId="CZQMl21qRKfMvrc56dqXPu" Bounds="392,443" />
             <ControlPoint Id="Le7YRK6nUz8NyBNiG5CxC8" Bounds="395,154" />
             <Node Bounds="611,205,55,26" Id="QTzOARATh3lQIGLQIeRr79">
-              <p:NodeReference LastCategoryFullName="Assimp.Node" LastSymbolSource="AssimpNet.dll">
+              <p:NodeReference LastCategoryFullName="Assimp.Node" LastDependency="AssimpNet.dll">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Children" />
                 <CategoryReference Kind="AssemblyCategory" Name="Node" NeedsToBeDirectParent="true" />
@@ -2078,7 +2110,7 @@
             <Pad Id="ESigyhUNiWsOlFaabuhLET" SlotId="NMeRsbGsPUTNbV95VRQ5yh" Bounds="225,516" />
             <ControlPoint Id="TcCklk2jwvaOQ9lBglMcVX" Bounds="226,593" />
             <Node Bounds="658,271,112,94" Id="EODkeua6Xq1M9JSvHxUHIM">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -2091,11 +2123,12 @@
                 <Patch Id="SObdoIaSxgtLlc30uPugDJ" Name="Update" ManuallySortedPins="true" />
                 <Patch Id="SHwVl3woVR5N4s0LiYASOs" Name="Dispose" ManuallySortedPins="true" />
                 <Node Bounds="681,303,77,26" Id="T0w25fdBiCZPVYtfqUM7aY">
-                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastSymbolSource="callmenames-2020-10-12_03.vl">
+                  <p:NodeReference LastCategoryFullName="Main.AssimpTreeNode" LastDependency="callmenames-2020-10-12_03.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="ClassType" Name="AssimpTreeNode" />
                     <Choice Kind="OperationCallFlag" Name="Create" />
                   </p:NodeReference>
+                  <Pin Id="PtmTCpYQfQKN1DixUnarWo" Name="Node Context" Kind="InputPin" IsHidden="true" />
                   <Pin Id="Tnzen949IKLLos0DpIb9W8" Name="Node" Kind="InputPin" />
                   <Pin Id="U746fgHE4mfOmOYOwOIm6G" Name="Meshes" Kind="InputPin" />
                   <Pin Id="TRMHrkP8qT1NG3h1edh4yD" Name="Materials" Kind="InputPin" />
@@ -2111,9 +2144,10 @@
             <ControlPoint Id="ORSrYLihmevQHyuyMDvhJf" Bounds="344,602" />
             <ControlPoint Id="MiG7QT72fLEMdOaBKq4wKE" Bounds="507,148" />
             <Node Bounds="483,244,71,19" Id="KfK7w53zlWkNpvMtd3ho4H">
-              <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+              <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                 <Choice Kind="ProcessNode" Name="CreateEntity" />
               </p:NodeReference>
+              <Pin Id="GC6JGhuXfX2QVtcgqtaIxQ" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="EabAFvfnW09ODc0r28McU6" Name="AssimpNode" Kind="InputPin" />
               <Pin Id="JGricUZVoiGQIh2h0sHVXJ" Name="Meshes" Kind="InputPin" />
               <Pin Id="Iu63bDZvXpGMGQZdMKVgLO" Name="Materials" Kind="InputPin" />
@@ -2139,7 +2173,7 @@
           <Patch Id="BeSuvWjIHNSNGiIvUNK7gt" Name="Create" ParticipatingElements="NWlyHXISdEGMAd2uyOF4nX">
             <Pin Id="PLlIkUtCGIBQZiizam12QH" Name="Node" Kind="InputPin" />
             <Pin Id="Uee6mcvz219P8FGYm3WTJE" Name="Meshes" Kind="InputPin">
-              <p:TypeAnnotation>
+              <p:TypeAnnotation LastCategoryFullName="Collections" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="TypeFlag" Name="Spread" />
                 <p:TypeArguments>
                   <TypeReference>
@@ -2197,9 +2231,9 @@
         </p:NodeReference>
         <Patch Id="RrgLGDV0AMPPkIrHJ48VXJ">
           <Canvas Id="IheYRqXr3N0LFgQeSkHKSB" CanvasType="Group">
-            <ControlPoint Id="FRFZuQMvav0QIzBvLddIRZ" Bounds="323,317" />
-            <Node Bounds="309,350,282,338" Id="F75KldpwadmPUwvixIgMRb">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+            <ControlPoint Id="FRFZuQMvav0QIzBvLddIRZ" Bounds="328,320" />
+            <Node Bounds="314,350,277,346" Id="F75KldpwadmPUwvixIgMRb">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ProcessStatefulRegion" Name="Cache" />
                 <FullNameCategoryReference ID="Primitive" />
@@ -2210,8 +2244,8 @@
               <Patch Id="HRQnc03ngrkL29Ikaxt1h6" ManuallySortedPins="true">
                 <Patch Id="Np5jn6HXb6UOYWpe71dgoR" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="CyAqggYrdn5LwbAQI4DOx7" Name="Then" ManuallySortedPins="true" />
-                <Node Bounds="321,380,58,26" Id="J8clpiJM1kGMBqjcHFeaYu">
-                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastSymbolSource="AssimpNet.dll">
+                <Node Bounds="326,380,58,26" Id="J8clpiJM1kGMBqjcHFeaYu">
+                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastDependency="AssimpNet.dll">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="AssemblyCategory" Name="Scene" />
                     <Choice Kind="OperationCallFlag" Name="Materials" />
@@ -2220,8 +2254,8 @@
                   <Pin Id="UzknqRM9UZyMmhCDupqK4N" Name="Output" Kind="StateOutputPin" />
                   <Pin Id="PIU2skhKlOSMTqM5AFw8RW" Name="Materials" Kind="OutputPin" />
                 </Node>
-                <Node Bounds="364,434,215,234" Id="CMD393Vdcz8NLte64U0y5v">
-                  <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+                <Node Bounds="367,434,212,233" Id="CMD393Vdcz8NLte64U0y5v">
+                  <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                     <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                     <Choice Kind="ApplicationFlag" Name="ForEach" />
                     <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
@@ -2232,7 +2266,7 @@
                     <Patch Id="RTPC2FYZxUNLNJlVEDFyI7" Name="Update" ManuallySortedPins="true" />
                     <Patch Id="VCrwcP2eGr3P0zBUNDFvwe" Name="Dispose" ManuallySortedPins="true" />
                     <Node Bounds="379,466,73,26" Id="IWoesgvFSZuPr7pw6vXbm5">
-                      <p:NodeReference LastCategoryFullName="Assimp.Material" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Material" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <CategoryReference Kind="AssemblyCategory" Name="Material" />
                         <Choice Kind="OperationCallFlag" Name="ColorDiffuse" />
@@ -2242,7 +2276,7 @@
                       <Pin Id="TGqrjibYrXYL2n2wgrDHkM" Name="Color Diffuse" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="447,512,53,19" Id="IAOE7HQF7jwLs9epqJ2KZK">
-                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastSymbolSource="VL.Assimp.vl">
+                      <p:NodeReference LastCategoryFullName="VL.Assimp.internal" LastDependency="VL.Assimp.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="ToRGBA" />
                       </p:NodeReference>
@@ -2250,7 +2284,7 @@
                       <Pin Id="K4Ri08C39ejMA11dNZzNgO" Name="Result" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="508,472,59,26" Id="TjU6MOlMq7sLI5518le9kL">
-                      <p:NodeReference LastCategoryFullName="Assimp.Material" LastSymbolSource="AssimpNet.dll">
+                      <p:NodeReference LastCategoryFullName="Assimp.Material" LastDependency="AssimpNet.dll">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="OperationCallFlag" Name="Shininess" />
                       </p:NodeReference>
@@ -2259,26 +2293,28 @@
                       <Pin Id="JQMIX0s3lvCPbAnYdtcXhO" Name="Shininess" Kind="OutputPin" />
                     </Node>
                     <Node Bounds="447,578,85,19" Id="K6GHWIPVy2fMPAp6UXngjj">
-                      <p:NodeReference LastCategoryFullName="Stride.Materials" LastSymbolSource="VL.Stride.Rendering.vl">
+                      <p:NodeReference LastCategoryFullName="Stride.Materials" LastDependency="VL.Stride.Rendering.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                         <Choice Kind="ProcessAppFlag" Name="PBRMaterial" />
                       </p:NodeReference>
+                      <Pin Id="RIsnfp4ZXxvPV2ReR6Ujp9" Name="Node Context" Kind="InputPin" IsHidden="true" />
                       <Pin Id="PBqsNvQLEJCOUI18sJsagh" Name="Color" Kind="InputPin" />
                       <Pin Id="CFOsYKH9gKPMo3dfN8ni97" Name="Metalness" Kind="InputPin" />
                       <Pin Id="JMMlyTlissUOEzWkt6S2n2" Name="Roughness" Kind="InputPin" />
                       <Pin Id="MToP3usS0whOKns4D99c3E" Name="Transparency" Kind="InputPin" />
                       <Pin Id="IxvO1oI9JVwLEWXw8lwUlG" Name="Cull Mode" Kind="InputPin" />
+                      <Pin Id="E3fZHSK4ER4N6aDsG2V0O3" Name="State Output" Kind="OutputPin" IsHidden="true" />
                       <Pin Id="LReKHvOJmVgOAM6YpdW8t8" Name="Output" Kind="OutputPin" />
                     </Node>
                   </Patch>
-                  <ControlPoint Id="Q4CsEG0H86BN1kdbkBQ5pE" Bounds="378,440" Alignment="Top" />
-                  <ControlPoint Id="F1akZOWK6shOYnG1yg0XwP" Bounds="406,662" Alignment="Bottom" />
+                  <ControlPoint Id="Q4CsEG0H86BN1kdbkBQ5pE" Bounds="381,440" Alignment="Top" />
+                  <ControlPoint Id="F1akZOWK6shOYnG1yg0XwP" Bounds="449,661" Alignment="Bottom" />
                 </Node>
               </Patch>
-              <ControlPoint Id="Lv7xtaIkCedPQ45FXNq5od" Bounds="328,357" Alignment="Top" />
-              <ControlPoint Id="HmyAXpJ2H4eMv6603hGDqb" Bounds="397,682" Alignment="Bottom" />
+              <ControlPoint Id="Lv7xtaIkCedPQ45FXNq5od" Bounds="328,356" Alignment="Top" />
+              <ControlPoint Id="HmyAXpJ2H4eMv6603hGDqb" Bounds="449,690" Alignment="Bottom" />
             </Node>
-            <ControlPoint Id="BzHgxwWwvm1MmKuCjOEOQB" Bounds="396,734" />
+            <ControlPoint Id="BzHgxwWwvm1MmKuCjOEOQB" Bounds="449,740" />
           </Canvas>
           <Patch Id="KgtMLWBedn8MlKXZmNrrre" Name="Create" />
           <Patch Id="CHxXqJV5ET6PAktpC31G3f" Name="Update">
@@ -2308,27 +2344,29 @@
     ************************ AssimpEntity ************************
 
 -->
-      <Node Name="AssimpEntity" Bounds="206,324" Id="VMEERZw5GYAMM3Ldx2aH10">
-        <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="builtin">
+      <Node Name="AssimpEntity" Bounds="196,290" Id="VMEERZw5GYAMM3Ldx2aH10">
+        <p:NodeReference LastCategoryFullName="Primitive" LastDependency="builtin">
           <Choice Kind="ContainerDefinition" Name="Process" />
         </p:NodeReference>
         <Patch Id="IWsIbeDXvx4NtRQMOPzN82">
           <Canvas Id="M0bkEAxcyFVNk3WTIHXKKN" CanvasType="Group">
-            <Node Bounds="493,588,64,19" Id="Kqdnmxp39XJPf6dahEsrMn">
-              <p:NodeReference LastCategoryFullName="VL.Assimp" LastSymbolSource="VL.Assimp.vl">
+            <Node Bounds="497,600,64,19" Id="Kqdnmxp39XJPf6dahEsrMn">
+              <p:NodeReference LastCategoryFullName="VL.Assimp" LastDependency="VL.Assimp.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessAppFlag" Name="LoadScene" />
               </p:NodeReference>
-              <Pin Id="TkzYZBN1yVaPRAgPJP29A0" Name="Force" Kind="InputPin" />
+              <Pin Id="ANNIGQjuviJQXyhSrVDrFJ" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="Hzr6xrLGkV6LUaQYmu49yX" Name="Path" Kind="InputPin" />
               <Pin Id="T8b9eFp37yGPuhdLrZWQCo" Name="PostProcessFlags" Kind="InputPin" />
               <Pin Id="TuUUTYh9m89LM2ybNMoeX6" Name="Scene" Kind="OutputPin" />
+              <Pin Id="TkzYZBN1yVaPRAgPJP29A0" Name="Force" Kind="InputPin" />
             </Node>
             <Node Bounds="477,721,85,19" Id="D6rQbdPMUNpQCmkxZOvjVN">
-              <p:NodeReference LastCategoryFullName="VL.Assimp" LastSymbolSource="VL.Assimp.vl">
+              <p:NodeReference LastCategoryFullName="VL.Assimp" LastDependency="VL.Assimp.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessNode" Name="ToEntity" />
               </p:NodeReference>
+              <Pin Id="QuT54JwZ7siLwuKo4YQ25r" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="EUBFNDhPUITLuKi7LFF9zf" Name="Force" Kind="InputPin" />
               <Pin Id="BRfmVh7ix4uQFPxyD3BxWU" Name="Scene" Kind="InputPin" />
               <Pin Id="GuBZfZx7yEqQIKz2qzHykm" Name="Meshes" Kind="InputPin" />
@@ -2336,28 +2374,30 @@
               <Pin Id="V7o6Rqt2AhrNpVhUsNyyFW" Name="MaterialIndices" Kind="InputPin" />
               <Pin Id="F52TSgBBmr9OnvB1cTllsk" Name="Entity" Kind="OutputPin" />
             </Node>
-            <Node Bounds="520,643,50,19" Id="Ox0AI50WnmIPl2Psdv5BIM">
-              <p:NodeReference LastCategoryFullName="VL.Assimp" LastSymbolSource="VL.Assimp.vl">
+            <Node Bounds="517,650,50,19" Id="Ox0AI50WnmIPl2Psdv5BIM">
+              <p:NodeReference LastCategoryFullName="VL.Assimp" LastDependency="VL.Assimp.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessAppFlag" Name="Meshes" />
                 <CategoryReference Kind="Category" Name="Assimp" NeedsToBeDirectParent="true" />
               </p:NodeReference>
+              <Pin Id="G3JxSPsbMxvQGK8c8BsJRo" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="UN8vmh35QzhPgKKhrnFvyc" Name="Scene" Kind="InputPin" />
               <Pin Id="PLOjuPLIADAPW0kvQQmKKe" Name="Meshes" Kind="OutputPin" />
               <Pin Id="MwI6TaH89Z2POfHuG7oajD" Name="Material Indices" Kind="OutputPin" />
             </Node>
-            <Node Bounds="594,644,58,19" Id="CbTblotkt2TMa4NSagBNKo">
-              <p:NodeReference LastCategoryFullName="VL.Assimp" LastSymbolSource="VL.Assimp.vl">
+            <Node Bounds="537,690,58,19" Id="CbTblotkt2TMa4NSagBNKo">
+              <p:NodeReference LastCategoryFullName="VL.Assimp" LastDependency="VL.Assimp.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessAppFlag" Name="Materials" />
                 <CategoryReference Kind="Category" Name="Assimp" NeedsToBeDirectParent="true" />
               </p:NodeReference>
+              <Pin Id="HBpmW0dNTKtOgspG0lPDas" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="NcMAPIXu7jjPDKKPdYp2a4" Name="Input" Kind="InputPin" />
               <Pin Id="A4lxZRR5k9KPtdVfkx9oMe" Name="Output" Kind="OutputPin" />
             </Node>
-            <ControlPoint Id="IwfmbCNWBK7MfxM9aGr2dP" Bounds="368,521" />
-            <Node Bounds="458,989,45,19" Id="QqOyyWpqJRMPN8J6k4I9aY">
-              <p:NodeReference LastCategoryFullName="Control" LastSymbolSource="CoreLibBasics.vl">
+            <ControlPoint Id="IwfmbCNWBK7MfxM9aGr2dP" Bounds="591,830" />
+            <Node Bounds="437,990,45,19" Id="QqOyyWpqJRMPN8J6k4I9aY">
+              <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
               </p:NodeReference>
@@ -2366,12 +2406,12 @@
               <Pin Id="NuPB760sF7KPS6CCon7Ab1" Name="Input 2" Kind="InputPin" />
               <Pin Id="LS1xzSRkvXPMY7koGMvtQh" Name="Output" Kind="OutputPin" />
             </Node>
-            <ControlPoint Id="O1K9BnWPyXhOqWydbvtva4" Bounds="729,504" />
-            <ControlPoint Id="H6DhZ2JQw3lLSGmz6NeUQM" Bounds="459,1048" />
-            <ControlPoint Id="Obk68CJXpAMMrPMWbPWCxb" Bounds="523,513" />
-            <ControlPoint Id="O64PPJluXgrNCHIOAu10Hj" Bounds="584,512" />
-            <Node Bounds="494,806,65,19" Id="CXR6VQbpqg2Mt1uF4mgblJ">
-              <p:NodeReference LastCategoryFullName="Primitive.Object" LastSymbolSource="CoreLibBasics.vl">
+            <ControlPoint Id="O1K9BnWPyXhOqWydbvtva4" Bounds="367,961" />
+            <ControlPoint Id="H6DhZ2JQw3lLSGmz6NeUQM" Bounds="439,1050" />
+            <ControlPoint Id="Obk68CJXpAMMrPMWbPWCxb" Bounds="499,550" />
+            <ControlPoint Id="O64PPJluXgrNCHIOAu10Hj" Bounds="529,580" />
+            <Node Bounds="393,790,65,19" Id="CXR6VQbpqg2Mt1uF4mgblJ">
+              <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="IsAssigned" />
               </p:NodeReference>
@@ -2379,8 +2419,8 @@
               <Pin Id="HFCPAoytLYaPNIer2Fqu3u" Name="Result" Kind="OutputPin" />
               <Pin Id="TOpDYiDNojqMqbyKF6VuWV" Name="Not Assigned" Kind="OutputPin" />
             </Node>
-            <Node Bounds="518,859,106,80" Id="RFWkQad1lcEQXcq5CH5VUV">
-              <p:NodeReference LastCategoryFullName="Primitive" LastSymbolSource="VL.CoreLib.dll">
+            <Node Bounds="500,860,106,80" Id="RFWkQad1lcEQXcq5CH5VUV">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
                 <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
                 <Choice Kind="ApplicationStatefulRegion" Name="If" />
                 <CategoryReference Kind="Category" Name="Primitive" />
@@ -2389,8 +2429,8 @@
               <Patch Id="QKOQTmLYZIKPRB5Z8OQEXK" ManuallySortedPins="true">
                 <Patch Id="CqmFL8tgj2eO7P8rFpEYny" Name="Create" ManuallySortedPins="true" />
                 <Patch Id="H5bUnSxskKfMIPKqPwwyrn" Name="Then" ManuallySortedPins="true" />
-                <Node Bounds="530,888,82,26" Id="MOh4ynCalLgNdYpjgBC5nr">
-                  <p:NodeReference LastCategoryFullName="Stride.API.Engine.Entity" LastSymbolSource="VL.Stride.Engine.vl">
+                <Node Bounds="512,889,82,26" Id="MOh4ynCalLgNdYpjgBC5nr">
+                  <p:NodeReference LastCategoryFullName="Stride.API.Engine.Entity" LastDependency="VL.Stride.Engine.vl">
                     <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                     <CategoryReference Kind="ClassType" Name="Entity" />
                     <Choice Kind="OperationCallFlag" Name="SetLocalMatrix" />
@@ -2403,16 +2443,16 @@
             </Node>
           </Canvas>
           <Patch Id="FHu57Bx8eSdNfvIob2p6HW" Name="Create" />
-          <Patch Id="O5PW6qex5PtMKbR4wjoqA7" Name="Update" ParticipatingElements="ObV51BdobPNMrsUSLIg4U1">
+          <Patch Id="O5PW6qex5PtMKbR4wjoqA7" Name="Update" ParticipatingElements="ObV51BdobPNMrsUSLIg4U1" ManuallySortedPins="true">
             <Pin Id="QcxPhX4YN3mOXy29CUT1Xv" Name="Transformation" Kind="InputPin" />
+            <Pin Id="GrKJUrb887hNUg23DIZfjC" Name="Path" Kind="InputPin" />
+            <Pin Id="PJa2wrb12oZLvC9ix9UR7l" Name="PostProcessFlags" Kind="InputPin" />
             <Pin Id="Gos8WFi7P9eLJ2W27VffrI" Name="Enabled" Kind="InputPin" DefaultValue="True">
-              <p:TypeAnnotation LastCategoryFullName="Primitive" LastSymbolSource="CoreLibBasics.vl">
+              <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Boolean" />
               </p:TypeAnnotation>
             </Pin>
             <Pin Id="LFlKwe1kvp1PNfOCqbS1lG" Name="Output" Kind="OutputPin" />
-            <Pin Id="GrKJUrb887hNUg23DIZfjC" Name="Path" Kind="InputPin" />
-            <Pin Id="PJa2wrb12oZLvC9ix9UR7l" Name="PostProcessFlags" Kind="InputPin" />
           </Patch>
           <ProcessDefinition Id="LpNTHdz1zNxM1v7ivqrLiW">
             <Fragment Id="Kmn5fQtuiQ9Oh8RhyXpm9B" Patch="FHu57Bx8eSdNfvIob2p6HW" Enabled="true" />
@@ -2454,12 +2494,140 @@
           <Choice Kind="ForwardRecordDefinition" Name="Immutable Forward" />
           <FullNameCategoryReference ID="Primitive" />
         </p:NodeReference>
-        <p:TypeAnnotation LastCategoryFullName="Assimp" LastSymbolSource="AssimpNet.dll">
+        <p:TypeAnnotation LastCategoryFullName="Assimp" LastDependency="AssimpNet.dll">
           <Choice Kind="TypeFlag" Name="PostProcessSteps" />
         </p:TypeAnnotation>
         <Patch Id="PFIq1h5dnozNJJPJCFkkUL">
           <Canvas Id="OaDg7BTfnkdMctbXFpbugr" BordersChecked="false" CanvasType="Group" />
           <ProcessDefinition Id="OopWRVjt6UnNhpLC1ZbqVN" IsHidden="true" />
+        </Patch>
+      </Node>
+      <!--
+
+    ************************ Animations ************************
+
+-->
+      <Node Name="Animations" Bounds="199,520" Id="N8uhoKGavb4PACilT11QGP">
+        <p:NodeReference>
+          <Choice Kind="ContainerDefinition" />
+        </p:NodeReference>
+        <Patch Id="Swm0tqIYFe3PEJx3hMdra8">
+          <Canvas Id="RQ0dFDxMQQdLmeyJfpbzWi" CanvasType="Group">
+            <ControlPoint Id="S9Wc16S7hrWParhZ5pxiwM" Bounds="257,191" />
+            <Node Bounds="149,270,65,19" Id="SmZWh2VlIe4NVw91OoRzRK">
+              <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="IsAssigned" />
+              </p:NodeReference>
+              <Pin Id="SreotyTmB2tLTbvRwC7Wwd" Name="X" Kind="InputPin" />
+              <Pin Id="OCg1nQMlpgLPKxe40i8s4X" Name="Result" Kind="OutputPin" />
+              <Pin Id="KyKBsbAAUDbLiGECkgj00w" Name="Not Assigned" Kind="OutputPin" />
+            </Node>
+            <Node Bounds="248,257,415,420" Id="P58kuM2onvrPFCRRoIFfEk">
+              <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
+                <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+                <CategoryReference Kind="Category" Name="Primitive" />
+                <Choice Kind="ApplicationStatefulRegion" Name="If" />
+              </p:NodeReference>
+              <Pin Id="I9WKPzPclFNPtIOd079vfP" Name="Condition" Kind="InputPin" />
+              <Patch Id="GojNfw5E00qLlvFhXqaQii" ManuallySortedPins="true">
+                <Patch Id="PiR0QSpoNQnNHaSoEou0HX" Name="Create" ManuallySortedPins="true" />
+                <Patch Id="OgPmrlMVtqyMsHpB9B0uJM" Name="Then" ManuallySortedPins="true" />
+                <Node Bounds="260,280,68,26" Id="TCS4uM9fF7QM90oSdIUaXL">
+                  <p:NodeReference LastCategoryFullName="Assimp.Scene" LastDependency="AssimpNet.dll">
+                    <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                    <CategoryReference Kind="AssemblyCategory" Name="Scene" />
+                    <Choice Kind="OperationCallFlag" Name="Animations" />
+                  </p:NodeReference>
+                  <Pin Id="MBei7EG5LVtOtwxK9lK8ga" Name="Input" Kind="StateInputPin" />
+                  <Pin Id="Tt9iHm7CQq8MWzBjyOQVXi" Name="Output" Kind="StateOutputPin" />
+                  <Pin Id="OBRfNifIFpUNVhdtcSr73A" Name="Animations" Kind="OutputPin" />
+                </Node>
+                <Node Bounds="311,340,340,126" Id="Qa80ObdftGlLNXR0iot4RL">
+                  <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
+                    <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
+                    <CategoryReference Kind="Category" Name="Primitive" />
+                    <Choice Kind="ApplicationStatefulRegion" Name="ForEach" />
+                  </p:NodeReference>
+                  <Pin Id="RfhjgsCAmbMNb76o3LkdpW" Name="Break" Kind="OutputPin" />
+                  <Patch Id="Dn5zbO7wOFsOtmVDQ1o9Yy" ManuallySortedPins="true">
+                    <Patch Id="CtBoKWuUlThL9A9LDxSk4g" Name="Create" ManuallySortedPins="true" />
+                    <Patch Id="QuYCbHEHHNYLyrSR8uBHhb" Name="Update" ManuallySortedPins="true" />
+                    <Patch Id="ObJ7y5wc0GBMOXlTcuLvdE" Name="Dispose" ManuallySortedPins="true" />
+                    <Node Bounds="323,370,53,26" Id="Hc8GgmvLqcALNKxkDHYuMj">
+                      <p:NodeReference LastCategoryFullName="Assimp.Animation" LastDependency="AssimpNet.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <CategoryReference Kind="AssemblyCategory" Name="Animation" />
+                        <Choice Kind="OperationCallFlag" Name="Name" />
+                      </p:NodeReference>
+                      <Pin Id="Ik3F0aUdjheMvBjd6PJ9GV" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="Pf2O1ocSyhTPyRRx00QAps" Name="Output" Kind="StateOutputPin" />
+                      <Pin Id="VUTCGrYaj5aNxGVmz9j0GD" Name="Name" Kind="OutputPin" />
+                    </Node>
+                    <Node Bounds="488,371,151,26" Id="JFYXgRgSRVhLuUx6UsAhzx">
+                      <p:NodeReference LastCategoryFullName="Assimp.Animation" LastDependency="AssimpNet.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <CategoryReference Kind="AssemblyCategory" Name="Animation" />
+                        <Choice Kind="OperationCallFlag" Name="NodeAnimationChannelCount" />
+                      </p:NodeReference>
+                      <Pin Id="I5AmxTv8gUDOJu5LrRAS2h" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="OicuYpQ3LgvLGviI4us1Rj" Name="Output" Kind="StateOutputPin" />
+                      <Pin Id="KQuO2cD6dzbPMPcc2QLckz" Name="Node Animation Channel Count" Kind="OutputPin" />
+                    </Node>
+                    <Node Bounds="495,420,128,26" Id="CEzHD6jh9VYOXMyhq4SS2V">
+                      <p:NodeReference LastCategoryFullName="Assimp.Animation" LastDependency="AssimpNet.dll">
+                        <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                        <Choice Kind="OperationCallFlag" Name="NodeAnimationChannels" />
+                      </p:NodeReference>
+                      <Pin Id="Tuhx0szXyZAPsK4VnU3rw9" Name="Input" Kind="StateInputPin" />
+                      <Pin Id="IuNEuRY08Q8LbonTVQd8JT" Name="Output" Kind="StateOutputPin" />
+                      <Pin Id="OYs39eO5mr1Nk5wPp63CYp" Name="Node Animation Channels" Kind="OutputPin" />
+                    </Node>
+                  </Patch>
+                  <ControlPoint Id="N3egmPcCApJL05TxnRYM0W" Bounds="325,346" Alignment="Top" />
+                  <ControlPoint Id="GuamRoO3n2pLqzGs9vDscr" Bounds="373,460" Alignment="Bottom" />
+                </Node>
+                <Pad Id="PmXtrkrW2j1QPlDr0maSLC" Comment="" Bounds="373,631,35,34" ShowValueBox="true" isIOBox="true" />
+              </Patch>
+            </Node>
+          </Canvas>
+          <Patch Id="Sl8aOCScy50Nvs55aZNIdS" Name="Create" />
+          <Patch Id="QPztIj3aqszMRuUIclBTFO" Name="Update">
+            <Pin Id="TV9ifDQeEPmMUcESb20auV" Name="Input" Kind="InputPin" />
+          </Patch>
+          <ProcessDefinition Id="NrSc3U9JuLXNzSGtk9FHgi">
+            <Fragment Id="LhzoOPyUifdN69V3rd4wH4" Patch="Sl8aOCScy50Nvs55aZNIdS" Enabled="true" />
+            <Fragment Id="QX5B1E54iwROdLd1exoPXu" Patch="QPztIj3aqszMRuUIclBTFO" Enabled="true" />
+          </ProcessDefinition>
+          <Link Id="CeEYDWxsMq1OzbeF3HOX8N" Ids="S9Wc16S7hrWParhZ5pxiwM,MBei7EG5LVtOtwxK9lK8ga" />
+          <Link Id="FTGrNdMxgq9OMlPbhwghy1" Ids="TV9ifDQeEPmMUcESb20auV,S9Wc16S7hrWParhZ5pxiwM" IsHidden="true" />
+          <Link Id="K5ZmONfOpV1LyhMyuY8SKf" Ids="S9Wc16S7hrWParhZ5pxiwM,SreotyTmB2tLTbvRwC7Wwd" />
+          <Link Id="EZKxHNGLbVhOk7jCrgfUGB" Ids="OBRfNifIFpUNVhdtcSr73A,N3egmPcCApJL05TxnRYM0W" />
+          <Link Id="MDALGi6CP0mMXQrLIzziEB" Ids="N3egmPcCApJL05TxnRYM0W,Ik3F0aUdjheMvBjd6PJ9GV" />
+          <Link Id="FuV1mTekE5PPlz8hv4OZNc" Ids="VUTCGrYaj5aNxGVmz9j0GD,GuamRoO3n2pLqzGs9vDscr" />
+          <Link Id="U5YN4ey3K9uN9LQsDROkzq" Ids="GuamRoO3n2pLqzGs9vDscr,PmXtrkrW2j1QPlDr0maSLC" />
+          <Link Id="QVr5yuFnEYVLCm3zKvQm2J" Ids="OCg1nQMlpgLPKxe40i8s4X,I9WKPzPclFNPtIOd079vfP" />
+          <Link Id="AMogensK4u3QMY02CumjMH" Ids="N3egmPcCApJL05TxnRYM0W,I5AmxTv8gUDOJu5LrRAS2h" />
+          <Link Id="OCiwyAjimx5N0wtEHZrszf" Ids="N3egmPcCApJL05TxnRYM0W,Tuhx0szXyZAPsK4VnU3rw9" />
+        </Patch>
+      </Node>
+      <!--
+
+    ************************ Animation ************************
+
+-->
+      <Node Name="Animation" Bounds="230,591" Id="UFWurNcR7c5L1nKuW0BI8e">
+        <p:NodeReference>
+          <Choice Kind="ContainerDefinition" />
+        </p:NodeReference>
+        <Patch Id="Q5vCcyUXRXlL8jV7ULjXUy">
+          <Canvas Id="HmBR5fIaSSaNBhAg1xw4jH" BordersChecked="false" CanvasType="Group" />
+          <Patch Id="Fp4vphBU1SMPuypSt8VxUv" Name="Create" />
+          <Patch Id="FnxXKYM6ySvMba7SEM2uOo" Name="Update" />
+          <ProcessDefinition Id="Ei0BaNdqe5pO7mLuWbc9OR">
+            <Fragment Id="TjGau61k5MSPxpZua6tJqn" Patch="Fp4vphBU1SMPuypSt8VxUv" Enabled="true" />
+            <Fragment Id="DiIaPeFW403PnPuV4dkl82" Patch="FnxXKYM6ySvMba7SEM2uOo" Enabled="true" />
+          </ProcessDefinition>
         </Patch>
       </Node>
     </Canvas>
@@ -2484,8 +2652,10 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="Nm853I2RgLMNMIGh4QgzbT" Location="AssimpNet" Version="4.1.0" />
-  <NugetDependency Id="KLb1H1ySKUWOLlCO2p9XHJ" Location="VL.CoreLib" Version="2020.3.0-0082-g7f8ac28314" />
-  <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="0.8.40-gb09bf2efc6" />
+  <NugetDependency Id="KLb1H1ySKUWOLlCO2p9XHJ" Location="VL.CoreLib" Version="2025.7.0" />
+  <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.0" />
   <PlatformDependency Id="PKXdAprO3wsPyBZJCq2zd4" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0082-g7f8ac28314/lib/Stride.Engine.dll" />
+  <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.0" />
+  <ProjectDependency Id="QXIygJZ44sLM5wRegnvQU6" Location="./csharp/VL.AssimpUtils/VL.AssimpUtils.csproj" />
+  <NugetDependency Id="AEIKMegw0wTQFdIMS0r9XO" Location="AssimpNet" Version="4.1.0" />
 </Document>
