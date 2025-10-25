@@ -29,14 +29,13 @@ public sealed class DqAnimBankRastered
 
 public struct ClipInfoRaster
 {
-    public string Name;
     public int BoneCount;
     public int FrameCount;
     public int StartIndex;          // index into SkinDQ (DualQuat units)
-    public double TicksPerSecond;   // tps used for this clip
+    public float TicksPerSecond;   // tps used for this clip
     public float StartTick;         // usually 0
     public float StepTick;          // ticks per frame (uniform)
-    public double DurationSeconds;
+    public float DurationSeconds;
 }
 
 public static class DqRasteredBuilder
@@ -131,9 +130,9 @@ public static class DqRasteredBuilder
                 allSkin.AddRange(oneFrame);
 
                 clipsOut.Add(new ClipInfoRaster {
-                    Name = name, BoneCount = boneNames.Count, FrameCount = 1, StartIndex = start,
-                    TicksPerSecond = tps, StartTick = 0, StepTick = (float)durTicks,
-                    DurationSeconds = tps > 0 ? durTicks / tps : 0
+                    BoneCount = boneNames.Count, FrameCount = 1, StartIndex = start,
+                    TicksPerSecond = (float)tps, StartTick = 0, StepTick = (float)durTicks,
+                    DurationSeconds = (float)(tps > 0 ? durTicks / tps : 0)
                 });
                 continue;
             }
@@ -150,9 +149,9 @@ public static class DqRasteredBuilder
                                      allSkin);
 
                 clipsOut.Add(new ClipInfoRaster {
-                    Name = name, BoneCount = boneNames.Count, FrameCount = frameCount, StartIndex = start,
-                    TicksPerSecond = tps, StartTick = startTick, StepTick = stepTick,
-                    DurationSeconds = tps > 0 ? durTicks / tps : 0
+                    BoneCount = boneNames.Count, FrameCount = frameCount, StartIndex = start,
+                    TicksPerSecond = (float)tps, StartTick = startTick, StepTick = stepTick,
+                    DurationSeconds = (float)(tps > 0 ? durTicks / tps : 0)
                 });
             }
             else
@@ -168,9 +167,9 @@ public static class DqRasteredBuilder
                                      allSkin);
 
                 clipsOut.Add(new ClipInfoRaster {
-                    Name = name, BoneCount = boneNames.Count, FrameCount = frames, StartIndex = start,
-                    TicksPerSecond = tps, StartTick = 0f, StepTick = step,
-                    DurationSeconds = tps > 0 ? durTicks / tps : 0
+                    BoneCount = boneNames.Count, FrameCount = frames, StartIndex = start,
+                    TicksPerSecond = (float)tps, StartTick = 0f, StepTick = step,
+                    DurationSeconds = (float)(tps > 0 ? durTicks / tps : 0)
                 });
             }
         }
