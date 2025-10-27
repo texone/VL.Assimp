@@ -1,10 +1,8 @@
 name: push_nuget
 
-# on push on master
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]        # or main, match your repo’s default branch
     paths-ignore:
       - README.md
 
@@ -12,19 +10,24 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - name: Git Checkout
-      uses: actions/checkout@master
-    
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Setup Nuget.exe
-      uses: nuget/setup-nuget@v1
+      # Only needed if you want the action to build your csproj before packing the .nuspec
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
 
-    - name: Publish VL Nuget
-      uses: vvvv/PublishVLNuget@1.0.29
-      with:
-        nuspec: deployment\VL.Assimp.nuspec
-        icon-src: https://raw.githubusercontent.com/vvvv/PublicContent/master/nugeticon.png
-        icon-dst: ./deployment/nugeticon.png
-        nuget-key: ${{ secrets.NUGET_KEY }}
+      - name: Setup NuGet
+        uses: nuget/setup-nuget@v2
+
+      - name: Publish VL Nuget
+        uses: vvvv/PublishVLNuget@1.0.43
+        with:
+          # Build your DLLs from the csproj (recommended)
+          csproj: src\VL.Assimp\VL.Assimp.csproj
+          # Then pack/publish using your nuspec
+          nuspec: deployment\VL.Assimp.nuspec
+          # Optional icon fetch (keeps your repo clean)
+          icon-src: https://raw.githubusercontent.com/vvvv/PublicContent/master/nugeticon.png
+          icon-dst: ./deployment/nugeticon.png
+          nuget-key: ${{ secrets.NUGET_KEY }}
