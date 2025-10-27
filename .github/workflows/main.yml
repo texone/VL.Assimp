@@ -1,33 +1,51 @@
-name: push_nuget
+name: Publish VL.Assimp NuGet
 
 on:
+  # Run automatically when you push to master (optional)
   push:
-    branches: [ master ]        # or main, match your repo’s default branch
+    branches: [ master ]
     paths-ignore:
       - README.md
 
+  # ✅ Allow manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. 0.0.6-alpha)'
+        required: false
+        default: ''
+      publish:
+        description: 'Publish to NuGet.org? (true/false)'
+        required: false
+        default: 'true'
+
 jobs:
-  build:
+  build-and-publish:
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Only needed if you want the action to build your csproj before packing the .nuspec
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
 
-      - name: Publish VL Nuget
+      - name: Publish VL NuGet
         uses: vvvv/PublishVLNuget@1.0.43
         with:
-          # Build your DLLs from the csproj (recommended)
+          # Your project to build
           csproj: src\VL.Assimp\VL.Assimp.csproj
-          # Then pack/publish using your nuspec
+          # Your nuspec to package/publish
           nuspec: deployment\VL.Assimp.nuspec
-          # Optional icon fetch (keeps your repo clean)
+          # Optional icon
           icon-src: https://raw.githubusercontent.com/vvvv/PublicContent/master/nugeticon.png
           icon-dst: ./deployment/nugeticon.png
+          # NuGet.org API key stored in repo secrets
           nuget-key: ${{ secrets.NUGET_KEY }}
+          # Optional: set version dynamically if given in manual run
+          version: ${{ github.event.inputs.version }}
+          # Optional: skip publish when testing manually
+          publish: ${{ github.event.inputs.publish }}
