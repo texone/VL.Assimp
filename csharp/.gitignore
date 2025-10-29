@@ -1,0 +1,127 @@
+# ============================================
+# C# / .NET project base
+# ============================================
+bin/
+obj/
+[Bb]uild/
+[Ll]ogs/
+[Tt]est[Rr]esults/
+
+# Visual Studio / MSBuild
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
+*.vscode/
+.vs/
+.vscode/
+*.cache/
+*.pdb
+*.mdb
+*.ilk
+*.log
+*.tmp
+*.obj
+*.exe
+*.dll
+*.dbmdl
+*.dbproj.schemaview
+*.bak
+*.old
+*.Backup
+*.ncb
+*.opensdf
+*.sdf
+*.ipch
+*.tlog
+*.idb
+*.pch
+*.res
+*.tlh
+*.tli
+
+# ============================================
+# JetBrains Rider / IntelliJ / VL Gamma
+# ============================================
+.idea/
+*.iml
+*.iws
+.idea.VL.dir/
+.idea.*
+/.idea/
+/.idea*/workspace.xml
+/.idea*/shelf/
+.rider/
+*.dotSettings.user
+
+# ============================================
+# NuGet
+# ============================================
+*.nupkg
+*.snupkg
+*.nuspec
+*.nuget.props
+*.nuget.targets
+*.nuget.cache
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# ============================================
+# Build artifacts and caches
+# ============================================
+*.deps.json
+*.runtimeconfig.json
+*.AssemblyInfo.*
+*.AssemblyAttributes.cs
+*.FileListAbsolute.txt
+*.CoreCompileInputs.cache
+*.AssemblyReference.cache
+*.assets.cache
+*.cache
+*.cachefile
+*.db
+*.db-shm
+*.db-wal
+
+# ============================================
+# vvvv gamma / VL
+# ============================================
+/obj/Debug/
+/obj/Release/
+/bin/Debug/
+/bin/Release/
+/**/.vl-temp/
+*.vl.bak
+*.vl.temp
+*.vl.lock
+
+# ============================================
+# OS and tooling noise
+# ============================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.swp
+*.swo
+*.swn
+*.tmp
+*.log
+*.bak
+*.orig
+*.rej
+
+# ============================================
+# Optional - keep only source and VL entry points
+# ============================================
+!**/*.cs
+!**/*.vl
+!**/*.csproj
+!**/*.sln
+!**/*.nuspec
+!**/*.json
+!**/*.md
+!**/*.yml
