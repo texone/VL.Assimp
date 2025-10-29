@@ -3,22 +3,36 @@
   <metadata>
     <id>VL.Assimp</id>
     <version>0.0.5-alpha</version>
-    <authors>christian riekoff</authors>
-    <owners>christian riekoff</owners>
+    <authors>Christian Riekoff</authors>
+    <owners>Christian Riekoff</owners>
+
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">LGPL-3.0-only</license>
-    <licenseUrl>https://licenses.nuget.org/LGPL-3.0-only</licenseUrl>
     <projectUrl>https://github.com/texone/VL.Assimp</projectUrl>
-    <description>Provides assimp model loading in VL</description>
-    <tags>VL</tags>
+    <description>Provides Assimp model loading in VL (vvvv gamma).</description>
+    <tags>VL assimp importer</tags>
+
+    <!-- ✅ Dependency: will make AssimpNet auto-install -->
     <dependencies>
-      <dependency id="AssimpNet" version="4.1.0" />
+      <dependency id="AssimpNet" version="[5.0.0-beta1]" />
     </dependencies>
-    <icon>icon\nugeticon.png</icon>
+
+    <!-- optional icon -->
+    <icon>icon/nugeticon.png</icon>
   </metadata>
+
   <files>
-    <file src="nugeticon.png" target="icon\" />
-    <file src="..\*.vl" target="" exclude="" />
-    <file src="..\help\**" target="help\" exclude="" />
+    <!-- ✅ Icon -->
+    <file src="nugeticon.png" target="icon/" />
+
+    <!-- ✅ VL file(s) at root -->
+    <!-- Use relative paths without `..` if you call nuget.exe from the package folder -->
+    <file src="VL.Assimp.vl" target="" />
+
+    <!-- ✅ include the compiled DLLs -->
+    <file src="bin\Release\net8.0\*.dll" target="lib/net8.0" />
+
+    <!-- ✅ include optional help patches -->
+    <file src="help\**" target="help/" />
   </files>
 </package>
