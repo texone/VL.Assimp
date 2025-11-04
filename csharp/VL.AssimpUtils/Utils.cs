@@ -73,536 +73,351 @@ namespace VL.AssimpGpu
 
     public static class MixamoGpuLoader
     {
-        /// <summary>
-        /// Load a single-character Mixamo FBX to GPU-friendly buffers.
-        /// - max 4 weights per vertex (normalized)
-        /// - per-clip delta-local DQs (for bindLocal*animLocal on GPU)
-        /// - optional SkinDQ bank
-        /// </summary>
-        public static ModelGpu LoadFbx(string path,
-                                       float sceneScale = 0.01f,     // Mixamo (cm) -> meters
-                                       float fpsIfNeeded = 30f,
-                                       float tpsFallback = 25f,
-                                       float uniformTolerance = 1e-4f)
+        private struct SkeletonBuildResult
+        {
+            public List<string> OrderedBoneNames;
+            public Dictionary<string, int> IndexOf;
+            public int[] ParentIndices;
+            public Dictionary<string, Node> NodeByName;
+        }
+
+        private static SkeletonBuildResult BuildRobustSkeleton(Scene scene)
+        {
+            var nodeByName = new Dictionary<string, Node>(StringComparer.Ordinal);
+            Walk(scene.RootNode, n => nodeByName[n.Name] = n);
+
+            var weightedBoneNames = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var mesh in scene.Meshes)
+                foreach (var bone in mesh.Bones)
+                    weightedBoneNames.Add(bone.Name);
+
+            if (weightedBoneNames.Count == 0)
+                throw new InvalidOperationException("No bones with vertex weights found in the scene.");
+
+            static List<Node> GetPathToRoot(Node node)
+            {
+                var path = new List<Node>();
+                while (node != null) { path.Add(node); node = node.Parent; }
+                path.Reverse();
+                return path;
+            }
+
+            var bonePaths = weightedBoneNames
+                .Where(name => nodeByName.ContainsKey(name))
+                .Select(name => GetPathToRoot(nodeByName[name]))
+                .ToList();
+
+            if (bonePaths.Count == 0)
+                throw new InvalidOperationException("Could not find any of the weighted bones in the scene graph.");
+
+            var rootPath = new List<Node>(bonePaths[0]);
+            foreach (var path in bonePaths.Skip(1))
+            {
+                int commonDepth = 0;
+                for (int i = 0; i < Math.Min(rootPath.Count, path.Count); i++)
+                {
+                    if (rootPath[i] != path[i]) break;
+                    commonDepth = i + 1;
+                }
+                rootPath.RemoveRange(commonDepth, rootPath.Count - commonDepth);
+            }
+
+            var skeletonRootNode = rootPath.LastOrDefault();
+            if (skeletonRootNode == null)
+                throw new InvalidOperationException("Failed to find a common skeleton root.");
+
+            var orderedBoneNames = new List<string>();
+            Walk(skeletonRootNode, n => orderedBoneNames.Add(n.Name));
+
+            var indexOf = orderedBoneNames.Select((name, i) => (name, i))
+                                          .ToDictionary(t => t.name, t => t.i, StringComparer.Ordinal);
+
+            var parentIndices = new int[orderedBoneNames.Count];
+            for (int i = 0; i < orderedBoneNames.Count; i++)
+            {
+                var name = orderedBoneNames[i];
+                var node = nodeByName[name];
+
+                if (node == skeletonRootNode || node.Parent == null || !indexOf.TryGetValue(node.Parent.Name, out var parentIndex))
+                {
+                    parentIndices[i] = -1;
+                }
+                else
+                {
+                    parentIndices[i] = parentIndex;
+                }
+            }
+
+            return new SkeletonBuildResult
+            {
+                OrderedBoneNames = orderedBoneNames,
+                IndexOf = indexOf,
+                ParentIndices = parentIndices,
+                NodeByName = nodeByName
+            };
+        }
+
+        public static ModelGpu LoadFbx(string path, float sceneScale = 0.01f, float fpsIfNeeded = 30f)
         {
             var ctx = new AssimpContext();
             var pps = PostProcessSteps.Triangulate
                     | PostProcessSteps.JoinIdenticalVertices
                     | PostProcessSteps.LimitBoneWeights
                     | PostProcessSteps.ImproveCacheLocality
-                   // | PostProcessSteps.FlipWindingOrder // Mixamo often CCW; adjust if needed
                     | PostProcessSteps.OptimizeMeshes
-                    | PostProcessSteps.OptimizeGraph;
+                    | PostProcessSteps.OptimizeGraph 
+                    //| PostProcessSteps.MakeLeftHanded      // Convert to DirectX/Stride's convention
+                    | PostProcessSteps.FlipUVs              // Required for LH conversion
+                    | PostProcessSteps.FlipWindingOrder;    // Fixes inside-out models;
 
             var scene = ctx.ImportFile(path, pps);
             if (scene == null || scene.RootNode == null)
                 throw new InvalidOperationException("Failed to load scene.");
 
-            // 1) Skeleton (names -> indices, parent, bind, rest)
-            // Note: sceneScale is applied explicitly to all translation data below
-            var boneNames = GatherBoneNames(scene);
-            var nodeByName = new Dictionary<string, Node>(StringComparer.Ordinal);
-            Walk(scene.RootNode, n => nodeByName[n.Name] = n);
-
-            var orderedBones = new List<string>();
-            Walk(scene.RootNode, n => { if (boneNames.Contains(n.Name)) orderedBones.Add(n.Name); });
-            foreach (var bn in boneNames) if (!orderedBones.Contains(bn)) orderedBones.Add(bn); // stragglers
-
+            var skeletonBuild = BuildRobustSkeleton(scene);
+            var orderedBones = skeletonBuild.OrderedBoneNames;
+            var indexOf = skeletonBuild.IndexOf;
+            var nodeByName = skeletonBuild.NodeByName;
             int nb = orderedBones.Count;
-            var indexOf = orderedBones.Select((n, i) => (n, i))
-                                      .ToDictionary(t => t.n, t => t.i, StringComparer.Ordinal);
 
-            var parentName = new Dictionary<string, string>(StringComparer.Ordinal);
-            Walk(scene.RootNode, n => { foreach (var c in n.Children) parentName[c.Name] = n.Name; });
-
-            var parent = Enumerable.Repeat(-1, nb).ToArray();
+            // Load BindLocal and InverseBind matrices PRISTINE and UN-SCALED.
+            // Assimp is column-major, Stride is column-major. This is a direct copy.
             var bindLocal = new Matrix[nb];
-            var bindGlobal = new Matrix[nb];
+            for (int i = 0; i < nb; i++)
+            {
+                var name = orderedBones[i];
+                bindLocal[i] = nodeByName.TryGetValue(name, out var nn) ? ToM(nn.Transform) : Matrix.Identity;
+            }
+
             var invBind = new Matrix[nb];
-
-            // map boneName -> OffsetMatrixrix (bind^-1)
             var invBindByName = new Dictionary<string, Matrix>(StringComparer.Ordinal);
-            foreach (var mesh0 in scene.Meshes)
-                foreach (var b in mesh0.Bones)
-                    invBindByName[b.Name] = ToM(b.OffsetMatrix);
-
+            foreach (var mesh in scene.Meshes)
+                foreach (var bone in mesh.Bones)
+                    invBindByName[bone.Name] = ToM(bone.OffsetMatrix);
             for (int i = 0; i < nb; i++)
             {
                 var name = orderedBones[i];
-                var localMatrix = nodeByName.TryGetValue(name, out var nn) ? ToM(nn.Transform) : Matrix.Identity;
-                
-                // Apply scene scale to translation component
-                localMatrix.M41 *= sceneScale;
-                localMatrix.M42 *= sceneScale;
-                localMatrix.M43 *= sceneScale;
-                bindLocal[i] = localMatrix;
-                
-                // Find nearest ancestor bone by walking up the node hierarchy
-                if (nodeByName.TryGetValue(name, out var node) && node.Parent != null)
-                {
-                    var parentNode = node.Parent;
-                    while (parentNode != null)
-                    {
-                        if (indexOf.TryGetValue(parentNode.Name, out var pi))
-                        {
-                            parent[i] = pi;
-                            break;
-                        }
-                        parentNode = parentNode.Parent;
-                    }
-                }
-            }
-
-            // Build invBind array 
-            for (int i = 0; i < nb; i++)
-            {
-                var name = orderedBones[i];
-                var invBindMatrix = invBindByName.TryGetValue(name, out var m) ? m : Matrix.Identity;
-                
-                // Apply scene scale to translation component of inverse bind
-                invBindMatrix.M41 *= sceneScale;
-                invBindMatrix.M42 *= sceneScale;
-                invBindMatrix.M43 *= sceneScale;
-                invBind[i] = invBindMatrix;
-            }
-            
-            // accumulate global bind (root-first order due to traversal choice)
-            for (var i = 0; i < nb; i++)
-            {
-                var p = parent[i];
-                bindGlobal[i] = p < 0 ? bindLocal[i] : Matrix.Multiply(bindGlobal[p], bindLocal[i]);
+                invBind[i] = invBindByName.TryGetValue(name, out var m) ? m : Matrix.Identity;
             }
 
             var skeleton = new SkeletonGpu
             {
-                Parent = parent, 
-                InverseBind = invBind, 
+                Parent = skeletonBuild.ParentIndices,
+                InverseBind = invBind,
                 BindLocal = bindLocal
             };
 
-            // 2) Mesh (pick first skinned mesh; Mixamo uses one)
-            var (mesh, meshToBone) = BuildMesh(scene, indexOf, sceneScale);
-
-            // 3) AniMatrixions → delta-local DQs per frame
-            var anim = BuildAniMatrixions(scene, orderedBones, parent, bindLocal, 
-                                       fpsIfNeeded, tpsFallback, uniformTolerance, sceneScale);
+            var meshGpu = BuildMesh(scene, indexOf, sceneScale);
+            var anim = BuildAnimations(scene, orderedBones, bindLocal, fpsIfNeeded, sceneScale);
 
             return new ModelGpu
             {
                 Skeleton = skeleton,
-                Mesh = mesh,
+                Mesh = meshGpu,
                 Anim = anim,
                 BoneNames = orderedBones.ToArray()
             };
         }
 
-        // -------------------- Mesh packing --------------------
-
-        private static (MeshGpu mesh, Dictionary<int, int> meshToBone) BuildMesh(Scene scene, Dictionary<string,int> indexOf, float sceneScale)
+        private static MeshGpu BuildMesh(Scene scene, Dictionary<string, int> indexOf, float sceneScale)
         {
-            // choose first mesh that has bones
-            int mi = -1;
-            for (int i = 0; i < scene.MeshCount; i++)
-                if (scene.Meshes[i].HasBones) { mi = i; break; }
-            if (mi < 0) throw new InvalidOperationException("No skinned mesh found.");
+            // This function combines all skinned meshes into one, which is more robust.
+            var relevantMeshes = scene.Meshes.Where(m => m.HasBones && m.VertexCount > 0).ToList();
+            if (relevantMeshes.Count == 0)
+                throw new InvalidOperationException("No skinned mesh with vertices found.");
 
-            var m = scene.Meshes[mi];
+            var totalVertices = relevantMeshes.Sum(m => m.VertexCount);
+            var totalIndices = relevantMeshes.Sum(m => m.FaceCount * 3);
 
-            // positions/normals/uv
-            var vcount = m.VertexCount;
-            var verts = new GpuVertex[vcount];
-            for (int v = 0; v < vcount; v++)
+            var vertices = new GpuVertex[totalVertices];
+            var indices = new int[totalIndices];
+            var vertexWeights = new List<(int bone, float w)>[totalVertices];
+            for (int i = 0; i < totalVertices; i++) vertexWeights[i] = new List<(int, float)>();
+
+            int vertexOffset = 0;
+            int indexOffset = 0;
+
+            foreach (var m in relevantMeshes)
             {
-                verts[v].Position = m.HasVertices ? ToVector3(m.Vertices[v]) * sceneScale : Vector3.Zero;
-                verts[v].Normal   = m.HasNormals  ? ToVector3(m.Normals[v])  : Vector3.UnitY;
-                if (m.TextureCoordinateChannelCount > 0 && m.HasTextureCoords(0))
+                for (int v = 0; v < m.VertexCount; v++)
                 {
-                    var t = m.TextureCoordinateChannels[0][v];
-                    verts[v].Tex = new Vector2(t.X, t.Y);
+                    vertices[vertexOffset + v].Position = m.HasVertices ? ToVector3(m.Vertices[v]) * sceneScale : Vector3.Zero;
+                    vertices[vertexOffset + v].Normal = m.HasNormals ? ToVector3(m.Normals[v]) : Vector3.UnitY;
+                    if (m.HasTextureCoords(0))
+                    {
+                        var t = m.TextureCoordinateChannels[0][v];
+                        vertices[vertexOffset + v].Tex = new Vector2(t.X, t.Y);
+                    }
                 }
+
+                foreach (var b in m.Bones)
+                {
+                    if (!indexOf.TryGetValue(b.Name, out var bi)) continue;
+                    foreach (var w in b.VertexWeights)
+                    {
+                        // Important: Check vertex ID is in bounds for the current mesh part
+                        if (w.VertexID < m.VertexCount)
+                            vertexWeights[vertexOffset + w.VertexID].Add((bi, w.Weight));
+                    }
+                }
+
+                foreach (var f in m.Faces)
+                {
+                    if (f.IndexCount == 3)
+                    {
+                        indices[indexOffset++] = vertexOffset + f.Indices[0];
+                        indices[indexOffset++] = vertexOffset + f.Indices[1];
+                        indices[indexOffset++] = vertexOffset + f.Indices[2];
+                    }
+                }
+                vertexOffset += m.VertexCount;
             }
 
-            // weights: gather all, then keep top-4 per vertex
-            var acc = new List<(int bone, float w)>[vcount];
-            for (int v = 0; v < vcount; v++) acc[v] = new List<(int, float)>(8);
-
-            foreach (var b in m.Bones)
+            for (int v = 0; v < totalVertices; v++)
             {
-                if (!indexOf.TryGetValue(b.Name, out var bi)) continue;
-                foreach (var w in b.VertexWeights)
-                    acc[w.VertexID].Add((bi, w.Weight));
-            }
-
-            for (int v = 0; v < vcount; v++)
-            {
-                var list = acc[v];
-                // sort by weight desc and keep 4
-                list.Sort((a, b) => b.w.CompareTo(a.w));
-                if (list.Count > 4) list = list.GetRange(0, 4);
-
-                // normalize
-                float sum = 0; foreach (var e in list) sum += e.w;
+                var list = vertexWeights[v].OrderByDescending(w => w.w).Take(4).ToList();
+                float sum = list.Sum(w => w.w);
                 float inv = sum > 1e-8f ? 1f / sum : 0f;
 
-                // pack
-                Vector4 ws = Vector4.Zero;
-                Int4 boneIds = new Int4(0);
-                for (int i = 0; i < list.Count; i++)
-                {
-                    var bi = list[i].bone;
-                    var ww = list[i].w * inv;
-                    if (i == 0) { boneIds.X = bi; ws.X = ww; }
-                    else if (i == 1) { boneIds.Y = bi; ws.Y = ww; }
-                    else if (i == 2) { boneIds.Z = bi; ws.Z = ww; }
-                    else if (i == 3) { boneIds.W = bi; ws.W = ww; }
-                }
-                verts[v].Bone = boneIds;
-                verts[v].Weights = ws;
+                var boneIds = new Int4(0);
+                var ws = Vector4.Zero;
+                if (list.Count > 0) { boneIds.X = list[0].bone; ws.X = list[0].w * inv; }
+                if (list.Count > 1) { boneIds.Y = list[1].bone; ws.Y = list[1].w * inv; }
+                if (list.Count > 2) { boneIds.Z = list[2].bone; ws.Z = list[2].w * inv; }
+                if (list.Count > 3) { boneIds.W = list[3].bone; ws.W = list[3].w * inv; }
+                vertices[v].Bone = boneIds;
+                vertices[v].Weights = ws;
             }
 
-            // indices
-            var indices = new List<int>(m.FaceCount * 3);
-            foreach (var f in m.Faces)
+            return new MeshGpu { Vertices = vertices, Indices = indices, BoneCount = indexOf.Count };
+        }
+
+        private static AnimBankGpu BuildAnimations(Scene scene, List<string> orderedBones, Matrix[] bindLocal, float fpsIfNeeded, float sceneScale)
+        {
+            var boneIndex = orderedBones.Select((n, i) => (n, i)).ToDictionary(t => t.n, t => t.i, StringComparer.Ordinal);
+
+            var bindPoseDecomposed = new (Vector3 S, Quaternion R, Vector3 T)[bindLocal.Length];
+            for (int i = 0; i < bindLocal.Length; i++)
             {
-                if (f.IndexCount == 3)
-                    indices.AddRange(f.Indices);
+                bindLocal[i].Decompose(out bindPoseDecomposed[i].S, out bindPoseDecomposed[i].R, out bindPoseDecomposed[i].T);
             }
 
-            var mesh = new MeshGpu { Vertices = verts, Indices = indices.ToArray(), BoneCount = indexOf.Count };
-            return (mesh, null!);
-        }
+            var finalDqBuffer = new List<DualQuat>();
+            var finalClips = new List<ClipInfoRaster>();
 
-        // -------------------- AniMatrixion baking (delta-local DQ) --------------------
-
-        private sealed class TrackDQ
-        {
-            public int BoneId;
-            public float[] Times = Array.Empty<float>(); // ticks
-            public DualQuat[] Keys = Array.Empty<DualQuat>(); // LOCAL rigid dq keys
-        }
-
-        private static AnimBankGpu BuildAniMatrixions(Scene scene,
-                                                   List<string> orderedBones,
-                                                   int[] parent,
-                                                   Matrix[] bindLocal,
-                                                   float fpsIfNeeded, float tpsFallback, float tol,
-                                                   float sceneScale)
-        {
-            var boneIndex = orderedBones.Select((n, i) => (n, i))
-                                        .ToDictionary(t => t.n, t => t.i, StringComparer.Ordinal);
-
-            // rest local and its inverse
-            var restLocalDQ = bindLocal.Select(MatrixRigidToDQ).ToArray();
-            var restInvLocalDQ = restLocalDQ.Select(InverseDQ).ToArray();
-
-            // inverse bind for skin bank
-            var bindInvMatrixs = new Matrix[orderedBones.Count];
-            // build map name->offset once
-            var invBindByName = new Dictionary<string, Matrix>(StringComparer.Ordinal);
-            foreach (var mesh in scene.Meshes)
-                foreach (var b in mesh.Bones)
-                    invBindByName[b.Name] = ToM(b.OffsetMatrix);
-            for (int i = 0; i < orderedBones.Count; i++)
-                bindInvMatrixs[i] = invBindByName.TryGetValue(orderedBones[i], out var m) ? m : Matrix.Identity;
-            var bindInvDQ = bindInvMatrixs.Select(MatrixRigidToDQ).ToArray();
-
-            // collect per-clip tracks
-            var clipTracks = new List<List<TrackDQ>>();
-            var clipMeta   = new List<(string name, double durTicks, double tps)>();
-
-            for (int c = 0; c < scene.AnimationCount; c++)
+            foreach (var anim in scene.Animations)
             {
-                var anim = scene.Animations[c];
-                var tps  = anim.TicksPerSecond != 0 ? anim.TicksPerSecond : tpsFallback;
+                var tps = anim.TicksPerSecond > 0 ? anim.TicksPerSecond : 25.0;
                 var durTicks = anim.DurationInTicks;
 
-                var list = new List<TrackDQ>();
-                foreach (var ch in anim.NodeAnimationChannels)
-                {
-                    if (!boneIndex.TryGetValue(ch.NodeName, out var bId)) continue;
-                    
-                    // Handle cases where either PositionKeys or RotationKeys might be null or empty
-                    int posCount = ch.PositionKeys?.Count ?? 0;
-                    int rotCount = ch.RotationKeys?.Count ?? 0;
-                    int kc = Math.Max(posCount, rotCount);
-                    
-                    if (kc == 0) continue;  // Skip if no animation data
+                var channelsByBoneId = anim.NodeAnimationChannels
+                    .Where(ch => boneIndex.ContainsKey(ch.NodeName))
+                    .ToDictionary(ch => boneIndex[ch.NodeName]);
 
-                    var times = new float[kc];
-                    var keys  = new DualQuat[kc];
-                    for (int i = 0; i < kc; i++)
+                var step = (float)(tps / Math.Max(1e-6, fpsIfNeeded));
+                var frameCount = Math.Max(1, (int)Math.Ceiling(durTicks / step) + 1);
+                int clipStartIndex = finalDqBuffer.Count;
+
+                for (int f = 0; f < frameCount; f++)
+                {
+                    double tick = f * step;
+                    for (int b = 0; b < orderedBones.Count; b++)
                     {
-                        var hasP = i < ch.PositionKeys.Count;
-                        var hasR = i < ch.RotationKeys.Count;
-                        var p = hasP ? ToVector3(ch.PositionKeys[i].Value) * sceneScale : Vector3.Zero;
-                        var r = hasR ? ToQ (ch.RotationKeys[i].Value) : Quaternion.Identity;
+                        var finalS = bindPoseDecomposed[b].S;
+                        var finalR = bindPoseDecomposed[b].R;
+                        var finalT = bindPoseDecomposed[b].T;
 
-                        times[i] = hasP ? (float)ch.PositionKeys[i].Time
-                                        : (hasR ? (float)ch.RotationKeys[i].Time : 0f);
+                        if (channelsByBoneId.TryGetValue(b, out var channel))
+                        {
+                            if (channel.HasPositionKeys)
+                            {
+                                int i0 = FindPositionKey(channel.PositionKeys, tick);
+                                int i1 = Math.Min(i0 + 1, channel.PositionKeys.Count - 1);
+                                var k0 = channel.PositionKeys[i0];
+                                var k1 = channel.PositionKeys[i1];
+                                double timeDiff = k1.Time - k0.Time;
+                                float u = (timeDiff > 0) ? (float)((tick - k0.Time) / timeDiff) : 0f;
+                                finalT = Vector3.Lerp(ToVector3(k0.Value), ToVector3(k1.Value), u);
+                            }
 
-                        keys[i] = RigidToDQ(r, p); // LOCAL
+                            if (channel.HasRotationKeys)
+                            {
+                                int i0 = FindRotationKey(channel.RotationKeys, tick);
+                                int i1 = Math.Min(i0 + 1, channel.RotationKeys.Count - 1);
+                                var k0 = channel.RotationKeys[i0];
+                                var k1 = channel.RotationKeys[i1];
+                                double timeDiff = k1.Time - k0.Time;
+                                float u = (timeDiff > 0) ? (float)((tick - k0.Time) / timeDiff) : 0f;
+                                finalR = Quaternion.Slerp(ToQ(k0.Value), ToQ(k1.Value), u);
+                            }
+                        }
+
+                        finalT *= sceneScale;
+
+                        var scaleMatrix = Matrix.Scaling(finalS);
+                        var rotationMatrix = Matrix.RotationQuaternion(finalR);
+                        var translationMatrix = Matrix.Translation(finalT);
+
+                        // For a COLUMN-MAJOR system, to apply Scale -> Rotate -> Translate,
+                        // the multiplication order is T * R * S.
+                        // Stride's operator * does (right * left), so writing S * R * T calculates T * R * S.
+                        var finalLocalMatrix = scaleMatrix * rotationMatrix * translationMatrix;
+
+                        finalDqBuffer.Add(MatrixRigidToDQ(finalLocalMatrix));
                     }
-                    list.Add(new TrackDQ { BoneId = bId, Times = times, Keys = keys });
                 }
 
-                clipTracks.Add(list);
-                clipMeta.Add((string.IsNullOrEmpty(anim.Name) ? $"Clip_{c}" : anim.Name, durTicks, tps));
-            }
-
-            var localDeltaOut = new List<DualQuat>(4096);
-            var clipsOut      = new List<ClipInfoRaster>();
-
-            foreach (var (tracks, meta) in clipTracks.Zip(clipMeta, (t, m) => (t, m)))
-            {
-                var (_, durTicks, tps) = meta;
-                int startLocal = localDeltaOut.Count;
-
-                // detect raster
-                int frames; float startTick, stepTick;
-                var perTrackTimes = tracks.Select(t => t.Times).ToList();
-                if (TryDetectUniformRaster(perTrackTimes, durTicks, out startTick, out stepTick, out frames, tol))
+                finalClips.Add(new ClipInfoRaster
                 {
-                    EvaluateClipOnRaster(tracks, orderedBones.Count, parent,
-                                         restInvLocalDQ, bindInvDQ,
-                                         frames, startTick, stepTick,
-                                         tt => tt,
-                                         localDeltaOut);
-                }
-                else
-                {
-                    var step = (float)(tps / Math.Max(1e-6, fpsIfNeeded));
-                    frames = Math.Max(1, (int)Math.Ceiling(durTicks / step) + 1);
-                    startTick = 0f; stepTick = step;
-
-                    EvaluateClipOnRaster(tracks, orderedBones.Count, parent,
-                                         restInvLocalDQ, bindInvDQ,
-                                         frames, startTick, stepTick,
-                                         tt => tt,
-                                         localDeltaOut);
-                }
-
-                clipsOut.Add(new ClipInfoRaster {
                     BoneCount = orderedBones.Count,
-                    FrameCount = frames,
-                    StartIndex = startLocal,
+                    FrameCount = frameCount,
+                    StartIndex = clipStartIndex,
                     TicksPerSecond = (float)tps,
-                    StartTick = startTick,
-                    StepTick = stepTick,
+                    StartTick = 0,
+                    StepTick = step,
                     DurationSeconds = (float)(tps > 0 ? durTicks / tps : 0)
                 });
             }
 
-            return new AnimBankGpu {
-                LocalDeltaDq = localDeltaOut.ToArray(),
-                Clips = clipsOut.ToArray()
+            return new AnimBankGpu
+            {
+                LocalDeltaDq = finalDqBuffer.ToArray(),
+                Clips = finalClips.ToArray()
             };
         }
 
-        private static void EvaluateClipOnRaster(
-            List<TrackDQ> tracks,
-            int boneCount,
-            int[] parent,
-            DualQuat[] restInvLocalDQ,
-            DualQuat[] bindInvDQ,
-            int frameCount,
-            float startTick,
-            float stepTick,
-            Func<float,float> ticksFn,
-            List<DualQuat> appendLocalDelta)
+        private static int FindPositionKey(IReadOnlyList<VectorKey> keys, double time)
         {
-            var trByBone = new TrackDQ[boneCount];
-            foreach (var tr in tracks) trByBone[tr.BoneId] = tr;
-
-            var local  = new DualQuat[boneCount];
-            var global = new DualQuat[boneCount];
-
-            for (int f = 0; f < frameCount; f++)
-            {
-                float tt = ticksFn(startTick + f * stepTick);
-
-                // sample local
-                for (int b = 0; b < boneCount; b++)
-                {
-                    var tr = trByBone[b];
-                    if (tr == null || tr.Keys.Length == 0) { local[b] = IdentityDQ(); continue; }
-
-                    int i0 = FindKey(tr.Times, tt);
-                    int i1 = Math.Min(i0 + 1, tr.Keys.Length - 1);
-                    float t0 = tr.Times[i0], t1 = tr.Times[i1];
-                    float u = (t1 > t0) ? (tt - t0) / (t1 - t0) : 0f;
-
-                    var dq0 = tr.Keys[i0];
-                    var dq1 = tr.Keys[i1];
-                    var qr  = Slerp(dq0.Qr, dq1.Qr, u);
-                    var qd  = Vector4.Lerp(dq0.Qd, dq1.Qd, u);
-                    OrthoNormalize(ref qr, ref qd);
-                    local[b] = new DualQuat { Qr = qr, Qd = qd };
-                }
-
-                // delta-local = restInvLocal * currentLocal
-                for (int b = 0; b < boneCount; b++)
-                {
-                    var ri = restInvLocalDQ[b];
-                    var cl = local[b];
-                    var sr = QMul(ri.Qr, cl.Qr);
-                    var sd = QMul(ri.Qr, cl.Qd) + QMul(ri.Qd, cl.Qr);
-                    OrthoNormalize(ref sr, ref sd);
-                    appendLocalDelta.Add(new DualQuat { Qr = sr, Qd = sd });
-                }
-
-               
-            }
-        }
-        
-        
-
-        private static HashSet<string> GatherBoneNames(Scene scene)
-        {
-            var set = new HashSet<string>(StringComparer.Ordinal);
-            foreach (var mesh in scene.Meshes)
-                foreach (var b in mesh.Bones)
-                    set.Add(b.Name);
-            if (set.Count == 0)
-                throw new InvalidOperationException("No bones found.");
-            return set;
-        }
-
-        // -------------------- Math helpers (DQ) --------------------
-
-        private static DualQuat IdentityDQ() => new DualQuat { Qr = new Vector4(0,0,0,1), Qd = Vector4.Zero };
-
-        private static Vector4 QMul(in Vector4 a, in Vector4 b) => new Vector4(
-            a.W*b.X + a.X*b.W + a.Y*b.Z - a.Z*b.Y,
-            a.W*b.Y - a.X*b.Z + a.Y*b.W + a.Z*b.X,
-            a.W*b.Z + a.X*b.Y - a.Y*b.X + a.Z*b.W,
-            a.W*b.W - (a.X*b.X + a.Y*b.Y + a.Z*b.Z)
-        );
-
-        private static Vector4 Slerp(Vector4 a, Vector4 b, float t)
-        {
-            float d = Vector4.Dot(a, b);
-            if (d < 0) b = -b;
-            float theta = MathF.Acos(Math.Clamp(Vector4.Dot(a, b), -1f, 1f));
-            if (theta < 1e-5f) return Vector4.Normalize(Vector4.Lerp(a, b, t));
-            float s = MathF.Sin(theta);
-            var r = (MathF.Sin((1 - t) * theta) / s) * a + (MathF.Sin(t * theta) / s) * b;
-            return Vector4.Normalize(r);
-        }
-
-        private static void OrthoNormalize(ref Vector4 qr, ref Vector4 qd)
-        {
-            qr = Vector4.Normalize(qr);
-            qd = qd - Vector4.Dot(qr, qd) * qr;
-        }
-
-        private static DualQuat InverseDQ(DualQuat q)
-        {
-            var qc = new Vector4(-q.Qr.X, -q.Qr.Y, -q.Qr.Z, q.Qr.W);   // conj
-            var rd = -QMul(QMul(qc, q.Qd), qc);
-            return new DualQuat { Qr = qc, Qd = rd };
-        }
-
-        private static DualQuat RigidToDQ(Quaternion r, Vector3 t)
-        {
-            var qr = Vector4.Normalize(new Vector4(r.X, r.Y, r.Z, r.W));
-            var tq = new Vector4(t, 0f);
-            var qd = 0.5f * QMul(tq, qr);
-            return new DualQuat { Qr = qr, Qd = qd };
-        }
-
-        private static DualQuat MatrixRigidToDQ(Matrix m)
-        {
-            // Extract just the 3x3 rotation part
-            var r = new Quaternion();
-            r = Quaternion.RotationMatrix(m);
-            
-            // Get the translation part
-            var t = new Vector3(m.M41, m.M42, m.M43);
-            
-            return RigidToDQ(r, t);
-        }
-
-        // -------------------- Util --------------------
-
-        private static int FindKey(float[] times, float t)
-        {
-            if (times == null || times.Length <= 1) return 0;
-            int lo = 0, hi = times.Length - 1;
+            if (keys.Count <= 1) return 0;
+            int lo = 0, hi = keys.Count - 1;
             while (hi - lo > 1)
             {
                 int mid = (lo + hi) >> 1;
-                if (times[mid] <= t) lo = mid; else hi = mid;
+                if (keys[mid].Time <= time) lo = mid; else hi = mid;
             }
             return lo;
         }
 
-        private static Vector3 ToVector3(Vector3D v) => new(v.X, v.Y, v.Z);
-        private static Quaternion ToQ(Assimp.Quaternion q) => new(q.X, q.Y, q.Z, q.W);
-
-        private static Matrix ToM(Matrix4x4 m) =>
-            new Matrix(m.A1,m.B1,m.C1,m.D1, m.A2,m.B2,m.C2,m.D2, m.A3,m.B3,m.C3,m.D3, m.A4,m.B4,m.C4,m.D4);
-
-        private static global::Assimp.Matrix4x4 FromM(Matrix m) =>
-            new global::Assimp.Matrix4x4(
-                m.M11, m.M21, m.M31, m.M41,
-                m.M12, m.M22, m.M32, m.M42,
-                m.M13, m.M23, m.M33, m.M43,
-                m.M14, m.M24, m.M34, m.M44);
-
-        private static bool TryDetectUniformRaster(IReadOnlyList<float[]> perTrackTimes, double clipDurTicks,
-                                                   out float start, out float step, out int frames,
-                                                   float tol)
+        private static int FindRotationKey(IReadOnlyList<QuaternionKey> keys, double time)
         {
-            start = 0; step = 0; frames = 1;
-            float[]? refT = null;
-            foreach (var t in perTrackTimes) { if (t != null && t.Length >= 2) { refT = t; break; } }
-            if (refT == null) { start = 0f; step = (float)clipDurTicks; frames = 1; return true; }
-
-            float s = refT[0];
-            float stp = (refT[^1] - refT[0]) / (refT.Length - 1);
-            if (stp <= 0) return false;
-
-            for (int i = 1; i < refT.Length; i++)
+            if (keys.Count <= 1) return 0;
+            int lo = 0, hi = keys.Count - 1;
+            while (hi - lo > 1)
             {
-                float ideal = s + i * stp;
-                if (MathF.Abs(refT[i] - ideal) > tol) return false;
+                int mid = (lo + hi) >> 1;
+                if (keys[mid].Time <= time) lo = mid; else hi = mid;
             }
-
-            foreach (var t in perTrackTimes)
-            {
-                if (t == null || t.Length <= 1) continue;
-                if (t.Length == refT.Length)
-                {
-                    float ts = t[0];
-                    float tt = (t[^1] - t[0]) / (t.Length - 1);
-                    if (MathF.Abs(ts - s) > tol) return false;
-                    if (MathF.Abs(tt - stp) > tol) return false;
-                    for (int i = 1; i < t.Length; i++)
-                    {
-                        float ideal = ts + i * tt;
-                        if (MathF.Abs(t[i] - ideal) > tol) return false;
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < t.Length; i++)
-                    {
-                        float k = (t[i] - s) / stp;
-                        if (MathF.Abs(k - MathF.Round(k)) > 1e-3f) return false;
-                    }
-                }
-            }
-
-            frames = Math.Max(1, (int)Math.Round((clipDurTicks - s) / stp + 1));
-            start = s; step = stp;
-            return true;
+            return lo;
         }
 
-        private static void Walk(Node n, Action<Node> fn)
-        {
-            fn(n);
-            foreach (var c in n.Children) Walk(c, fn);
-        }
+        private static DualQuat IdentityDQ() => new DualQuat { Qr = new Vector4(0, 0, 0, 1), Qd = Vector4.Zero };
+        private static Vector4 QMul(in Vector4 a, in Vector4 b) => new Vector4(a.W * b.X + a.X * b.W + a.Y * b.Z - a.Z * b.Y, a.W * b.Y - a.X * b.Z + a.Y * b.W + a.Z * b.X, a.W * b.Z + a.X * b.Y - a.Y * b.X + a.Z * b.W, a.W * b.W - (a.X * b.X + a.Y * b.Y + a.Z * b.Z));
+        private static DualQuat MatrixRigidToDQ(Matrix m) { m.Decompose(out _, out Quaternion r, out Vector3 t); return RigidToDQ(r, t); }
+        private static DualQuat RigidToDQ(Quaternion r, Vector3 t) { var qr = new Vector4(r.X, r.Y, r.Z, r.W); var tq = new Vector4(t, 0f); var qd = 0.5f * QMul(tq, qr); return new DualQuat { Qr = qr, Qd = qd }; }
+        private static Vector3 ToVector3(Assimp.Vector3D v) => new Vector3(v.X, v.Y, v.Z);
+        private static Quaternion ToQ(Assimp.Quaternion q) => new Quaternion(q.X, q.Y, q.Z, q.W);
+        private static Matrix ToM(Assimp.Matrix4x4 m) => new Matrix(m.A1, m.B1, m.C1, m.D1, m.A2, m.B2, m.C2, m.D2, m.A3, m.B3, m.C3, m.D3, m.A4, m.B4, m.C4, m.D4);
+        private static void Walk(Node n, Action<Node> fn) { fn(n); foreach (var c in n.Children) Walk(c, fn); }
     }
 
     // -------------------- Packing helpers for GPU buffers --------------------

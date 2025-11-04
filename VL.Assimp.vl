@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="RI10FnVeYZaMHAmJa6X3GU" LanguageVersion="2025.7.0" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="RI10FnVeYZaMHAmJa6X3GU" LanguageVersion="2025.7.1-0032-g30eee3cbf9" Version="0.128">
   <Patch Id="O8qOJWRef6hPV3rNwZ0bJq">
     <Canvas Id="ApA6lU2oYAIOTJKw6JzrgT" DefaultCategory="VL.Assimp" CanvasType="FullCategory">
       <!--
@@ -2648,10 +2648,10 @@
       </Patch>
     </Node>
   </Patch>
-  <NugetDependency Id="KLb1H1ySKUWOLlCO2p9XHJ" Location="VL.CoreLib" Version="2025.7.0" />
-  <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.0" />
+  <NugetDependency Id="KLb1H1ySKUWOLlCO2p9XHJ" Location="VL.CoreLib" Version="2025.7.1-0032-g30eee3cbf9" />
+  <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.1-0032-g30eee3cbf9" />
   <PlatformDependency Id="PKXdAprO3wsPyBZJCq2zd4" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0082-g7f8ac28314/lib/Stride.Engine.dll" />
-  <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.0" />
+  <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.1-0032-g30eee3cbf9" />
   <ProjectDependency Id="QXIygJZ44sLM5wRegnvQU6" Location="./csharp/VL.AssimpUtils/VL.AssimpUtils.csproj" />
   <NugetDependency Id="AEIKMegw0wTQFdIMS0r9XO" Location="AssimpNet" Version="5.0.0-beta1" />
 </Document>
