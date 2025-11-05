@@ -1789,7 +1789,7 @@
                 </Node>
               </Patch>
             </Node>
-            <Pad Id="OjcE1NOMGpeOUwPdurQDau" Comment="Force" Bounds="344,120,35,35" ShowValueBox="true" isIOBox="true" Value="True">
+            <Pad Id="OjcE1NOMGpeOUwPdurQDau" Comment="Force" Bounds="344,120,35,35" ShowValueBox="true" isIOBox="true" Value="False">
               <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="ImmutableTypeFlag" Name="Boolean" />
               </p:TypeAnnotation>
@@ -2450,17 +2450,6 @@
                 </Node>
               </Patch>
             </Node>
-            <Node Bounds="776,731,52,19" Id="CMOFUexJz5pPubvA3bv8KM">
-              <p:NodeReference LastCategoryFullName="Collections.Spread" LastDependency="VL.CoreLib.vl">
-                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-                <CategoryReference Kind="4026531840" Name="Spread" NeedsToBeDirectParent="true" />
-                <Choice Kind="OperationCallFlag" Name="GetSlice" />
-              </p:NodeReference>
-              <Pin Id="BmYW6XQLAxlL4t7VTS1Y7T" Name="Input" Kind="StateInputPin" />
-              <Pin Id="A7nToU60MU8MuTszPkcxCt" Name="Default Value" Kind="InputPin" />
-              <Pin Id="MmOmEJ0Uc7VMIKs6hhMepA" Name="Index" Kind="InputPin" />
-              <Pin Id="O5KLXAZc2jBPgcFgISTOeR" Name="Result" Kind="OutputPin" />
-            </Node>
           </Canvas>
           <Patch Id="FHu57Bx8eSdNfvIob2p6HW" Name="Create" />
           <Patch Id="O5PW6qex5PtMKbR4wjoqA7" Name="Update" ParticipatingElements="ObV51BdobPNMrsUSLIg4U1" ManuallySortedPins="true">
@@ -2502,7 +2491,6 @@
           <Link Id="RPLFFgXE0FvOcP29gZV0hQ" Ids="O64PPJluXgrNCHIOAu10Hj,T8b9eFp37yGPuhdLrZWQCo" />
           <Link Id="TOFrHyvqLSeLz2xdT2i5WD" Ids="F52TSgBBmr9OnvB1cTllsk,PDT9CmUiELbOhgjpklTPlB" />
           <Link Id="ITbOeZO7dWXLkNB67RWJet" Ids="HFCPAoytLYaPNIer2Fqu3u,K6Mc4rZAgv2PLoM3eoyX6m" />
-          <Link Id="JuPWQYeOsp0M2GiGXQG464" Ids="PLOjuPLIADAPW0kvQQmKKe,BmYW6XQLAxlL4t7VTS1Y7T" />
         </Patch>
       </Node>
       <!--
@@ -2652,6 +2640,6 @@
   <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.0" />
   <PlatformDependency Id="PKXdAprO3wsPyBZJCq2zd4" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0082-g7f8ac28314/lib/Stride.Engine.dll" />
   <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.0" />
-  <ProjectDependency Id="QXIygJZ44sLM5wRegnvQU6" Location="./csharp/VL.AssimpUtils/VL.AssimpUtils.csproj" />
   <NugetDependency Id="AEIKMegw0wTQFdIMS0r9XO" Location="AssimpNet" Version="5.0.0-beta1" />
+  <PlatformDependency Id="BvBlYUrRm39NkkZu8QagYb" Location="./lib/net8.0/VL.AssimpUtils.dll" />
 </Document>
