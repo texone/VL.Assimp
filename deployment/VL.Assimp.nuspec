@@ -17,22 +17,13 @@
       <dependency id="AssimpNet" version="[5.0.0-beta1]" />
     </dependencies>
 
-    <!-- optional icon -->
-    <icon>icon/nugeticon.png</icon>
+    <icon>icon\nugeticon.png</icon>
   </metadata>
 
   <files>
-    <!-- ✅ Icon -->
-    <file src="nugeticon.png" target="icon/" />
-
-    <!-- ✅ VL file(s) at root -->
-    <!-- Use relative paths without `..` if you call nuget.exe from the package folder -->
-    <file src="VL.Assimp.vl" target="" />
-
-    <!-- ✅ include the compiled DLLs -->
-    <file src="bin\Release\net8.0\*.dll" target="lib/net8.0" />
-
-    <!-- ✅ include optional help patches -->
-    <file src="help\**" target="help/" />
+	<file src="..\lib\**\*.dll" target="lib\" exclude="" />
+    <file src="..\*.vl" target="" exclude="" />
+    <file src="..\help\**" target="help\" exclude="" />
+    <file src="nugeticon.png" target="icon\" />
   </files>
 </package>
