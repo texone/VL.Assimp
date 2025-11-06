@@ -37,7 +37,7 @@ jobs:
         uses: vvvv/PublishVLNuget@1.0.43
         with:
           # Your project to build
-          csproj: csproj\VL.AssimpUtils\VL.AssimpUtils.csproj
+          csproj: csharp\VL.AssimpUtils\VL.AssimpUtils.csproj
           # Your nuspec to package/publish
           nuspec: deployment\VL.Assimp.nuspec
           # Optional icon
