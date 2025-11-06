@@ -2405,7 +2405,7 @@
               <Pin Id="A4lxZRR5k9KPtdVfkx9oMe" Name="Output" Kind="OutputPin" />
             </Node>
             <ControlPoint Id="IwfmbCNWBK7MfxM9aGr2dP" Bounds="591,830" />
-            <Node Bounds="437,990,45,19" Id="QqOyyWpqJRMPN8J6k4I9aY">
+            <Node Bounds="437,910,45,19" Id="QqOyyWpqJRMPN8J6k4I9aY">
               <p:NodeReference LastCategoryFullName="Control" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="OperationCallFlag" Name="Switch (Boolean)" />
@@ -2415,8 +2415,8 @@
               <Pin Id="NuPB760sF7KPS6CCon7Ab1" Name="Input 2" Kind="InputPin" />
               <Pin Id="LS1xzSRkvXPMY7koGMvtQh" Name="Output" Kind="OutputPin" />
             </Node>
-            <ControlPoint Id="O1K9BnWPyXhOqWydbvtva4" Bounds="367,961" />
-            <ControlPoint Id="H6DhZ2JQw3lLSGmz6NeUQM" Bounds="439,1050" />
+            <ControlPoint Id="O1K9BnWPyXhOqWydbvtva4" Bounds="367,881" />
+            <ControlPoint Id="H6DhZ2JQw3lLSGmz6NeUQM" Bounds="439,970" />
             <ControlPoint Id="Obk68CJXpAMMrPMWbPWCxb" Bounds="499,550" />
             <ControlPoint Id="O64PPJluXgrNCHIOAu10Hj" Bounds="529,580" />
             <Node Bounds="393,790,65,19" Id="CXR6VQbpqg2Mt1uF4mgblJ">
@@ -2640,6 +2640,6 @@
   <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.0" />
   <PlatformDependency Id="PKXdAprO3wsPyBZJCq2zd4" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0082-g7f8ac28314/lib/Stride.Engine.dll" />
   <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.0" />
-  <NugetDependency Id="AEIKMegw0wTQFdIMS0r9XO" Location="AssimpNet" Version="5.0.0-beta1" />
   <PlatformDependency Id="BvBlYUrRm39NkkZu8QagYb" Location="./lib/net8.0/VL.AssimpUtils.dll" />
+  <NugetDependency Id="IagQMsiqoJoNroq1frQw94" Location="AssimpNet" Version="5.0.0-beta1" />
 </Document>

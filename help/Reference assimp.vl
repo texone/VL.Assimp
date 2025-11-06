@@ -76,7 +76,7 @@
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="ProcessAppFlag" Name="SceneWindow" />
             </p:NodeReference>
-            <Pin Id="V633xyl1tB1NBiSs6yROt4" Name="Bounds" Kind="InputPin" DefaultValue="2189, 532, 786, 432">
+            <Pin Id="V633xyl1tB1NBiSs6yROt4" Name="Bounds" Kind="InputPin" DefaultValue="1577, 484, 786, 432">
               <p:TypeAnnotation LastCategoryFullName="2D" LastDependency="CoreLibBasics.vl">
                 <Choice Kind="TypeFlag" Name="Rectangle" />
               </p:TypeAnnotation>
@@ -221,4 +221,5 @@
   <NugetDependency Id="TPQFbd8AP8nPbiPGt9xsEw" Location="VL.Stride" Version="2025.7.0" />
   <DocumentDependency Id="GSkT73rzmyiN3ARvFrDNrj" Location="../VL.Assimp.vl" />
   <NugetDependency Id="V44JwEtYQYvLKE67EzZJ9G" Location="VL.Stride.TextureFX" Version="2025.7.0" />
+  <NugetDependency Id="TW0kehMmMEvLae6u71ANBR" Location="AssimpNet" Version="5.0.0-beta1" />
 </Document>
