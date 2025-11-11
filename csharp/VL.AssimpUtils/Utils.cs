@@ -7,20 +7,22 @@ namespace VL.AssimpGpu;
 
 // -------------------- GPU structs --------------------
 
+/// <summary>
 /// Vertex layout for GPU (StructuredBuffer); tightly packed / sequential.
+/// </summary>
 public struct GpuVertex
 {
     public Vector3 Position;     // 12
     public Vector3 Normal;       // 24
     public Vector2 Tex;          // 32
-    public Int4 Bone; // 48
+    public Int4 Bone;            // 48
     public Vector4 Weights;      // 64 bytes total
 }
 
 public struct SkeletonGpu
 {
     public int[] Parent;        // bone -> parent (-1 root)
-    public Matrix[] InverseBind;   // bind^-1 (Assimp Bone.OffsetMatrixrix)
+    public Matrix[] InverseBind;   // bind^-1 (Assimp Bone.OffsetMatrix)
     public Matrix[] BindLocal;     // optional (node.Transform), useful if you build bindLocal on GPU
 }
 
@@ -157,69 +159,80 @@ public static class MixamoGpuLoader
 
     public static ModelGpu LoadFbx(string path, float sceneScale = 0.01f, float fpsIfNeeded = 30f)
     {
-        var ctx = new AssimpContext();
-        var pps = PostProcessSteps.Triangulate
-                | PostProcessSteps.JoinIdenticalVertices
-                | PostProcessSteps.LimitBoneWeights
-                | PostProcessSteps.ImproveCacheLocality
-                | PostProcessSteps.OptimizeMeshes
-                | PostProcessSteps.OptimizeGraph
-                //| PostProcessSteps.MakeLeftHanded      // Convert to DirectX/Stride's convention
-                | PostProcessSteps.FlipUVs              // Required for LH conversion
-                | PostProcessSteps.FlipWindingOrder;    // Fixes inside-out models;
-
-        var scene = ctx.ImportFile(path, pps);
-        if (scene == null || scene.RootNode == null)
-            throw new InvalidOperationException("Failed to load scene.");
-
-        var skeletonBuild = BuildRobustSkeleton(scene);
-        var orderedBones = skeletonBuild.OrderedBoneNames;
-        var indexOf = skeletonBuild.IndexOf;
-        var nodeByName = skeletonBuild.NodeByName;
-        int nb = orderedBones.Count;
-
-        // Load BindLocal and InverseBind matrices PRISTINE and UN-SCALED.
-        // Assimp is column-major, Stride is column-major. This is a direct copy.
-        var bindLocal = new Matrix[nb];
-        for (int i = 0; i < nb; i++)
+        try
         {
-            var name = orderedBones[i];
-            bindLocal[i] = nodeByName.TryGetValue(name, out var nn) ? ToM(nn.Transform) : Matrix.Identity;
+            var ctx = new AssimpContext();
+            var pps = PostProcessSteps.Triangulate
+                    | PostProcessSteps.JoinIdenticalVertices
+                    | PostProcessSteps.LimitBoneWeights
+                    | PostProcessSteps.ImproveCacheLocality
+                    | PostProcessSteps.OptimizeMeshes
+                    | PostProcessSteps.OptimizeGraph;
+
+            var scene = ctx.ImportFile(path, pps);
+            if (scene == null || scene.RootNode == null)
+                throw new InvalidOperationException("Failed to load scene.");
+
+            var skeletonBuild = BuildRobustSkeleton(scene);
+            var orderedBones = skeletonBuild.OrderedBoneNames;
+            var indexOf = skeletonBuild.IndexOf;
+            var nodeByName = skeletonBuild.NodeByName;
+            int nb = orderedBones.Count;
+
+            // Load original, unscaled local transforms for the bind pose
+            var bindLocal = new Matrix[nb];
+            for (int i = 0; i < nb; i++)
+            {
+                var name = orderedBones[i];
+                bindLocal[i] = nodeByName.TryGetValue(name, out var nn) ? ToM(nn.Transform) : Matrix.Identity;
+            }
+
+            // Load original InverseBind matrices from the file
+            var invBindByName = new Dictionary<string, Matrix>(StringComparer.Ordinal);
+            foreach (var mesh in scene.Meshes)
+                foreach (var bone in mesh.Bones)
+                    invBindByName[bone.Name] = ToM(bone.OffsetMatrix);
+
+            var invBind = new Matrix[nb];
+            var scaleMatrix = Matrix.Scaling(sceneScale);
+            var inverseScaleMatrix = Matrix.Scaling(1.0f / sceneScale);
+
+            for (int i = 0; i < nb; i++)
+            {
+                var name = orderedBones[i];
+                var originalInvBind = invBindByName.TryGetValue(name, out var m) ? m : Matrix.Identity;
+
+                invBind[i] = inverseScaleMatrix * originalInvBind * scaleMatrix;
+            }
+
+            var skeleton = new SkeletonGpu
+            {
+                Parent = skeletonBuild.ParentIndices,
+                InverseBind = invBind,
+                BindLocal = bindLocal
+            };
+
+            var meshGpu = BuildMesh(scene, indexOf, sceneScale);
+            var anim = BuildAnimations(scene, orderedBones, bindLocal, fpsIfNeeded, sceneScale);
+
+            return new ModelGpu
+            {
+                Skeleton = skeleton,
+                Mesh = meshGpu,
+                Anim = anim,
+                BoneNames = orderedBones.ToArray()
+            };
         }
-
-        var invBind = new Matrix[nb];
-        var invBindByName = new Dictionary<string, Matrix>(StringComparer.Ordinal);
-        foreach (var mesh in scene.Meshes)
-            foreach (var bone in mesh.Bones)
-                invBindByName[bone.Name] = ToM(bone.OffsetMatrix);
-        for (int i = 0; i < nb; i++)
+        catch (Exception e)
         {
-            var name = orderedBones[i];
-            invBind[i] = invBindByName.TryGetValue(name, out var m) ? m : Matrix.Identity;
+
+            System.Diagnostics.Debug.WriteLine($"Failed to load model '{path}'. Reason: {e.Message}. Returning default quad.");
+            return BuildDefault();
         }
-
-        var skeleton = new SkeletonGpu
-        {
-            Parent = skeletonBuild.ParentIndices,
-            InverseBind = invBind,
-            BindLocal = bindLocal
-        };
-
-        var meshGpu = BuildMesh(scene, indexOf, sceneScale);
-        var anim = BuildAnimations(scene, orderedBones, bindLocal, fpsIfNeeded, sceneScale);
-
-        return new ModelGpu
-        {
-            Skeleton = skeleton,
-            Mesh = meshGpu,
-            Anim = anim,
-            BoneNames = orderedBones.ToArray()
-        };
     }
 
     private static MeshGpu BuildMesh(Scene scene, Dictionary<string, int> indexOf, float sceneScale)
     {
-        // This function combines all skinned meshes into one, which is more robust.
         var relevantMeshes = scene.Meshes.Where(m => m.HasBones && m.VertexCount > 0).ToList();
         if (relevantMeshes.Count == 0)
             throw new InvalidOperationException("No skinned mesh with vertices found.");
@@ -253,7 +266,6 @@ public static class MixamoGpuLoader
                 if (!indexOf.TryGetValue(b.Name, out var bi)) continue;
                 foreach (var w in b.VertexWeights)
                 {
-                    // Important: Check vertex ID is in bounds for the current mesh part
                     if (w.VertexID < m.VertexCount)
                         vertexWeights[vertexOffset + w.VertexID].Add((bi, w.Weight));
                 }
@@ -287,24 +299,22 @@ public static class MixamoGpuLoader
             vertices[v].Weights = ws;
         }
 
-        return new MeshGpu { Vertices = vertices, Indices = indices, BoneCount = indexOf.Count };
+        return new MeshGpu 
+        { 
+            Vertices = vertices, 
+            Indices = indices, 
+            BoneCount = indexOf.Count 
+        };
     }
 
     private static AnimBankGpu BuildAnimations(Scene scene,
                                                List<string> orderedBones,
-                                               Matrix[] bindLocal, // The UN-SCALED T-pose
+                                               Matrix[] bindLocal,
                                                float fpsIfNeeded,
                                                float sceneScale)
     {
-        // STEP 1: Get the coordinate system correction transform from the scene root.
-        var rootCoordSystemTransform = ToM(scene.RootNode.Transform);
-        // We only care about the rotation for fixing the animation data axes.
-        rootCoordSystemTransform.TranslationVector = Vector3.Zero;
-        var rootCoordSystemRotation = Quaternion.RotationMatrix(rootCoordSystemTransform);
-
         var boneIndex = orderedBones.Select((n, i) => (n, i)).ToDictionary(t => t.n, t => t.i, StringComparer.Ordinal);
 
-        // Decompose the UN-SCALED T-pose matrices. This is our base.
         var bindPoseDecomposed = new (Vector3 S, Quaternion R, Vector3 T)[bindLocal.Length];
         for (int i = 0; i < bindLocal.Length; i++)
         {
@@ -332,12 +342,10 @@ public static class MixamoGpuLoader
                 double tick = f * step;
                 for (int b = 0; b < orderedBones.Count; b++)
                 {
-                    // Start with the T-pose as the default for this frame.
                     var finalS = bindPoseDecomposed[b].S;
                     var finalR = bindPoseDecomposed[b].R;
                     var finalT = bindPoseDecomposed[b].T;
 
-                    // If an animation channel exists, override the T-pose components.
                     if (channelsByBoneId.TryGetValue(b, out var channel))
                     {
                         if (channel.HasPositionKeys)
@@ -347,11 +355,8 @@ public static class MixamoGpuLoader
                             var k0 = channel.PositionKeys[i0]; var k1 = channel.PositionKeys[i1];
                             double timeDiff = k1.Time - k0.Time;
                             float u = (timeDiff > 0) ? (float)((tick - k0.Time) / timeDiff) : 0f;
-
                             var interpolatedPos = Vector3.Lerp(ToVector3(k0.Value), ToVector3(k1.Value), u);
-
-                            // STEP 2: Transform the position from FBX space to our Y-Up space.
-                            Vector3.Transform(ref interpolatedPos, ref rootCoordSystemTransform, out finalT);
+                            finalT = interpolatedPos;
                         }
 
                         if (channel.HasRotationKeys)
@@ -361,21 +366,13 @@ public static class MixamoGpuLoader
                             var k0 = channel.RotationKeys[i0]; var k1 = channel.RotationKeys[i1];
                             double timeDiff = k1.Time - k0.Time;
                             float u = (timeDiff > 0) ? (float)((tick - k0.Time) / timeDiff) : 0f;
-
-                            var interpolatedRot = Quaternion.Slerp(ToQ(k0.Value), ToQ(k1.Value), u);
-
-                            // STEP 3: Transform the rotation from FBX space to our Y-Up space.
-                            finalR = Quaternion.Multiply(interpolatedRot, rootCoordSystemRotation);
+                            finalR = Quaternion.Slerp(ToQ(k0.Value), ToQ(k1.Value), u);
                         }
                     }
 
-                    // STEP 4: Apply the final scene scale to the translation component.
-                    // This happens AFTER we have the final, correct translation, whether from
-                    // the T-pose or the animation.
-                    finalT *= sceneScale;
-
-                    // STEP 5: Recompose the matrix in the correct S * R * T order for Stride.
-                    var finalLocalMatrix = Matrix.Scaling(finalS) * Matrix.RotationQuaternion(finalR) * Matrix.Translation(finalT);
+                    var finalLocalMatrix = Matrix.Scaling(finalS) *
+                                           Matrix.RotationQuaternion(finalR) *
+                                           Matrix.Translation(finalT * sceneScale);
 
                     finalDqBuffer.Add(MatrixRigidToDQ(finalLocalMatrix));
                 }
@@ -424,6 +421,66 @@ public static class MixamoGpuLoader
         return lo;
     }
 
+    /// <summary>
+    /// Creates a minimal, 1x1 unit-sized, valid ModelGpu object to prevent downstream failures.
+    /// The quad has correct winding for a right-handed system (Y-up, front-face pointing to +Z).
+    /// </summary>
+    private static ModelGpu BuildDefault()
+    {
+        // 1. A simple 1x1 quad mesh bound to one bone
+        var vertices = new GpuVertex[4];
+        
+        // Positions are centered, making a 1x1 quad. Normal points towards positive Z.
+        // Tex Coords have (0,0) at the top-left.
+        vertices[0] = new GpuVertex { Position = new Vector3(-0.5f, -0.5f, 0), Normal = Vector3.UnitZ, Tex = new Vector2(0, 1), Bone = new Int4(0), Weights = Vector4.UnitX }; // Bottom-left
+        vertices[1] = new GpuVertex { Position = new Vector3(0.5f, -0.5f, 0), Normal = Vector3.UnitZ, Tex = new Vector2(1, 1), Bone = new Int4(0), Weights = Vector4.UnitX }; // Bottom-right
+        vertices[2] = new GpuVertex { Position = new Vector3(0.5f, 0.5f, 0), Normal = Vector3.UnitZ, Tex = new Vector2(1, 0), Bone = new Int4(0), Weights = Vector4.UnitX }; // Top-right
+        vertices[3] = new GpuVertex { Position = new Vector3(-0.5f, 0.5f, 0), Normal = Vector3.UnitZ, Tex = new Vector2(0, 0), Bone = new Int4(0), Weights = Vector4.UnitX }; // Top-left
+
+        var mesh = new MeshGpu
+        {
+            Vertices = vertices,
+            // Indices are in Counter-Clockwise (CCW) order for right-handed rendering
+            Indices = [0, 1, 2, 0, 2, 3],
+            BoneCount = 1
+        };
+
+        // 2. A minimal skeleton with a single root bone
+        var skeleton = new SkeletonGpu
+        {
+            Parent = [-1],
+            InverseBind = [Matrix.Identity],
+            BindLocal = [Matrix.Identity]
+        };
+
+        // 3. A minimal animation bank with one clip containing one identity frame
+        var anim = new AnimBankGpu
+        {
+            LocalDeltaDq = [IdentityDQ()],
+            Clips =
+            [
+                new ClipInfoRaster
+                {
+                    BoneCount = 1,
+                    FrameCount = 1,
+                    StartIndex = 0,
+                    TicksPerSecond = 30,
+                    StartTick = 0,
+                    StepTick = 1,
+                    DurationSeconds = 0
+                }
+            ]
+        };
+
+        return new ModelGpu
+        {
+            Skeleton = skeleton,
+            Mesh = mesh,
+            Anim = anim,
+            BoneNames = ["DefaultRoot"]
+        };
+    }
+
     private static DualQuat IdentityDQ() => new DualQuat { Qr = new Vector4(0, 0, 0, 1), Qd = Vector4.Zero };
 
     private static Vector4 QMul(in Vector4 a, in Vector4 b) =>
@@ -440,7 +497,7 @@ public static class MixamoGpuLoader
 
     private static DualQuat RigidToDQ(Quaternion r, Vector3 t)
     {
-        var qr = new Vector4(r.X, r.Y, -r.Z, r.W);
+        var qr = new Vector4(r.X, r.Y, r.Z, -r.W); // finding this minus sign did cost about 3 days of debugging
         var tq = new Vector4(t, 0f);
         var qd = 0.5f * QMul(tq, qr);
         return new DualQuat { Qr = qr, Qd = qd };
