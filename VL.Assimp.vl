@@ -2652,6 +2652,6 @@
   <NugetDependency Id="UWsspiB5CpOMXW3bO32AvB" Location="VL.Stride" Version="2025.7.1-0032-g30eee3cbf9" />
   <PlatformDependency Id="PKXdAprO3wsPyBZJCq2zd4" Location="../../../../../Program Files/vvvv/vvvv_gamma_2020.3.0-0082-g7f8ac28314/lib/Stride.Engine.dll" />
   <NugetDependency Id="Pgc7WD5Nms7P7qSMQHSYuT" Location="VL.Stride.TextureFX" Version="2025.7.1-0032-g30eee3cbf9" />
-  <ProjectDependency Id="QXIygJZ44sLM5wRegnvQU6" Location="./csharp/VL.AssimpUtils/VL.AssimpUtils.csproj" />
   <NugetDependency Id="AEIKMegw0wTQFdIMS0r9XO" Location="AssimpNet" Version="5.0.0-beta1" />
+  <PlatformDependency Id="NPtZTD48qRCNUROQzlrAfN" Location="./csharp/VL.AssimpUtils/bin/Release/net8.0/VL.AssimpUtils.dll" IsForward="true" />
 </Document>
