@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.AssimpUtils</name>
+    </assembly>
+    <members>
+        <member name="T:VL.AssimpGpu.GpuVertex">
+            <summary>
+            Vertex layout for GPU (StructuredBuffer); tightly packed / sequential.
+            </summary>
+        </member>
+        <member name="M:VL.AssimpGpu.MixamoGpuLoader.BuildDefault">
+            <summary>
+            Creates a minimal, 1x1 unit-sized, valid ModelGpu object to prevent downstream failures.
+            The quad has correct winding for a right-handed system (Y-up, front-face pointing to +Z).
+            </summary>
+        </member>
+        <member name="M:VL.AssimpGpu.GpuPacking.PackDQ(VL.AssimpGpu.DualQuat[])">
+            Pack DualQuats into float4[] layout [ qr0, qd0, qr1, qd1, ... ] for a clip.
+            Base = clip.StartIndex; Count per frame = 2 * BoneCount float4s.
+        </member>
+        <member name="M:VL.AssimpGpu.GpuPacking.DQIndex(System.Int32,System.Int32,System.Int32,System.Int32)">
+            Convert a frame selection (frame, boneIndex) to the packed float4 index.
+        </member>
+    </members>
+</doc>
